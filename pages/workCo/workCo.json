@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "field": "../../components/field/index"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "stepper": "/components/stepper/index",
+        "zan-popup": "/components/popup/index"
+  }
+}

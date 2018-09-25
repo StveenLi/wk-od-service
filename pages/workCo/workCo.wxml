@@ -1,0 +1,74 @@
+<!--pages/workCo/workCo.wxml-->
+<view>
+  <view>
+    <field title="{{ config.base.name.title }}" placeholder="{{ config.base.name.placeholder }}" focus="{{ config.base.name.focus }}" value="{{ value }}">
+    </field>
+    <field title="{{ config.base.tel.title }}" placeholder="{{ config.base.tel.placeholder }}" error="{{ config.base.tel.error }}" input-type="{{ config.base.tel.inputType }}">
+    </field>
+    <field title="{{ config.base.address.title }}" type="{{ config.base.address.type }}" placeholder="{{ config.base.address.placeholder }}" maxlength="50">
+    </field>
+    <field title="{{ config.base.disabled.title }}" value="{{ config.base.disabled.value }}" disabled="{{ config.base.disabled.disabled }}">
+    </field>
+    <field title="{{ config.radius.totalPrice.title }}" type="{{ config.radius.totalPrice.type }}" placeholder="{{ config.radius.totalPrice.placeholder }}" right="{{ config.radius.totalPrice.right }}" mode="{{ config.radius.totalPrice.mode }}">
+    </field>
+    <field placeholder="{{ config.radius.notitle.placeholder }}" mode="{{ config.radius.notitle.mode }}" input-type="{{ config.radius.notitle.inputTitle }}">
+    </field>
+  </view>
+
+  <view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">国家/地区</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindCountryChange" value="{{countryIndex}}" range="{{countries}}">
+            <view class="weui-select weui-select_in-select-after">{{countries[countryIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">日期</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <view class="weui-input">{{date}}</view>
+          </picker>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view>
+
+    <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">图片上传</view>
+                <view class="weui-uploader__info">{{files.length}}/2</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                </view>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,68 @@
+<!--pages/workOrder/moneyAsk/index.wxml-->
+<!--pages/workOrder/outStorage/index.wxml-->
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.moneyAsk.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+  <view class='flex-row box-all border-bottom-gainsboro'>
+    <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+    <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+  </view>
+  </block>
+</view>
+<view class='middle-box'>
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+      <view class='order-type-icon'>催</view>
+    </view>
+  </view>
+  <!-- 备注 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.moneyAsk.remarks}}" disabled='false'/>
+    </view>
+  </view>
+  
+</view>
+
+<view class='bottom-box'>
+<block wx:for='{{orderDetail.comments}}' wx:key="*this">
+  <view>
+  <view class='flex-row'>
+    <view class='comment-user'>{{item.userName}}</view>
+    <view class='flex-1' style='text-align:right;margin:5px;color:#C7C7C7'>{{item.strTime}}</view>
+
+  </view>
+    <view style='padding:5px'>评论：{{item.commentContent}}</view>
+
+  </view>
+  </block>
+</view>
+
+
+<button class='bottom-btn' bindtap='toCommit'>评论</button>
+
+<!-- 中间弹出框 -->
+<zan-popup show="{{ showPopup }}" bindclose="togglePopup_false">
+  <view class="pop-example__container">
+    <view class="zan-btns">
+      <view style='background:#fff;height:150px;'>
+      <view style='padding:10px'>评论：</view>
+      <textarea style="height: 5rem;font-size:16px;padding:0 10px" bindinput="textAreaChange"  value="{{commentVal}}" />
+        <button class="zan-btn comment-btn" bindtap="togglePopup" >
+          确认
+        </button>
+      </view>
+    </view>
+  </view>
+</zan-popup>

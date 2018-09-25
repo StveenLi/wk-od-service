@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "zan-cell": "/components/cell/index"
+  }
+}

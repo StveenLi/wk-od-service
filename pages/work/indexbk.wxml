@@ -1,0 +1,63 @@
+<view>
+
+  <view >
+  
+    <tab
+      list="{{ tab.list }}"
+      selected-id="{{ tab.selectedId }}"
+      fixed="{{ tab.fixed }}"
+      bindtabchange="{{tabChangeCallback}}"
+    />
+  </view>
+  
+  <scroll-view class='work-list' scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  
+  <block wx:for="{{listdata}}" wx:key="index">
+  <view style='margin-bottom:10px'></view>
+    <view class="work-item view-shadow" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+      <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+            <view class='flex-1'>{{item.wrCode}}</view>
+            <view class='flex-1 date-style'>{{item.assignDate}}</view>
+          </view>
+
+          <view class='flex-row' style='margin-top:15px'>
+            <view class='flex-column box-all'>
+              <view class='flex-row box-all'>
+                <view class='middle-all' style='margin-top:3px'>
+                  <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                </view>
+                <view class='content-style'>{{item.customer}}</view>
+              </view>
+              <view class='flex-row box-all'>
+                <view class='middle-all' style='margin-top:3px'>
+                  <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                </view>
+                <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+              </view>
+            </view>
+            <view>
+            <block wx:if='{{item.workType == "Repair"}}'>
+              <view class='order-type-repair'>维</view>
+            </block>
+            <block wx:if='{{item.workType == "Install"}}'>
+              <view class='order-type-an'>安</view>
+            </block>
+            </view>
+          </view>
+          <view>
+            <view class='flex-row box-all'>
+              <view class='middle-all' style='margin-top:3px'>
+                <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+              </view>
+              <view class='content-style'>{{item.address}}</view>
+            </view>
+          </view>
+    </view>
+    </block>
+    <view class="weui-loadmore" hidden="{{hideBottom}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </scroll-view>  <!-- </pull-view> -->
+  
+</view>

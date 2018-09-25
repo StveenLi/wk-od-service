@@ -1,0 +1,143 @@
+<!--pages/workOrder/inStorageN/index.wxml-->
+<view>
+  <view style='margin-bottom:10px'></view>
+
+  <view class="work-item view-shadow">
+    <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+      <view class='flex-1'>{{orderDetail.wrCode}}</view>
+      <view class='flex-1 work-order-content'>{{orderDetail.inbox.pWrok.name}}</view>
+    </view>
+
+    <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+      <view class='flex-row box-all border-bottom-gainsboro'>
+        <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+        <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+      </view>
+    </block>
+  </view>
+
+
+  <view class='middle-box'>
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+        <view class='order-type-icon'>入</view>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">入库内容</view>
+      </view>
+      <view class="weui-cell__bd" style='margin:10px 0;'>
+        {{orderDetail.inbox.inboxType == 0?'机器':orderDetail.inbox.inboxType == 1?'化学品':'机器和化学品'}}
+      </view>
+    </view>
+
+    <block wx:if="{{inStorageIndex==0||inStorageIndex==2}}">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">机器编号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="{{orderDetail.inbox.machineCode}}" bindinput='machineNumChange' disabled='false' />
+        </view>
+      </view>
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">图片附件上传</view>
+                  <view class="weui-uploader__info">{{files.length}}/3</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{files}}" wx:key="*this">
+                      <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+
+    <block wx:if="{{inStorageIndex==1||inStorageIndex==2}}">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">清洁剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          {{orderDetail.inbox.sqjClean}}
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">亮洁剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          {{orderDetail.inbox.sljClean}}
+
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">除垢剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          {{orderDetail.inbox.scgClean}}
+
+        </view>
+      </view>
+    </block>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">备注</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="{{orderDetail.inbox.links.remarks}}" bindinput='remarkChange' disabled='false' />
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class='bottom-box'>
+  <block wx:for='{{orderDetail.comments}}' wx:key="*this">
+    <view>
+      <view class='flex-row'>
+        <view class='comment-user'>{{item.userName}}</view>
+        <view class='flex-1' style='text-align:right;margin:5px;color:#C7C7C7'>{{item.strTime}}</view>
+
+      </view>
+      <view style='padding:5px'>评论：{{item.commentContent}}</view>
+
+    </view>
+  </block>
+</view>
+
+
+<button class='bottom-btn' bindtap='toCommit'>评论</button>
+
+<!-- 中间弹出框 -->
+<zan-popup show="{{ showPopup }}" bindclose="togglePopup_false">
+  <view class="pop-example__container">
+    <view class="zan-btns">
+      <view style='background:#fff;height:150px;'>
+        <view style='padding:10px'>评论：</view>
+<textarea style="height: 5rem;font-size:16px;padding:0 10px" bindinput="textAreaChange"  value="{{commentVal}}" /><button class="zan-btn comment-btn" bindtap="togglePopup">
+          确认
+        </button>
+      </view>
+    </view>
+  </view>
+</zan-popup>

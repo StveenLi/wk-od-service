@@ -1,0 +1,5 @@
+/* pages/launchPages/wxby/index.wxss */
+
+view{
+    font-size: 12px;
+}

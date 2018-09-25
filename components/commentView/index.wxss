@@ -1,0 +1,3 @@
+/* components/commentView/index.wxss */
+
+@import '/app.wxss';

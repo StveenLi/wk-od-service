@@ -1,0 +1,6 @@
+var sub = function(val) {
+  return val.length>2?val.substr(1,2):val
+}
+
+
+module.exports.sub = sub;

@@ -1,0 +1,15 @@
+/* pages/workOrder/moneyAsk/index.wxss */
+
+view{
+  font-size: 12px
+}
+.order-type-icon {
+  border-radius: 50%;
+  background: rgb(39, 58, 141);
+  width: 29px;
+  height: 25px;
+  color: #fff;
+  margin: 5px;
+  text-align: center;
+  padding: 4px 0 0 0;
+}

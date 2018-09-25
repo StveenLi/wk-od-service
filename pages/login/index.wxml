@@ -1,0 +1,19 @@
+<!--pages/login/index.wxml-->
+<view class='flex-column login-page'>
+  <view style='margin:10px 15px;font-size:18px'>Hi,欢迎来到洁先服务</view>
+  <view style='margin:0 15px;'>请先登录</view>
+  <view class='text-view border-bottom-gainsboro'>
+    <input class="form-item" bindinput="getPhone" type="number" name="phone" placeholder="请输入手机号码" />
+  </view>
+  <view class='flex-row border-bottom-gainsboro' style='margin:10px 15px 0 15px;padding:10px 0'>
+    <input class="form-item" bindinput="getValidCode" type="number" name="phone" placeholder="请输入验证码" />
+    <view  catchtap="getCode" style='text-align:right;flex:1;margin-right:15px;color:#3c8df9'>
+    {{codeTitle}}
+    </view>
+  </view>
+
+  <view>
+    <button class="btn_login" type="primary" style='background:#3c8df9;' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" bindtap='handleLogin'>登录</button>
+  </view>
+
+</view>

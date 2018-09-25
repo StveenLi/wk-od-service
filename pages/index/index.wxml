@@ -1,0 +1,91 @@
+<view scroll-y style='width:100%'>
+  <view class='header_bd'>
+    <view class='title'>
+      <text style='color:#fff;'>洁先服务</text>
+    </view>
+    <view class='lunbo'>下午好，欢迎来到洁先服务</view>
+  </view>
+
+  <view class='panel' bindtap="toWorkPage">
+    <view class='panel-title'>待处理事物</view>
+    <view class='panel-box'>
+      <view class='panel-box-item-grey'>
+        <view style='font-size:30px'>3</view>
+        <view>待处理</view>
+      </view>
+      <view class='line'></view>
+      <view class='panel-box-item'>
+        <view style='font-size:30px'>15</view>
+        <view>已完成</view>
+      </view>
+      <view class='line'></view>
+      <view class='panel-box-item'>
+        <view style='font-size:30px'>80</view>
+        <view>全部</view>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <view class='message'>
+      <view>消息</view>
+      <view class='message-title'>查看更多</view>
+    </view>
+    <view>
+      <block wx:for="123" wx:key="index">
+        <view class='message-detail'>
+          <tag plain type='primary'>最新</tag>
+          <view style='padding:0 10px;'>你有新的维修工单啦！</view>
+        </view>
+      </block>
+
+    </view>
+  </view>
+
+  <view>
+    <view class='my-workorder'>
+      <view>我的工单</view>
+    </view>
+    <view class='work-list' scroll-y>
+
+      <block wx:for="123" wx:key="index">
+        <view class="work-item view-shadow" bindtap="toFlowPage">
+          <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+            <view class='flex-1'>WR123415</view>
+            <view class='flex-1 date-style'>2018/7/18 09:30</view>
+          </view>
+
+          <view class='flex-row' style='margin-top:15px'>
+            <view class='flex-column box-all'>
+              <view class='flex-row box-all'>
+                <view class='middle-all' style='margin-top:3px'>
+                  <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                </view>
+                <view class='content-style'>望香橼（徐泾店）</view>
+              </view>
+              <view class='flex-row box-all'>
+                <view class='middle-all' style='margin-top:3px'>
+                  <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                </view>
+                <view class='content-style'>张小姐：15541324423</view>
+              </view>
+            </view>
+            <view>
+              <view class='order-type'>入</view>
+            </view>
+          </view>
+          <view>
+            <view class='flex-row box-all'>
+              <view class='middle-all' style='margin-top:3px'>
+                <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+              </view>
+              <view class='content-style'>上海市青浦区徐泾镇徐翔路38号上海市青浦区徐泾镇徐翔路38号</view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+    </view>
+  </view>
+
+</view>

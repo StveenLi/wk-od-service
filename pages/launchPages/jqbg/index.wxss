@@ -1,0 +1,5 @@
+/* pages/launchPages/jqbg/index.wxss */
+
+view{
+    font-size: 12px;
+}

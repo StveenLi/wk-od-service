@@ -1,0 +1,63 @@
+<!--pages/launch/index.wxml-->
+<view class='flex-column' style='background:#fff'>
+  <view class='flex-row middle-all'>
+    <block wx:for="{{orderItems}}" wx:key="index">
+      <view class='flex-1 padding-5' hover-class='sign-button-active' data-item='{{item}}' bindtap='toTravel'>
+        <view>
+          <image src='{{item.icon}}' style='width:45px;height:45px;'></image>
+        </view>
+        <view class='padding-5'>{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+<view class='my-workorder'>
+  <view>我发起的</view>
+</view>
+<block wx:for="{{myOrderList}}" wx:key="index">
+  <view style='margin-bottom:10px'></view>
+  <view class="work-item view-shadow" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toDetailPage">
+    <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+      <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
+      <view class='flex-1 date-style'>{{item.assignDate}}</view>
+    </view>
+
+    <view class='flex-row' style='margin-top:15px'>
+      <view class='flex-column box-all'>
+        <view class='flex-row box-all'>
+          <view class='middle-all' style='margin-top:3px'>
+            <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+          </view>
+          <view class='content-style'>{{item.customer == null?'-':item.customer}}</view>
+
+        </view>
+        <view class='flex-row box-all'>
+          <view class='middle-all' style='margin-top:3px'>
+            <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+          </view>
+          <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+        </view>
+      </view>
+      <view>
+        <block wx:if='{{item.workType == "Visit"}}'>
+          <view class='order-type-visit'>拜</view>
+        </block>
+
+        <block wx:elif='{{item.workType == "Change"}}'>
+          <view class='order-type-change'>变</view>
+        </block>
+        <block wx:elif='{{item.workType == "Patch"}}'>
+          <view class='order-type-parts'>补</view>
+        </block>
+      </view>
+    </view>
+    <view>
+      <view class='flex-row box-all'>
+        <view class='middle-all' style='margin-top:3px'>
+          <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+        </view>
+        <view class='content-style'>{{item.address}}</view>
+      </view>
+    </view>
+  </view>
+</block>

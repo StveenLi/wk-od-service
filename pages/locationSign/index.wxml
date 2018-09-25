@@ -1,0 +1,12 @@
+<!--pages/locationSign/index.wxml-->
+<view>
+  <view style='padding:15px'>
+    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" markers="{{markers}}" bindmarkertap="markertap" circles="{{circles}}" show-location style="width: 100%; height: 350px;">
+    </map>
+  </view>
+  <view style='align-items: center;'>
+    <view class='button-line'>
+      <button class='sign-button' hover-class='sign-button-active'>签到</button>
+    </view>
+  </view>
+</view>

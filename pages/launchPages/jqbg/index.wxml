@@ -1,0 +1,93 @@
+<!--pages/launchPages/jqbg/index.wxml-->
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view style='text-align:center;padding:10px 0'>发起机器变更单</view>
+
+
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after" style='width:60px;'>
+      <view class="weui-label">机器编号</view>
+    </view>
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+        <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+      <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text"></view>
+      </label>
+    </view>
+    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+  </view>
+  <view class="weui-cells-pro searchbar-result search-display-auto" wx:if="{{inputVal.length > 0&&inputSearch}}">
+
+    <block wx:for="{{resultList}}" wx:key="*this">
+      <view class="weui-cell weui-cell__bd" hover-class="weui-cell_active" bindtap="itemOptionClick" data-item='{{item}}'>
+        <view>{{item.machineNrs}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">机器状态</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='placeChange' placeholder="待翻新" disabled='false'/>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">机器新编号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='newMachineChange' placeholder="请输入机器新编号" />
+    </view>
+  </view>
+
+  <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">图片附件上传</view>
+                <view class="weui-uploader__info">{{files.length}}/6</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                </view>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='placeChange' placeholder="请输入备注" />
+    </view>
+  </view>
+</view>
+
+
+<button class='bottom-btn' bindtap='finalSub'>发起</button>

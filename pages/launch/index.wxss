@@ -1,0 +1,59 @@
+/* pages/launch/index.wxss */
+
+.date-style{
+  color: #C7C7C7;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 15px;
+}
+
+.order-type-parts{
+  font-size: 28px;
+  background: rgb(69, 138, 89);
+  border-radius: 50%; 
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding:6px 3px 0 3px;
+}
+
+.order-type-change{
+  font-size: 28px;
+  background: rgb(235, 121, 210);
+  border-radius: 50%; 
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding:6px 3px 0 3px;
+}
+
+.order-type-parts{
+  font-size: 28px;
+  background: rgb(69, 138, 89);
+  border-radius: 50%; 
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding:6px 3px 0 3px;
+}
+
+.order-type-visit{
+  font-size: 28px;
+  background: rgb(96, 174, 219);
+  border-radius: 50%; 
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding:6px 3px 0 3px;
+}
+
+.my-workorder{
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+padding:10px 15px 0 15px;
+}

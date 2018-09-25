@@ -1,0 +1,34 @@
+/* pages/workOrder/inStorageN/index.wxss */
+view{
+  font-size: 12px
+}
+.top-box{
+  background: #fff;
+  margin: 10px;
+  border-radius: 5px;
+  padding:5px 10px;
+}
+
+.top-box-title{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.title{
+  text-align: center;
+  flex: 1;
+  font-size: 14px;
+}
+
+.order-type-icon {
+  border-radius: 50%;
+  background: #4AA3FB;
+  width: 29px;
+  height: 25px;
+  color: #fff;
+  margin: 5px;
+  text-align: center;
+  padding: 4px 0 0 0;
+}

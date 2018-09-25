@@ -1,0 +1,177 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="page__bd">
+          <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+              <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                  <icon type="clear" size="14"></icon>
+                </view>
+              </view>
+              <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">WR搜索</view>
+              </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+          </view>
+        </view>
+
+        <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 1}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+          <block class="item-{{index}}" wx:for="{{doneListData}}" wx:key="index">
+            <view style='margin-bottom:10px'></view>
+            <view class="work-item view-shadow" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+              <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+                <view class='flex-1'>{{item.wrCode}}</view>
+                <view class='flex-1 date-style'>{{item.assignDate}}</view>
+              </view>
+
+              <view class='flex-row' style='margin-top:15px'>
+                <view class='flex-column box-all'>
+                  <view class='flex-row box-all'>
+                    <view class='middle-all' style='margin-top:3px'>
+                      <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                    </view>
+                    <view class='content-style'>{{item.customer}}</view>
+
+                  </view>
+                  <view class='flex-row box-all'>
+                    <view class='middle-all' style='margin-top:3px'>
+                      <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                    </view>
+                    <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+                  </view>
+                </view>
+                <view>
+                  <block wx:if='{{item.workType == "Repair"}}'>
+                    <view class='order-type-repair'>维</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Inbox"}}'>
+                    <view class='order-type'>入</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Install"}}'>
+                    <view class='order-type-an'>安</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Delivery"}}'>
+                    <view class='order-type-wuliu'>物</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Found"}}'>
+                    <view class='order-type-search'>勘</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Outbox"}}'>
+                    <view class='order-type-out'>出</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "MoneyAsk"}}'>
+                    <view class='order-type-cui'>催</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Dell"}}'>
+                    <view class='order-type-dell'>拆</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Patch"}}'>
+                    <view class='order-type-parts'>补</view>
+                  </block>
+                </view>
+              </view>
+              <view>
+                <view class='flex-row box-all'>
+                  <view class='middle-all' style='margin-top:3px'>
+                    <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+                  </view>
+                  <view class='content-style'>{{item.address}}</view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <view class="weui-loadmore" hidden="{{hideBottom}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+          </view>
+        </scroll-view>
+        <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 0}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+          <block class="item-{{index}}" wx:for="{{listdata}}" wx:key="index">
+            <view style='margin-bottom:10px'></view>
+
+              <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#eee':'background:#fff'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+                <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+                  <view class='flex-1'>{{item.wrCode}}</view>
+                  <view class='flex-1 date-style'>{{item.assignDate}}</view>
+                </view>
+
+                <view class='flex-row' style='margin-top:15px'>
+                  <view class='flex-column box-all'>
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.customer}}</view>
+                    </view>
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+                    </view>
+                  </view>
+                  <view>
+                    <block wx:if='{{item.workType == "Repair"}}'>
+                      <view class='order-type-repair'>维</view>
+                    </block>
+                    <block wx:if='{{item.workType == "Install"}}'>
+                      <view class='order-type-an'>安</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Inbox"}}'>
+                      <view class='order-type'>入</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Delivery"}}'>
+                      <view class='order-type-wuliu'>物</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Found"}}'>
+                      <view class='order-type-search'>勘</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Outbox"}}'>
+                      <view class='order-type-out'>出</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Dell"}}'>
+                      <view class='order-type-dell'>拆</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "MoneyAsk"}}'>
+                      <view class='order-type-cui'>催</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Patch"}}'>
+                      <view class='order-type-parts'>补</view>
+                    </block>
+                  </view>
+                </view>
+                <view>
+                  <view class='flex-row box-all'>
+                    <view class='middle-all' style='margin-top:3px'>
+                      <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+                    </view>
+                    <view class='content-style'>{{item.address}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          <view class="weui-loadmore" hidden="{{hideBottom}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+          </view>
+        </scroll-view>
+
+      </view>
+    </view>
+  </view>
+</view>

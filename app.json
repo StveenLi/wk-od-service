@@ -1,0 +1,71 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/main/index",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/work/index",
+    "pages/workNode/workNode",
+    "pages/locationSign/index",
+    "pages/workCo/workCo",
+    "pages/workOrder/inStorage/index",
+    "pages/workOrder/outStorage/index",
+    "pages/workOrder/logistics/index",
+    "pages/workOrder/searched/index",
+    "pages/workOrder/install/index",
+    "pages/workOrder/fix/index",
+    "pages/workOrder/wipeOut/index",
+    "pages/workOrder/repair/index",
+    "pages/workOrder/pChange/index",
+    "pages/workOrder/remove/index",
+    "pages/workOrder/inStorageN/index",
+    "pages/workOrder/fix/request",
+    "pages/workOrder/moneyAsk/index",
+    "pages/orderDetail/install/index",
+    "pages/orderDetail/fix/index",
+    "pages/launch/index",
+    "pages/launchPages/travel/index",
+    "pages/orderDetail/remove/index",
+    "pages/orderDetail/searched/index",
+    "pages/orderDetail/inStorageN/index",
+    "pages/orderDetail/outStorage/index",
+    "pages/orderDetail/logistics/index",
+    "pages/orderDetail/moneyAsk/index",
+    "pages/orderDetail/parts/index",
+    "pages/teach/index",
+    "pages/launchPages/bj/index",
+    "pages/launchPages/jqbg/index",
+    "pages/launchPages/wxby/index",
+    "pages/launchPages/xsbf/index",
+    "pages/workOrder/parts/index",
+    "pages/my/index",
+    "pages/launchDetail/patch/index",
+    "pages/launchDetail/xsbf/index",
+    "pages/launchDetail/jqbg/index",
+    "pages/workOrder/logisticsApply/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "洁先服务",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F2f2f2",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#929292",
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#000",
+    "borderStyle": "#000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "我的"
+      }
+    ]
+  }
+}

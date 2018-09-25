@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "field": "/components/field/index",
+    "stepper": "/components/stepper/index"
+  }
+}

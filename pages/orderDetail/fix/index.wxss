@@ -1,0 +1,123 @@
+/* pages/workOrder/fix/index.wxss */
+
+
+
+
+.button-line {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid #3faf74;
+  margin: 0 auto;
+}
+
+.work-order-content {
+  color: #999;
+  font-size: 12px;
+  text-align: right;
+  margin-right: 5px;
+}
+
+.content-style {
+  font-size: 12px;
+  margin: 0 10px;
+}
+
+.order-type-icon {
+  border-radius: 50%;
+  background: #F09F67;
+  width: 29px;
+  height: 25px;
+  color: #fff;
+  margin: 5px;
+  text-align: center;
+  padding: 4px 0 0 0;
+}
+
+
+.btn-confirm {
+  width: 50%;
+  color: #ec5300;
+  text-align: center;
+}
+
+.optClass{
+    background-color: #fff;
+    box-sizing: border-box;
+    color: #333;
+    display: flex;
+    align-items: center;
+    padding:0 30rpx;
+    flex-wrap:wrap;
+}
+.optClass .optName{
+    width: 200rpx;
+}
+.optClass .optName text,.optClass .mesTit text{
+    color: #ce0a0a;
+}
+.optClass .optContent{
+    flex: 1;
+    text-align: right;
+    color: #666;
+    font-size: 32rpx;
+    font-size:24rpx;
+    color:#999;
+}
+
+.optClass .uploadimgbox{
+    flex: 0 0 33.333%;
+    position: relative;
+    /* box-sizing: border-box; */
+    padding: 10rpx;
+    margin-bottom: 10rpx;
+}
+.optClass .uploadimgbox .progress{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    line-height: 208rpx;
+    z-index: 8;
+}
+.optClass .uploadimgbox .delbtn{
+    width: 50rpx;
+    height: 50rpx;
+    position: absolute;
+    top: 10rpx;
+    right: 10rpx;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-size: 30rpx;
+    text-align: center;
+    line-height: 50rpx;
+    z-index: 8;
+}
+.optClass .uploadimg,.optClass .uploadbtn{
+    display: block;
+    width: 80%;
+    height: 160rpx;
+}
+
+.subBtnBox .subBtn{
+    width: 80%;
+    display: block;
+    margin: 80rpx auto;
+    background-color: #ce0a0a;
+    color: #fff;
+    font-size: 32rpx;
+}
+.subBtnBox .subBtn.button-hover{
+    background-color: #bb0909;
+}
+
+.bottom-btn-view{
+  position: relative;
+  /* width:80%; */
+
+}

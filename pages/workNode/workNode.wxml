@@ -1,0 +1,9 @@
+<!--pages/workNode.wxml-->
+<view style='padding:20px;background:#fff'>
+      <view style='text-align:center;'>12312
+      <steps type="vertical" hasDesc steps="{{steps}}"
+      bind:flowBind="_flowBind"
+      ></steps></view>
+</view>
+
+

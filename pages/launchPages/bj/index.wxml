@@ -1,0 +1,91 @@
+<!--pages/launchPages/bj/index.wxml-->
+<view class="weui-cells weui-cells_after-title" style='margin-bottom:100px'>
+  <view style='text-align:center;padding:10px 0'>发起补件单</view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">Wr</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='placeChange' placeholder="请输入Wr编码(选填)" />
+    </view>
+  </view>
+
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='remarkChange' placeholder="请输入备注" />
+    </view>
+  </view>
+
+  <view wx:for="{{moreRepair}}" wx:key="index">
+    <view class="weui-cell weui-cell_input" style='margin-top:5px;color:#EEC900'>
+      <view class="weui-cell__hd">
+        <view class="weui-label">零件{{index+1}}:</view>
+      </view>
+      <view class="weui-cell__bd">
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>零件编号</view>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{finalVal[item].value}}</view>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell weui-cell_input" style='width:60px'>
+        <view class="weui-cell__hd">
+          <view class="weui-label">零件名称</view>
+        </view>
+      </view>
+
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal[item]}}" focus="{{inputShowed}}" data-item='{{item}}' bindinput="inputTyping" />
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" data-item="{{item}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text"></view>
+        </label>
+      </view>
+
+    </view>
+    <view class="weui-cells-pro searchbar-result search-display-auto" style='marginTop:{{67*item}}px' wx:if="{{inputSearch[item]}}">
+
+      <block wx:for="{{partsList}}" wx:key="*this" wx:for-item="citem">
+        <view class="weui-cell weui-cell__bd" hover-class="weui-cell_active" bindtap="itemOptionClick" data-item='{{item}}' data-citem='{{citem}}'>
+          <view>{{citem.name}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-label">零件个数</view>
+      <input class="weui-input padding-5" placeholder="零件个数" data-item='{{item}}' type='number' bindinput="partsNumChange" />
+    </view>
+  </view>
+
+
+  <view bindtap="moreClick" style='margin:15px 15px 50px 0;text-align:right;color:#3c8df9'>增加零件明细 ></view>
+
+</view>
+
+
+<button class='bottom-btn' bindtap='finalSub'>发起</button>

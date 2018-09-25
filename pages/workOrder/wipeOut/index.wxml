@@ -1,0 +1,77 @@
+<!--pages/workOrder/wipeOut/index.wxml-->
+
+<view class="weui-cells weui-cells_after-title">
+  <view style='text-align:center;padding:10px 0'>报销单</view>
+
+  <!-- 日期 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">发生日期</view>
+    </view>
+    <view clss="weui-cell__bd">
+      <input class="weui-input" disabled='false' placeholder="2016-09-01" />
+    </view>
+  </view>
+
+
+<!-- 费用类型 -->
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">费用类型</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="bindSelectChange" value="{{selectIndex}}" range="{{typeSelect}}">
+        <view class="weui-select weui-select_in-select-after">{{typeSelect[selectIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 金额 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">金额</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="金额" />
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="备注" />
+    </view>
+  </view>
+
+  <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">报销发票图片</view>
+                <view class="weui-uploader__info">{{files.length}}/2</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                  
+                  
+                </view>
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>

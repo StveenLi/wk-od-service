@@ -1,0 +1,252 @@
+<!--pages/workOrder/fix/index.wxml-->
+
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.repair.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+    <view class='flex-row box-all border-bottom-gainsboro'>
+      <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+      <block wx:if="{{item.name == '注意'}}">
+        <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value}}</view>
+      </block>
+      <block wx:else>
+        <view class='content-style padding-5'>{{item.value == null?'-':item.value}}</view>
+      </block>
+    </view>
+  </block>
+</view>
+
+
+<block wx:if="{{user.type != 2}}">
+  <view class='middle-box'>
+
+
+    <!-- 报修时间 -->
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+        <view class='order-type-icon'>维</view>
+      </view>
+    </view>
+
+
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">已电话解决，无需上门</view>
+        <view class="weui-cell__ft">
+          <switch color='#3c8df9' checked="{{isPhoneFix}}" bindchange="switchChange" />
+        </view>
+      </view>
+    </view>
+
+
+    <block wx:if="{{!isPhoneFix}}">
+      <view class="weui-cell weui-cell_input">
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签入</view>
+          <view class='padding-5 work-order-content' bindtap='locationSignIn'>去签入 ></view>
+        </view>
+      </view>
+      <block wx:if="{{nowAddress!=''}}">
+        <view class="weui-cell weui-cell_input">
+          <view class='flex-row box-all'>
+            <view class='flex-1 padding-5'></view>
+            <view class='padding-5 work-order-content-add' bindtap='locationSignIn'>{{nowAddress}}</view>
+          </view>
+        </view>
+      </block>
+
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">故障类型</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker mode="multiSelector" bindchange="bindFaultPickerChange" bindcolumnchange="bindFaultColumnChange" value="{{faultIndex}}" range="{{faultList}}">
+            <view class="weui-select weui-select_in-select-after">{{faultList[0][faultIndex[0]]}} {{faultList[1][faultIndex[1]]}}</view>
+          </picker>
+        </view>
+      </view>
+      <!-- 备注 -->
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label" style='padding:5px 0'>解决方案</view>
+        </view>
+        <view class="weui-cell__bd">
+        <block wx:if="{{!showPopup}}">
+        <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' ></textarea></block>
+        </view>
+      </view>
+      
+
+      <!-- <block wx:if="{{errorIndex == 1}}">
+
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">请选择机器部件</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindBjChange" value="{{bjIndex}}" range="{{bjs}}" range-key="name">
+              <view class="weui-select weui-select_in-select-after">{{bjs[bjIndex].name}}</view>
+            </picker>
+          </view>
+        </view>
+
+      </block> -->
+
+
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch ">
+          <view class="weui-cell__bd">申请配件</view>
+          <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
+            去申请 >
+          </view>
+        </view>
+      </view>
+
+      <view class=" weui-cells_after-title border-bottom-gainsboro">
+        <view class=" weui-cell_switch">
+          <view class="weui-cell__bd"></view>
+        </view>
+        <block wx:for='{{patch}}'>
+
+          <view class="weui-cell__ft">
+            {{item.groupName}}
+          </view>
+        </block>
+
+      </view>
+
+      <!-- <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch">
+          <view class="weui-cell__bd"></view>
+          <view class="weui-cell__ft" bindtap="toRequestPage">
+            去申请 >
+          </view>
+        </view>
+      </view> -->
+
+      <view class="page__bd">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">上传图片</view>
+                <view class="weui-uploader__info">{{files.length}}</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" style='position:relative' id="{{item}}">
+                      <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+
+                      <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                </view>
+                <view class="weui-uploader__input-box">
+                  <!-- <image class='uploadbtn' bindtap='chooseImage' src='./addimgsbtn.png'></image> -->
+
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="optClass">
+        <view class="weui-uploader__title">上传视频</view>
+      </view>
+      <block wx:if="{{!showPopup&&!showModal}}">
+        <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+          <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
+            <image class='uploadimg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+            <cover-view class='progress' wx:if="{{upFilesProgress}}">
+              {{item.progress}}%
+            </cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</cover-view>
+          </view>
+          <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+            <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
+            <cover-view class='progress' wx:if="{{upFilesProgress}}">
+              {{item.progress}}%
+            </cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+            
+          </view>
+
+          <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
+            <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="uploadVideo"></view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+
+
+
+
+
+
+
+      <view class="weui-cell weui-cell_input" style='margin-top:5px'>
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签出</view>
+          <view class='padding-5 work-order-content' bindtap='loactionSignOut'>去签出 ></view>
+        </view>
+      </view>
+      <block wx:if="{{outAddress!=''}}">
+        <view class="weui-cell weui-cell_input">
+          <view class='flex-row box-all'>
+            <view class='flex-1 padding-5'></view>
+            <view class='padding-5 work-order-content-add'>{{outAddress}}</view>
+          </view>
+        </view>
+      </block>
+
+    </block>
+
+  </view>
+
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title">确认机器编号</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="text" value='{{MNT1}}' bindinput="MNT1Change" class="input" placeholder=""></input>
+        <view class="weui-cell weui-cell_select" style='margin-left:-20px;'>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindMNumTypeChange" style='width:110px;' value="{{MNTIndex}}" range="{{MNTItems}}">
+              <view class="weui-select weui-select_in-select-after">{{MNTItems[MNTIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+        <input placeholder-class="input-holder" type="text" value='{{MNT2}}' bindinput="MNT2Change" class="input" placeholder=""></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+  </view>
+
+
+</block>
+  <comment-view comments="{{orderDetail.comments}}"></comment-view>
+
+<block wx:if="{{user.type == 2}}">
+  <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
+</block>
+<block wx:else>
+  <cover-view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
+  </cover-view>
+</block>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

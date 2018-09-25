@@ -1,0 +1,7 @@
+<!--pages/workOrder/pChange/index.wxml-->
+
+
+<view class="weui-cells weui-cells_after-title">
+  <view style='text-align:center;padding:10px 0'>项目变更工单</view>
+
+</view>

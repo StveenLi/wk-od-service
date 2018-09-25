@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "zan-popup": "/components/popup/index",
+    "comment-component": "/components/workComment/index",
+    "comment-view": "/components/commentView/index"
+  }
+}

@@ -1,0 +1,43 @@
+<!--components/workComment/index.wxml-->
+<zan-popup show="{{ showPopup }}" bindclose="togglePopup_false">
+  <view class="pop-example__container">
+    <view class="zan-btns">
+      <view style='background:#fff;'>
+        <view style='padding:10px'>评论：</view>
+        <textarea style="height: 5rem;font-size:16px;padding:0 10px" bindinput="textAreaChange" value="{{commentVal}}" disabled='{{!showPopup}}' />
+
+        <view class="page__bd" style='margin:30px 0'>
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__title">图片附件上传</view>
+              <view class="weui-uploader__info">{{files.length}}</view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" style='position:relative' bindtap="previewImage" id="{{item}}">
+                    <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+        <button class="zan-btn comment-btn" bindtap="togglePopup">
+          确认
+        </button>
+      </view>
+    </view>
+  </view>
+</zan-popup>

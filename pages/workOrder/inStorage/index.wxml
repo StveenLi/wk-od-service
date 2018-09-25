@@ -1,0 +1,120 @@
+<!--pages/workOrder/inStorage/index.wxml-->
+<view class="weui-cells weui-cells_after-title">
+
+  <view style='text-align:center;padding:10px 0'>入库单</view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">站点名称</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入站点名称" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">工单号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" disabled='false' placeholder="12939128R" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">项目号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" disabled='false' placeholder="882939128R-W" />
+    </view>
+  </view>
+
+
+  <!--机器型号-->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">项目号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" disabled='false' placeholder="小型" />
+    </view>
+  </view>
+
+
+   <!--机器编号-->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">机器编号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" disabled='false' placeholder="778812139128R" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">机器数量</view>
+    </view>
+    <view class="weui-cell__bd" style='padding:10px 0'>
+      <stepper stepper="{{ stepper.stepper }}" min="{{ stepper.min }}" max="{{ stepper.max }}" bind:change="handleZanStepperChange">
+      </stepper>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">清洁剂数量</view>
+    </view>
+    <view class="weui-cell__bd" style='padding:10px 0'>
+      <stepper stepper="{{ stepper.stepper }}" min="{{ stepper.min }}" max="{{ stepper.max }}" bind:change="handleZanStepperChange">
+      </stepper>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">亮洁剂数量</view>
+    </view>
+    <view class="weui-cell__bd" style='padding:10px 0'>
+      <stepper stepper="{{ stepper.stepper }}" min="{{ stepper.min }}" max="{{ stepper.max }}" bind:change="handleZanStepperChange">
+      </stepper>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">除垢剂数量</view>
+    </view>
+    <view class="weui-cell__bd" style='padding:10px 0'>
+      <stepper stepper="{{ stepper.stepper }}" min="{{ stepper.min }}" max="{{ stepper.max }}" bind:change="handleZanStepperChange">
+      </stepper>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">其它配件</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="其它配件" />
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="其它配件" />
+    </view>
+  </view>
+</view>
+
+<button class='bottom-btn'>提交</button>

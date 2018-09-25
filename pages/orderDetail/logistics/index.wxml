@@ -1,0 +1,81 @@
+<!--pages/workOrder/logistics/index.wxml-->
+
+
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.delivery.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+  <view class='flex-row box-all border-bottom-gainsboro'>
+    <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+    <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+  </view>
+  </block>
+</view>
+<view class='middle-box'>
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+      <view class='order-type-icon'>物</view>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input border-bottom-gainsboro">
+    <view class="weui-cell__hd">
+      <view class="weui-label">站点名称</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="{{orderDetail.delivery.toWh}}" disabled='false'/>
+    </view>
+  </view>
+
+
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5'>出发签到</view>
+      <view class='padding-5 work-order-content' bindtap='locationSignGo'>{{orderDetail.depart}}</view>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5'>到达签到</view>
+      <view class='padding-5 work-order-content'>{{orderDetail.reach}}</view>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5'>回归签到</view>
+      <view class='padding-5 work-order-content'>{{orderDetail.back}}</view>
+    </view>
+  </view>
+  <view class='content'>
+    <view class="weui-cell__hd">
+      <view class="weui-label">签字确认</view>
+    </view>
+          <image style='width:320px;height:150px' src="{{orderDetail.delivery.signPhoto}}" mode="aspectFill" />
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.delivery.links.remarks}}" disabled='false' />
+    </view>
+  </view>
+
+</view>
+
+
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+</view>
+<!-- 中间弹出框 -->
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

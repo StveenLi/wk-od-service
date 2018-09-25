@@ -1,0 +1,8 @@
+/* pages/workOrder/fix/request.wxss */
+
+
+.search-display-auto{
+  width:100%;
+  background: #fff;
+  margin-bottom: 60px;
+}

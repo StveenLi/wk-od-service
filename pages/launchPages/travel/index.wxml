@@ -1,0 +1,56 @@
+<!--pages/launchPages/travel/index.wxml-->
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">是否派工</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="bindWorkChange" value="{{hasWorkIndex}}" range="{{hasWorks}}">
+        <view class="weui-select weui-select_in-select-after">{{hasWorks[hasWorkIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">出差地点</view>
+    </view>
+    <view class="weui-cell__bd"> 
+      <input class="weui-input" bindinput='placeChange' placeholder="如：北京、上海、杭州" />
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">交通工具</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="binTrafficChange" value="{{trafficIndex}}" range="{{traffics}}">
+        <view class="weui-select weui-select_in-select-after">{{traffics[trafficIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd"> 
+      <view class="weui-label">开始日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{startdate}}" start="2015-09-01" end="2017-09-01" bindchange="bindStartDateChange">
+        <view class="weui-input">{{startdate}}</view>
+      </picker>
+    </view>
+  </view>
+</view>

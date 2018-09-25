@@ -1,0 +1,149 @@
+<!--pages/workOrder/fix/index.wxml-->
+
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.intall.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+    <view class='flex-row box-all border-bottom-gainsboro'>
+      <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+      <block wx:if="{{item.name == '注意'}}">
+        <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value}}</view>
+      </block>
+      <block wx:else>
+        <view class='content-style padding-5'>{{item.value == null?'-':item.value}}</view>
+      </block>
+    </view>
+  </block>
+</view>
+
+
+
+<view class='middle-box'>
+
+
+  <!-- 报修时间 -->
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+      <view class='order-type-icon'>维</view>
+    </view>
+  </view>
+
+
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">已电话解决，无需上门</view>
+      <view class="weui-cell__ft">
+        <block wx:if="{{orderDetail.repair.isPhoneFix == true}}">是</block>否
+      </view>
+    </view>
+  </view>
+
+
+  <block wx:if="{{isPhoneFix=='false'}}">
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>签入</view>
+        <view class='padding-5 work-order-content' bindtap='locationSignIn'>{{orderDetail.signInAddress}}</view>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>故障类型</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.repair.faultTypeName}} {{orderDetail.repair.faultChildTypeName}}</view>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">解决方案</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.repair.links.remarks}}" disabled='false' />
+      </view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">申请的配件</view>
+
+      </view>
+      <block wx:for='{{orderDetail.patch}}'>
+
+        <view class="weui-cell__ft">
+          {{item.groupName}}
+        </view>
+      </block>
+
+    </view>
+
+
+    <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">图片附件上传</view>
+                <view class="weui-uploader__info">{{files.length}}</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="optClass">
+      <view class="weui-uploader__title">视频附件</view>
+    </view>
+          <block wx:if="{{!showPopup}}">
+
+    <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+      <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+        <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
+        <cover-view class='progress' wx:if="{{upFilesProgress}}">
+          {{item.progress}}%
+        </cover-view>
+        <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+        
+      </view>
+    </view>
+    </block>
+
+    <view class="weui-cell weui-cell_input" style='margin-top:5px'>
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>签出</view>
+        <view class='padding-5 work-order-content' bindtap='loactionSignOut'>{{orderDetail.signOutAddress}}</view>
+      </view>
+    </view>
+
+
+  </block>
+
+</view>
+
+
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+  <view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+</view>
+
+<!-- 中间弹出框 -->
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>
+

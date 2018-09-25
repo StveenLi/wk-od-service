@@ -1,0 +1,151 @@
+<!--pages/workOrder/searched/index.wxml-->
+
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.found.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+    <view class='flex-row box-all border-bottom-gainsboro'>
+      <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+      <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+    </view>
+  </block>
+</view>
+
+<view class='middle-box'>
+
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+      <view class='order-type-icon'>勘</view>
+    </view>
+  </view>
+
+
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">已电话解决，无需上门</view>
+      <view class="weui-cell__ft">
+        {{orderDetail.found.remoteConfirm=='false'?'否':'是'}}
+      </view>
+    </view>
+  </view>
+  <block wx:if="{{orderDetail.found.remoteConfirm == 'false'}}">
+
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>签入</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.signInAddress}}</view>
+      </view>
+    </view>
+    <!--现场检测-->
+    <view class="weui-cell weui-cell_input">
+
+      <view class="weui-label" style='width:20px;border-right:1px solid #C7C7C7'>现场检测</view>
+      <view class=" flex-column" style='flex:1;margin:5px'>
+        <block wx:for="{{checkboxItems}}" wx:key="value">
+          <view style='padding:5'>{{item.name}}
+            <block wx:if="{{item.value == 0&&orderDetail.found.waters=='true'}}">
+              <image src='../../../images/yes.png' style='width:15px;height:15px'></image>
+            </block>
+            <block wx:if="{{item.value == 1&&orderDetail.found.elecs=='true'}}">
+              <image src='../../../images/yes.png' style='width:15px;height:15px'></image>
+            </block>
+            <block wx:if="{{item.value == 2&&orderDetail.found.postions=='true'}}">
+              <image src='../../../images/yes.png' style='width:15px;height:15px'></image>
+            </block>
+            <block wx:if="{{item.value == 3&&orderDetail.found.switchs=='true'}}">
+              <image src='../../../images/yes.png' style='width:15px;height:15px'></image>
+            </block>
+          </view>
+        </block>
+
+        <!-- <checkbox-group bindchange="checkboxChange">
+          <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+            <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+            </view>
+            <view class="weui-cell__bd">{{item.name}}</view>
+          </label>
+        </checkbox-group> -->
+
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">备注</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.found.links.remarks}}" disabled='false' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">安装条件</view>
+      </view>
+      <view class="weui-cell__bd">
+        {{orderDetail.found.checkResult == 0?'具备':' 不具备'}}
+      </view>
+    </view>
+
+    <block wx:if="{{selectIndex==1}}">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">后续处理</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="后续如何处理" />
+        </view>
+      </view>
+    </block>
+    <view class="weui-cell weui-cell_input" style='margin-top:5px'>
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>签出</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.signOutAddress}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+
+
+<view class='bottom-box'>
+<block wx:for='{{orderDetail.comments}}' wx:key="*this">
+  <view>
+  <view class='flex-row'>
+    <view class='comment-user'>{{item.userName}}</view>
+    <view class='flex-1' style='text-align:right;margin:5px;color:#C7C7C7'>{{item.strTime}}</view>
+
+  </view>
+    <view style='padding:5px'>评论：{{item.commentContent}}</view>
+
+  </view>
+  </block>
+</view>
+
+
+<button class='bottom-btn' bindtap='toCommit'>评论</button>
+
+<!-- 中间弹出框 -->
+<zan-popup show="{{ showPopup }}" bindclose="togglePopup_false">
+  <view class="pop-example__container">
+    <view class="zan-btns">
+      <view style='background:#fff;height:150px;'>
+      <view style='padding:10px'>评论：</view>
+      <textarea style="height: 5rem;font-size:16px;padding:0 10px" bindinput="textAreaChange"  value="{{commentVal}}" />
+        <button class="zan-btn comment-btn" bindtap="togglePopup" >
+          确认
+        </button>
+      </view>
+    </view>
+  </view>
+</zan-popup>
