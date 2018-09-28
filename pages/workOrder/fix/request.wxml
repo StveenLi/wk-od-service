@@ -5,7 +5,7 @@
     <view style='text-align:center;padding:10px 0'>补件</view>
 <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
-        <view class='flex-1 padding-5' style='margin-top:5px;'>零件编号</view>
+        <view class='padding-5' style='margin-top:5px;width:125px;'>零件编号</view>
         <view class='flex-1 padding-5' style='margin-top:5px;'>{{finalVal[item].value}}</view>
       </view>
   </view>
@@ -42,8 +42,8 @@
       </block>
     </view>
     <view class="weui-cell weui-cell_input">
-        <view class="weui-label">零件个数</view>
-        <input class="weui-input padding-5" placeholder="零件个数" data-item='{{item}}' type='number' bindinput="partsNumChange" />
+        <view class="weui-label" style='width:125px'>零件个数</view>
+        <input class="weui-input padding-5" style='text-align:left;' placeholder="零件个数" data-item='{{item}}' type='number' bindinput="partsNumChange" value='1'/>
     </view>
   </view>
   

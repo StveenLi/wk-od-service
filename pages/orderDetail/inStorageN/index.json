@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "stepper": "/components/stepper/index",
-        "zan-popup": "/components/popup/index"
+        "zan-popup": "/components/popup/index",
+        "comment-component": "/components/workComment/index",
+        "comment-view": "/components/commentView/index"
   }
 }

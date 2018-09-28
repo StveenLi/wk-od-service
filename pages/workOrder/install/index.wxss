@@ -50,7 +50,7 @@ view {
 
 .order-type-icon {
   border-radius: 50%;
-  background: #ffc0cb;
+  background: #E86A5F;
   width: 29px;
   height: 25px;
   color: #fff;

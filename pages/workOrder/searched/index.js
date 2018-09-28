@@ -33,7 +33,9 @@ Page({
     typeSelect: ["具备", "不具备"],
     isPhoneConfirm: false,
     remarks: '',
-    user: {}
+    user: {},
+    commentFilePaths:[],
+    commentVal:''
   },
   lastSubmit: function(e) {
     let that = this;
@@ -306,5 +308,43 @@ Page({
    */
   onShareAppMessage: function() {
 
-  }
+  },
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.found.pWrok.id,
+      that.data.orderDetail.found.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
 })

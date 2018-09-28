@@ -78,7 +78,7 @@
         </view>
         <view class="weui-cell__bd">
         <block wx:if="{{!showPopup}}">
-        <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' ></textarea></block>
+        <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' value='{{remarks}}' ></textarea></block>
         </view>
       </view>
       
@@ -112,12 +112,29 @@
         <view class=" weui-cell_switch">
           <view class="weui-cell__bd"></view>
         </view>
-        <block wx:for='{{patch}}'>
 
+        <view wx:for="{{du_patchs}}" wx:key="*this">
+          <view style='color:#999'>
+            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+            <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+            <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
+            </view>
+            <view wx:for="{{item}}" wx:key="*this">
+
+              <view> {{item.groupName}}*{{item.groupValue}} </view>
+              
+            </view>
+          </view>
+        </view>
+        
+        
+
+        <!-- <block wx:for='{{patch}}'>
+          
           <view class="weui-cell__ft">
             {{item.groupName}}
           </view>
-        </block>
+        </block> -->
 
       </view>
 
@@ -188,13 +205,6 @@
 
         </view>
       </block>
-
-
-
-
-
-
-
       <view class="weui-cell weui-cell_input" style='margin-top:5px'>
         <view class='flex-row box-all'>
           <view class='flex-1 padding-5'>签出</view>
@@ -244,9 +254,9 @@
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
 </block>
 <block wx:else>
-  <cover-view class='bottom-btn-view flex-row'>
+  <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
     <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
-  </cover-view>
+  </view>
 </block>
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

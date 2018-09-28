@@ -75,12 +75,18 @@
         <view class="weui-cell__bd">申请的配件</view>
 
       </view>
-      <block wx:for='{{orderDetail.patch}}'>
+      <view wx:for="{{du_patchs}}" wx:key="*this">
+          <view style='color:#999;margin:0 15px;'>
+            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+            <view class='flex-1'>补件单ID:{{item[0].wId}}</view>
+            </view>
+            <view wx:for="{{item}}" wx:key="*this">
 
-        <view class="weui-cell__ft">
-          {{item.groupName}}
+              <view> {{item.groupName}}*{{item.groupValue}} </view>
+              
+            </view>
+          </view>
         </view>
-      </block>
 
     </view>
 

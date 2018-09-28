@@ -108,16 +108,38 @@ Page({
   },
   
   sureSubmit: function(){
-
-
     let self = this;
-
     let submitValues = [];
+    let errmsg = '';
+    
+    const {finalVal,inputVal} = this.data;
+    if(finalVal.length === 0){
+      wx.showToast({
+        title: '不选择零件按左上角回退！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
+    for(let i=0;i<finalVal.length;i++){
+      if (finalVal[i] == null){
+        errmsg += inputVal[i]+',';
+      }
+    }
+
+    if(errmsg!=''){
+      wx.showToast({
+        title: errmsg+' 这里不能瞎填！',
+        duration:2000,
+        icon:'none'
+      })
+      return;
+    }
+
     for (let item of self.data.finalVal){
       item.num = self.data.finalValNum[self.data.finalVal.indexOf(item)]
       submitValues.push(item);
     }
-    console.log(submitValues)
     api.fetch({
       url: 'rest/work/doPatch',
       data:{
@@ -147,7 +169,6 @@ Page({
     this.setData({
       inputVal: inputVal,
       inputSearch: false
-
     });
   },
 
@@ -168,19 +189,19 @@ Page({
   itemOptionClick: function (e) {
     let self = this;
     let item = e.currentTarget.dataset.item;
-    console.log(item)
+    let finalValNum = self.data.finalValNum;
     let inputVal = self.data.inputVal;
     let citem = e.currentTarget.dataset.citem;
     inputVal[item] = e.currentTarget.dataset.citem.name
     let finalVal = self.data.finalVal;
-    finalVal[item] = { name: citem.name, value: citem.value, id: citem.id }
+    finalVal[item] = { name: citem.name, value: citem.value, id: citem.id}
+    finalValNum[item] = "1";
+
     this.setData({
       inputVal: inputVal,
       inputSearch: false,
-      finalVal: finalVal
+      finalVal: finalVal,
+      finalValNum: finalValNum
     });
-    
-
-  },
-  
+  }, 
 })

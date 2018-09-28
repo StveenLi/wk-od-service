@@ -24,6 +24,7 @@ Page({
     upFilesBtn: true,
     showPopup: false,
     commentFilePaths: [],
+    du_patchs:[]
   },
 
   
@@ -72,11 +73,37 @@ Page({
               allFis.push(item.url)
             }
           }
+
+          let du_patches = [];
+          let du_id = 0;
+          let du_times = 0;
+          let du_patch_children = [];
+
+          for (let pa of result.patch) {
+            if (result.patch.indexOf(pa) === 0) {
+              du_id = pa.wId;
+            }
+            if (du_id == pa.wId) {
+              du_patch_children.push(pa);
+            }
+            if (du_id != pa.wId) {
+              du_patches.push(du_patch_children);
+              du_patch_children = [];
+              du_patch_children.push(pa);
+              du_times++;
+              du_id = pa.wId;
+            }
+            if (result.patch.indexOf(pa) === result.patch.length - 1) {
+              du_patches.push(du_patch_children);
+            }
+          }
+
           self.setData({
             orderDetail: result,
             isPhoneFix: result.repair.isPhoneFix,
             files: fis,
-            upVideoArr: videoFis
+            upVideoArr: videoFis,
+            du_patchs: du_patches
           })
         }
       }

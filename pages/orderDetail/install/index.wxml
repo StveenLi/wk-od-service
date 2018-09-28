@@ -87,34 +87,10 @@
     </view>
   </view>
 </view>
-<view class='bottom-box'>
-<block wx:for='{{orderDetail.comments}}' wx:key="*this">
-  <view>
-  <view class='flex-row'>
-    <view class='comment-user'>{{item.userName}}</view>
-    <view class='flex-1' style='text-align:right;margin:5px;color:#C7C7C7'>{{item.strTime}}</view>
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
 
-  </view>
-    <view style='padding:5px'>评论：{{item.commentContent}}</view>
-
-  </view>
-  </block>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
 </view>
-
-
-<button class='bottom-btn' bindtap='toCommit'>评论</button>
-
 <!-- 中间弹出框 -->
-<zan-popup show="{{ showPopup }}" bindclose="togglePopup_false">
-  <view class="pop-example__container">
-    <view class="zan-btns">
-      <view style='background:#fff;height:150px;'>
-      <view style='padding:10px'>评论：</view>
-      <textarea style="height: 5rem;font-size:16px;padding:0 10px" bindinput="textAreaChange"  value="{{commentVal}}" />
-        <button class="zan-btn comment-btn" bindtap="togglePopup" >
-          确认
-        </button>
-      </view>
-    </view>
-  </view>
-</zan-popup>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

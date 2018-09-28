@@ -4,7 +4,7 @@ view{
 }
 .order-type-icon {
   border-radius: 50%;
-  background: rgb(238, 0, 139);
+  background: #7D88E9;
   width: 29px;
   height: 25px;
   color: #fff;

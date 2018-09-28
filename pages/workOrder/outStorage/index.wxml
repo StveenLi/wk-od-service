@@ -39,6 +39,13 @@
       <input class="weui-input" bindinput='remarkChange' />
     </view>
   </view>
+
+
+
+
+
+
+  
   <view class="weui-cell weui-cell_select">
     <view class="weui-cell__hd weui-cell__hd_in-select-after">
       <view class="weui-label" style='width:60px'>机器编号</view>
@@ -68,6 +75,14 @@
     </block>
   </view>
 </view>
+
+
+
+
+
+
+
+
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 
 <view class='bottom-btn-view flex-row'>

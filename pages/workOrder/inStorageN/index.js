@@ -42,7 +42,8 @@ Page({
     machineNum:'',
     remarks:'',
     photoFiles:[],
-    user:{}
+    user:{},
+    commentFilePaths:[]
   },
 
   lastSubmit: function (e) {
@@ -213,7 +214,7 @@ Page({
   getFaultList:function(){
     let that = this;
     api.fetch({
-      url: 'rest/comment/findFaultList?code=XWJJX',
+      url: 'rest/comment/findFaultList?code=FAULT_TYPE',
       callback: (err, result) => {
         if (result.success) {
           let xwjjxs = []; 
@@ -361,5 +362,43 @@ Page({
       photoFiles: fis
     })
   },
-  
+  //评论组件
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.inbox.pWrok.id,
+      that.data.orderDetail.inbox.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
+  }
 })

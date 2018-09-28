@@ -22,7 +22,7 @@
 </view>
 
 <block wx:if="{{user.type != 2}}">
-<view class='bottom-box'>
+<view class='middle-box'>
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
@@ -42,5 +42,13 @@
   
 </view>
 
-<button class='bottom-btn' bindtap='lastSubmit'>提交</button>
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
+  </view>
 </block>
+<block wx:if="{{user.type == 2}}">
+  <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
+</block>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

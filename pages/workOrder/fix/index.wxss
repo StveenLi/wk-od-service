@@ -71,7 +71,7 @@
   position: fixed;
   top: 50%;
   left: 0;
-  z-index: 9999;
+  z-index: 9910;
   background: #f9f9f9;
   margin: -180rpx 105rpx;
   border-radius: 36rpx;
@@ -119,6 +119,7 @@ input-holder {
   border-top: 1px solid #dedede;
   font-size: 34rpx;
   line-height: 86rpx;
+  z-index: 9920;
 }
 
 .btn-cancel {

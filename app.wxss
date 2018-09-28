@@ -165,7 +165,15 @@ page {
   font-size:12px!important;
 }
 
+.btn-block{
+  border: solid 1px #3c8df9;
+  border-radius: 5px;
+  padding: 0 5px;
+  text-align: center;
+  color: #3c8df9;
+  margin:0 5px;
 
+}
 
 .order-type{
   font-size: 28px;

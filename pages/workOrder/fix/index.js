@@ -19,20 +19,20 @@ Page({
     remarks: '',
     nowAddress: '',
     outAddress: '',
-    photoFiles:[],
-    user:{},
-    confirmMachineCode:'',
-    currentItem:{},
-    inputVal:'',
+    photoFiles: [],
+    user: {},
+    confirmMachineCode: '',
+    currentItem: {},
+    inputVal: '',
     showModal: false,
-    errors: ["请选择","机器部件质量问题", "机器零件需要更换", "机器需要清洗","人员操作导致问题"],
-    errorIndex:0,
-    bjs:[],
-    bjIndex:0,
+    errors: ["请选择", "机器部件质量问题", "机器零件需要更换", "机器需要清洗", "人员操作导致问题"],
+    errorIndex: 0,
+    bjs: [],
+    bjIndex: 0,
     upFilesProgress: false,
     maxUploadLen: 6,
     upFilesBtn: true,
-    upVideoArr:[],
+    upVideoArr: [],
     faultIndex: [0, 0],
 
     faultList: [],
@@ -40,43 +40,73 @@ Page({
     MNTIndex: 0,
     MNT2: '',
     MNT1: '',
-    nowJX:'',
+    nowJX: '',
     showPopup: false,
     commentVal: '',
     commentFilePaths: [],
-    patch:[]
+    patch: [],
+    du_patchs:[],
+    faultResult:{}
   },
 
-  setPatch:function(){
+  setPatch: function() {
+    let self = this;
     let item = this.data.listItem
     api.fetch({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
-        if(result.success){
+        if (result.success) {
+          let du_patches = [];
+          let du_id = 0;
+          let du_times = 0;
+          let du_patch_children = [];
+
+          for (let pa of result.patch) {
+            if (result.patch.indexOf(pa) === 0) {
+              du_id = pa.wId;
+            }
+            if (du_id == pa.wId) {
+              du_patch_children.push(pa);
+            }
+            if (du_id != pa.wId) {
+              du_patches.push(du_patch_children);
+              du_patch_children = [];
+              du_patch_children.push(pa);
+              du_times++;
+              du_id = pa.wId;
+            }
+            if (result.patch.indexOf(pa) === result.patch.length - 1) {
+              du_patches.push(du_patch_children);
+            }
+          }
+
+          self.setData({
+            du_patchs: du_patches
+          })
           this.setData({
-            patch:result.patch
+            patch: result.patch
           })
         }
       }
     })
   },
 
-  bindMNumTypeChange: function (e) {
+  bindMNumTypeChange: function(e) {
     this.setData({
       MNTIndex: e.detail.value
     })
   },
-  MNT1Change: function (e) {
+  MNT1Change: function(e) {
     this.setData({
       MNT1: e.detail.value
     })
   },
-  MNT2Change: function (e) {
+  MNT2Change: function(e) {
     this.setData({
       MNT2: e.detail.value
     })
   },
-  getMNTFaultList: function () {
+  getMNTFaultList: function() {
     let that = this;
     api.fetch({
       url: 'rest/comment/findFaultList?code=XWJXH',
@@ -84,7 +114,7 @@ Page({
         if (result.success) {
           let xwjjxs = [];
           for (let item of result.list[0].nodes) {
-            if (that.data.nowJX == item.dicCode){
+            if (that.data.nowJX == item.dicCode) {
               this.setData({
                 MNTIndex: xwjjxs.length
               })
@@ -117,78 +147,88 @@ Page({
     })
   },
 
-  handleConfirmMachine:function(e){
+  handleConfirmMachine: function(e) {
     this.setData({
       confirmMachineCode: e.detail.value
     })
   },
 
-  bindErrorChange: function (e) {
+  bindErrorChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', e.detail.value);
 
     this.setData({
       errorIndex: e.detail.value
     })
-    if (e.detail.value == 1){
+    if (e.detail.value == 1) {
       this.getFaultList();
     }
   },
 
-  bindBjChange: function (e) {
+  bindBjChange: function(e) {
     this.setData({
       bjIndex: e.detail.value
     })
   },
 
 
-  getFaultList:function(__badMood){
+  getFaultList: function(__badMood) {
     let that = this;
     api.fetch({
-      url:'rest/comment/findFaultList?code=FAULT_TYPE',
-      callback:(err,result) => {
-        if(result.success){
+      url: 'rest/comment/findFaultList?code=FAULT_TYPE',
+      callback: (err, result) => {
+        if (result.success) {
           that.setData({
-            bjs:result.list[0].nodes
+            bjs: result.list[0].nodes,
+            faultResult:result
           })
 
           let allList = [];
           let aList = ['请选择'];
-          
+
           let aaList = [];
-          for (let item of result.list[0].nodes){
+          for (let item of result.list[0].nodes) {
             aList.push(item.text);
-            if (item.id == 450 && __badMood){
-              for(let citem of item.nodes){
-                aaList.push(citem.text)
-              }
-            }
           }
           allList.push(aList);
           allList.push(aaList);
 
           // allList[1] = aaList;
           that.setData({
-            faultList:allList
+            faultList: allList
           })
         }
       }
     })
   },
 
-  bindFaultColumnChange:function(e){
+  bindFaultColumnChange: function(e) {
     console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-    if (e.detail.column == 0 && e.detail.value!=1){
+    const { faultList, faultIndex, faultResult} = this.data;
+    if (e.detail.column == 0 && e.detail.value != 0) {
+      // let allList = this.data.faultList;
+      // allList[1] = [];
+      // this.setData({
+      //   faultList: allList
+      // })
       let allList = this.data.faultList;
-      allList[1] = [];
+      
+      let _A2_list = []
+      if (faultResult.list[0].nodes[e.detail.value - 1].nodes){
+        for (let item of faultResult.list[0].nodes[e.detail.value-1].nodes){
+          // console.log(item)
+
+          _A2_list.push(item.text);
+        }
+      }
+      allList[1] = _A2_list;
       this.setData({
-        faultList:allList
+        faultList: allList
       })
-    }else{
-      this.getFaultList(true);
+        
     }
   },
 
-  bindFaultPickerChange: function (e) {
+  bindFaultPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       faultIndex: e.detail.value
@@ -212,8 +252,8 @@ Page({
         isPhoneFix: that.data.isPhoneFix,
         // actualMachineId: that.data.currentItem.machineId
         machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
-        faultType: that.data.bjs[that.data.faultIndex[0]-1].dicCode,
-        faultChildType: that.data.bjs[that.data.faultIndex[0]-1].nodes[that.data.faultIndex[1]].dicCode
+        faultType: that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].dicCode,
+        faultChildType: that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
       },
       callback: (err, result) => {
         if (result.success) {
@@ -237,14 +277,15 @@ Page({
       }
     })
   },
-  chooseImage: function (e) {
+  chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: 6,
-      success: function (res) {
+      success: function(res) {
         for (let tempImg of res.tempFilePaths) {
+          console.log(tempImg)
           wx.uploadFile({
             url: api.url + '/rest/comment/upload',
             filePath: tempImg,
@@ -253,23 +294,28 @@ Page({
               "Content-Type": "multipart/form-data",
               "chartset": "utf-8"
             },
-            success: function (result) {
-              var resultData = JSON.parse(result.data)
-              console.log(resultData);
+            success: function(result) {
+
+              let resultData = JSON.parse(result.data)
+              api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
+
+              // console.log('1' + resultData.url)
+
               let pfs = that.data.photoFiles;
               if (resultData.success) {
                 pfs.push(resultData.url);
                 that.setData({
                   photoFiles: pfs
                 })
-                api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
+                console.log(resultData.url)
               }
             },
-            fail: function (e) {
+            fail: function(e) {
               console.log(e);
             }
           })
         }
+
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
           files: that.data.files.concat(res.tempFilePaths)
@@ -283,7 +329,7 @@ Page({
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
-  delImage: function (e) {
+  delImage: function(e) {
     let fis = this.data.files;
     let index = fis.indexOf(e.target.dataset.currentimg)
     fis.splice(index, 1);
@@ -299,7 +345,7 @@ Page({
     let that = this;
     wx.getStorage({
       key: 'user',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           user: res.data
         })
@@ -325,23 +371,25 @@ Page({
           let jqjxArray = [];
           if (result.repair.photoFiles instanceof Array) {
             for (let item of result.repair.photoFiles) {
-              if (item.fileType=='IMG'){
+              if (item.fileType == 'IMG') {
                 fis.push(item.url)
-              }else{
-                videoFis.push({'tempFilePath':item.url})
+              } else {
+                videoFis.push({
+                  'tempFilePath': item.url
+                })
               }
               allFis.push(item.url)
             }
           }
-          if(result.fromData[3].value!=null){
+          if (result.fromData[3].value != null) {
             jqjxArray = result.fromData[3].value.split('/');
           }
           self.setData({
             orderDetail: result,
-            patch:result.patch,
+            patch: result.patch,
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
-            files:fis,
+            files: fis,
             photoFiles: allFis,
             upVideoArr: videoFis,
             MNT1: jqjxArray[0],
@@ -356,10 +404,10 @@ Page({
     });
   },
 
-  _seeDoneChange:function(){
+  _seeDoneChange: function() {
     let that = this;
     //如果用户为员工&&工单未被查看
-    if (that.data.user.type == 1 && that.data.orderDetail.repair.links.subStatus==0){
+    if (that.data.user.type == 1 && that.data.orderDetail.repair.links.subStatus == 0) {
       api.fetch({
         url: 'rest/work/doSubmit',
         data: {
@@ -488,23 +536,23 @@ Page({
   onShareAppMessage: function() {
 
   },
-  showInput: function () {
+  showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
-  hideInput: function () {
+  hideInput: function() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
-  clearInput: function () {
+  clearInput: function() {
     this.setData({
       inputVal: ""
     });
   },
-  inputTyping: function (e) {
+  inputTyping: function(e) {
     let self = this;
     this.setData({
       inputVal: e.detail.value,
@@ -515,14 +563,14 @@ Page({
 
 
   },
-  itemOptionClick: function (e) {
+  itemOptionClick: function(e) {
     this.setData({
       inputVal: e.currentTarget.dataset.item.machineNrs,
       inputSearch: false,
       currentItem: e.currentTarget.dataset.item
     });
   },
-  getMachineOption: function (searchContent) {
+  getMachineOption: function(searchContent) {
     let self = this;
     api.fetch({
       url: 'rest/comment/getMachines?machineNrs=' + searchContent,
@@ -541,13 +589,19 @@ Page({
     })
   },
   /**
-       * 弹窗
-       */
-  showDialogBtn: function () {
+   * 弹窗
+   */
+  showDialogBtn: function() {
     let that = this;
-    const { inputVal, confirmMachineCode, nowAddress, outAddress, faultIndex } = that.data
+    const {
+      inputVal,
+      confirmMachineCode,
+      nowAddress,
+      outAddress,
+      faultIndex
+    } = that.data
     if (!that.data.isPhoneFix) {
-      
+
       if (nowAddress == '') {
         wx.showToast({
           title: '您还未签入',
@@ -564,33 +618,38 @@ Page({
         })
         return;
       }
-      if (faultIndex[0] == 0 && faultIndex[1] == 0){
+      if (faultIndex[0] == 0 && faultIndex[1] == 0) {
         wx.showToast({
-          title: '请选择故障原因再提交！',
+          title: '请选择故障类型再提交！',
           icon: 'none',
           duration: 2000
         })
         return;
       }
     }
-    this.setData({
-      showModal: true
-    })
+    //isPhoneFix 不用确认机器编号了
+    if (that.data.isPhoneFix) {
+      that.lastSubmit();
+    } else {
+      this.setData({
+        showModal: true
+      })
+    }
+
   },
   /**
    * 弹出框蒙层截断touchmove事件
    */
-  preventTouchMove: function () {
-  },
-  confirmChange:function(e){
+  preventTouchMove: function() {},
+  confirmChange: function(e) {
     this.setData({
-      inputVal:e.detail.value
+      inputVal: e.detail.value
     })
   },
   /**
    * 隐藏模态对话框
    */
-  hideModal: function () {
+  hideModal: function() {
     this.setData({
       showModal: false
     });
@@ -598,17 +657,39 @@ Page({
   /**
    * 对话框取消按钮点击事件
    */
-  onCancel: function () {
+  onCancel: function() {
     this.hideModal();
   },
   /**
    * 对话框确认按钮点击事件
    */
-  onConfirm: function () {
+  onConfirm: function() {
     this.lastSubmit();
   },
 
-  uploadVideo:function(){
+
+  //删除补件单
+  delParts:function(e){
+    let that = this;
+    let item = e.currentTarget.dataset.pa;
+    api.fetch({
+      url: 'rest/work/doDeletePatch?id='+item[0].wId,
+      callback: (err, result) => {
+        if (result.success) {
+          // console.log(result)
+          that.setPatch();
+        }else{
+          wx.showToast({
+            title: result.msg,
+            duration:2000,
+            icon:'none'
+          })
+        }
+      }
+    })
+  },
+
+  uploadVideo: function() {
     let t = this;
     api._test();
     wx.chooseVideo({
@@ -616,7 +697,7 @@ Page({
       maxDuration: 30,
       compressed: true,
       camera: 'back',
-      success: function (res) {
+      success: function(res) {
         let videoArr = t.data.upVideoArr || [];
         let videoInfo = {};
         videoInfo['tempFilePath'] = res.tempFilePath;
@@ -635,20 +716,20 @@ Page({
         //     upFilesBtn: false,
         //   })
         // }
-        
+
         console.log(res)
 
-        
+
         api._uploadFile(res.tempFilePath, t.uploadVideoSuccessFunc)
       }
     })
   },
-  uploadVideoSuccessFunc: function (resultData){
+  uploadVideoSuccessFunc: function(resultData) {
     let that = this;
     let pfs = that.data.photoFiles;
     resultData = JSON.parse(resultData.data)
     console.log(resultData);
-    
+
     if (resultData.success) {
       pfs.push(resultData.url);
       that.setData({
@@ -657,36 +738,36 @@ Page({
       api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
     }
   },
-  delFile:function(e){
-      let _this = this;
-      wx.showModal({
-        title: '提示',
-        content: '您确认删除嘛？',
-        success: function (res) {
-          if (res.confirm) {
-            let delNum = e.currentTarget.dataset.index;
-            let delType = e.currentTarget.dataset.type;
-            let upVideoArr = _this.data.upVideoArr;
-            if (delType == 'video') {
-              upVideoArr.splice(delNum, 1)
-              _this.setData({
-                upVideoArr: upVideoArr,
-              })
-            }
-            
-          } else if (res.cancel) {
-            console.log('用户点击取消')
+  delFile: function(e) {
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '您确认删除嘛？',
+      success: function(res) {
+        if (res.confirm) {
+          let delNum = e.currentTarget.dataset.index;
+          let delType = e.currentTarget.dataset.type;
+          let upVideoArr = _this.data.upVideoArr;
+          if (delType == 'video') {
+            upVideoArr.splice(delNum, 1)
+            _this.setData({
+              upVideoArr: upVideoArr,
+            })
           }
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
         }
-      })
+      }
+    })
   },
   //评论组件
-  toCommit: function (options) {
+  toCommit: function(options) {
     this.setData({
       showPopup: true
     })
   },
-  textAreaChange: function (e) {
+  textAreaChange: function(e) {
     this.setData({
       commentVal: e.detail.value
     })
@@ -702,7 +783,11 @@ Page({
   },
   subComment(e) {
     let that = this;
-    const { commentFilePaths, commentVal, user } = this.data
+    const {
+      commentFilePaths,
+      commentVal,
+      user
+    } = this.data
     api._submitComment(
       commentVal,
       user.userId,
@@ -712,19 +797,21 @@ Page({
   commentSuccess() {
     this.loadDetail(this.data.listItem);
     this.setData({
-      commentVal:''
+      commentVal: ''
     })
   },
   delCommentImage(e) {
-    let { commentFilePaths } = this.data
+    let {
+      commentFilePaths
+    } = this.data
     commentFilePaths.splice(e.detail, 1);
     this.setData({
       commentFilePaths: commentFilePaths
     })
   },
-  popStatusChange(e){
+  popStatusChange(e) {
     this.setData({
-      showPopup:e.detail
+      showPopup: e.detail
     })
   }
 })

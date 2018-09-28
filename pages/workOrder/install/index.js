@@ -37,7 +37,9 @@ wx.getSystemInfo({
       photoFiles: [],
       user: {},
       showModal: false,
-      inputVal:''
+      inputVal:'',
+      commentFilePaths: []
+
     },
 
     lastSubmit: function(e) {
@@ -61,7 +63,6 @@ wx.getSystemInfo({
           workLinkId: that.data.orderDetail.intall.links.id,
           stype: 'Install',
           id: that.data.orderDetail.intall.id,
-
         },
         callback: (err, result) => {
           if (result.success) {
@@ -521,5 +522,44 @@ wx.getSystemInfo({
    */
   onConfirm: function () {
     this.lastSubmit();
+  },
+  //评论组件
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.intall.pWrok.id,
+      that.data.orderDetail.intall.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
   }
   })
