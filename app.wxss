@@ -9,7 +9,9 @@ button{
 .wx-switch-input{width:42px !important;height:20px !important;}
 .wx-switch-input::before{width:41px !important;height: 20px !important;}
 .wx-switch-input::after{width: 21px !important;height: 18px !important;}
-
+.weui-cells{
+  margin-top: 0!important;
+}
 .container {
   height: 100%;
   display: flex;

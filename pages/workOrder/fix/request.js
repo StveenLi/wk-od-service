@@ -115,7 +115,7 @@ Page({
     const {finalVal,inputVal} = this.data;
     if(finalVal.length === 0){
       wx.showToast({
-        title: '不选择零件按左上角回退！',
+        title: '请提交零件列表里已有的零件，谢谢！！',
         duration: 2000,
         icon: 'none'
       })
@@ -129,7 +129,7 @@ Page({
 
     if(errmsg!=''){
       wx.showToast({
-        title: errmsg+' 这里不能瞎填！',
+        title: errmsg +' 请提交零件列表里已有的零件，谢谢！！',
         duration:2000,
         icon:'none'
       })

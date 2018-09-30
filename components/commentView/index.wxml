@@ -11,8 +11,10 @@
         <view class='flex-1' style='text-align:right;margin:5px;color:#C7C7C7'>{{item.strTime}}</view>
       </view>
       <view style='padding:5px'>评论：{{item.commentContent}}</view>
-      <view wx:for="{{item.photoFiles}}">
+      <view>
+        <block wx:for="{{item.photoFiles}}">
         <image src='{{item.url}}' bindtap="previewImage" id="{{item.url}}" style='width:50px;height:50px'></image>
+        </block>
       </view>
     </view>
   </block>

@@ -12,7 +12,7 @@
   <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
     <view class='flex-row box-all border-bottom-gainsboro'>
       <view class='content-style flex-1 padding-5'>{{item.name}}</view>
-      <block wx:if="{{item.name == '注意事项:'}}">
+      <block wx:if="{{item.name == '注意'}}">
         <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value!=null?item.value:'-'}}</view>
       </block>
       <block wx:else>

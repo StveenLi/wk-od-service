@@ -16,7 +16,6 @@
     "pages/workOrder/fix/index",
     "pages/workOrder/wipeOut/index",
     "pages/workOrder/repair/index",
-    "pages/workOrder/pChange/index",
     "pages/workOrder/remove/index",
     "pages/workOrder/inStorageN/index",
     "pages/workOrder/fix/request",
@@ -32,6 +31,8 @@
     "pages/orderDetail/logistics/index",
     "pages/orderDetail/moneyAsk/index",
     "pages/orderDetail/parts/index",
+        "pages/orderDetail/wipeOut/index",
+        
     "pages/teach/index",
     "pages/launchPages/bj/index",
     "pages/launchPages/jqbg/index",

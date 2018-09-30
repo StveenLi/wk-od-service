@@ -12,7 +12,7 @@ Page({
     hideHeader: true,
     hideBottom: true,
     loadMoreData: '加载更多……',
-    tabs: ["待处理订单", "已完成订单"],
+    tabs: ["待处理工单", "已完成工单"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -93,6 +93,8 @@ Page({
           navigateUrl = '/pages/workOrder/moneyAsk/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'Patch') {
           navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
+        } else if (item.workType == 'DWipe') {
+          navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
@@ -114,6 +116,8 @@ Page({
         navigateUrl = '/pages/orderDetail/moneyAsk/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'Patch') {
         navigateUrl = '/pages/orderDetail/parts/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'DWipe') {
+        navigateUrl = '/pages/orderDetail/wipeOut/index?item=' + JSON.stringify(item);
       }
 
     }

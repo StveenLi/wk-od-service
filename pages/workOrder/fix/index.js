@@ -285,7 +285,6 @@ Page({
       count: 6,
       success: function(res) {
         for (let tempImg of res.tempFilePaths) {
-          console.log(tempImg)
           wx.uploadFile({
             url: api.url + '/rest/comment/upload',
             filePath: tempImg,

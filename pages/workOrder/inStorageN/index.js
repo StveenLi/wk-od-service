@@ -43,6 +43,7 @@ Page({
     remarks:'',
     photoFiles:[],
     user:{},
+    commentVal: '',
     commentFilePaths:[]
   },
 
@@ -214,7 +215,7 @@ Page({
   getFaultList:function(){
     let that = this;
     api.fetch({
-      url: 'rest/comment/findFaultList?code=FAULT_TYPE',
+      url: 'rest/comment/findFaultList?code=XWJXH',
       callback: (err, result) => {
         if (result.success) {
           let xwjjxs = []; 
@@ -316,7 +317,7 @@ Page({
     wx.chooseImage({
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      count:1,
+      count:6,
       success: function (res) {
         wx.uploadFile({
           url: api.url + '/rest/comment/upload',

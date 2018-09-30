@@ -10,7 +10,7 @@
   <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
     <view class='flex-row box-all border-bottom-gainsboro'>
       <view class='content-style flex-1 padding-5'>{{item.name}}</view>
-      <block wx:if="{{item.name == '注意事项:'}}">
+      <block wx:if="{{item.name == '注意'}}">
         <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value!=null?item.value:'-'}}</view>
       </block>
       <block wx:else>
@@ -46,11 +46,13 @@
           <view class="weui-label" style='width:70px'>机器编号</view>
         </view>
         <view class="weui-cell__bd" style='display:flex;flex-direction:row'>
-          <input class="weui-input" placeholder="" bindinput='MNT1Change' />
+          <input class="" placeholder="" bindinput='MNT1Change' style='border:1px solid #999;margin-top:2px;border-radius:5px;' />
+          <text style='padding:5px;'>\</text>
           <picker bindchange="bindMNumTypeChange" value="{{MNTIndex}}" range="{{MNTItems}}">
-          <view class="weui-select weui-select_in-select-after">{{MNTItems[MNTIndex]}}</view>
+          <view class="padding-5 " style='width:70px;'>{{MNTItems[MNTIndex]}}</view>
         </picker>
-                  <input class="weui-input" placeholder="" bindinput='MNT2Change' />
+        <text style='padding:5px;'>\</text>
+                  <input style='border:1px solid #999;margin-top:2px;border-radius:5px;' placeholder="" bindinput='MNT2Change' />
 
         </view>
       </view>
@@ -133,7 +135,7 @@
   <comment-view comments="{{orderDetail.comments}}"></comment-view>
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
+    <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
   </view>
 </block>
 <block wx:if="{{user.type == 2}}">

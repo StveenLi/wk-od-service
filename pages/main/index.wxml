@@ -3,7 +3,7 @@
     <view class='title'>
       <text style='color:#fff;font-size:18px'></text>
     </view>
-    <button class='lunbo-view' open-type="contact">
+    <button class='lunbo-view' bindtap='calling'>
       客服
       <!-- <image class='lunbo' src='/images/person.png'></image> -->
     </button>
@@ -14,7 +14,7 @@
   </view>
 
   <view class='panel'>
-    <view class='panel-title'>待处理事务</view>
+    <view class='panel-title'>你好！{{user.name}}</view>
     <view class='panel-box'>
       <!-- <view class='panel-box-item-grey' bindtap="toWorkPage">
         <view style='font-size:30px'>3</view>
@@ -122,6 +122,9 @@
               </block>
               <block wx:elif='{{item.workType == "Patch"}}'>
                 <view class='order-type-parts'>补</view>
+              </block>
+              <block wx:elif='{{item.workType == "DWipe"}}'>
+                <view class='order-type-wpout'>销</view>
               </block>
             </view>
           </view>

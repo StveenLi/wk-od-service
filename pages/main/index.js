@@ -32,6 +32,13 @@ Page({
     })
   },
 
+  calling:function(){
+    wx.makePhoneCall({
+      phoneNumber: '4009029021', 
+    success:function(){        console.log("拨打电话成功！")      },      
+    fail:function(){        console.log("拨打电话失败！")      }    })  
+  },
+
   toPersonalPage:function(){
     wx.navigateTo({
       url: '/pages/my/index',
@@ -65,6 +72,8 @@ Page({
         navigateUrl = '/pages/workOrder/moneyAsk/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'Patch') {
         navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'DWipe'){
+        navigateUrl = '/pages/workOrder/wipeOut/index?item='+JSON.stringify(item);
       }
     }
     

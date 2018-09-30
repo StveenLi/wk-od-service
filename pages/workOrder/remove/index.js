@@ -97,7 +97,7 @@ Page({
     wx.chooseImage({
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      count: 1,
+      count: 6,
       success: function (res) {
         wx.uploadFile({
           url: api.url + '/rest/comment/upload',

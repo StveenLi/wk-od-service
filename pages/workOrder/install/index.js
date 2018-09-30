@@ -38,6 +38,7 @@ wx.getSystemInfo({
       user: {},
       showModal: false,
       inputVal:'',
+      commentVal: '',
       commentFilePaths: []
 
     },
@@ -163,33 +164,34 @@ wx.getSystemInfo({
       wx.chooseImage({
         sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        count: 1,
+        count: 6,
         success: function(res) {
-          console.log(res.tempFilePaths[0]);
-          wx.uploadFile({
-            url: api.url + '/rest/comment/upload',
-            filePath: res.tempFilePaths[0],
-            name: 'file',
-            header: {
-              "Content-Type": "multipart/form-data",
-              "chartset": "utf-8"
-            },
-            success: function(result) {
-              var resultData = JSON.parse(result.data)
-              console.log(resultData);
-              let pfs = that.data.photoFiles;
-              if (resultData.success) {
-                pfs.push(resultData.url);
-                that.setData({
-                  photoFiles: pfs
-                })
-                api.cacheImg(that.data.orderDetail.intall.id, 'Install', resultData.url);
+          for (let tempImg of res.tempFilePaths) {
+            wx.uploadFile({
+              url: api.url + '/rest/comment/upload',
+              filePath: res.tempFilePaths[0],
+              name: 'file',
+              header: {
+                "Content-Type": "multipart/form-data",
+                "chartset": "utf-8"
+              },
+              success: function(result) {
+                var resultData = JSON.parse(result.data)
+                console.log(resultData);
+                let pfs = that.data.photoFiles;
+                if (resultData.success) {
+                  pfs.push(resultData.url);
+                  that.setData({
+                    photoFiles: pfs
+                  })
+                  api.cacheImg(that.data.orderDetail.intall.id, 'Install', resultData.url);
+                }
+              },
+              fail: function(e) {
+                console.log(e);
               }
-            },
-            fail: function(e) {
-              console.log(e);
-            }
-          })
+            })
+          }
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           that.setData({
             files: that.data.files.concat(res.tempFilePaths)
