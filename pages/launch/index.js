@@ -10,7 +10,7 @@ Page({
    */
   data: {
     orderItems: [{ name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' }, 
-      { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
+      // { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
       { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
       { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
     ],

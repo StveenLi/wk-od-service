@@ -39,7 +39,7 @@
         <view class="weui-label">过路过桥费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='glgqChange' placeholder="过路过桥费" />
+        <input class="weui-input" bindinput='glgqChange' type='digit' placeholder="过路过桥费" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -47,7 +47,7 @@
         <view class="weui-label">停车费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='PChange' placeholder="停车费" />
+        <input class="weui-input" bindinput='PChange' type='digit' placeholder="停车费" />
       </view>
     </view>
 
@@ -56,7 +56,7 @@
         <view class="weui-label">汽油费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='qyChange' placeholder="汽油费" />
+        <input class="weui-input" bindinput='qyChange' type='digit' placeholder="汽油费" />
       </view>
     </view>
 
@@ -65,7 +65,7 @@
         <view class="weui-label">装卸费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='zxChange' placeholder="装卸费" />
+        <input class="weui-input" bindinput='zxChange' type='digit' placeholder="装卸费" />
       </view>
     </view>
 
@@ -74,7 +74,7 @@
         <view class="weui-label">其它费用</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='otherChange' placeholder="其它费用" />
+        <input class="weui-input" bindinput='otherChange' type='digit' placeholder="其它费用" />
       </view>
     </view>
 

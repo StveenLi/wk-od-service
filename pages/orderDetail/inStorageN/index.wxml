@@ -38,7 +38,7 @@
       </view>
     </view>
 
-    <block wx:if="{{inStorageIndex==0||inStorageIndex==2}}">
+    <!-- <block wx:if="{{inStorageIndex==0||inStorageIndex==2}}"> -->
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">机器编号</view>
@@ -70,10 +70,10 @@
           </view>
         </view>
       </view>
-    </block>
+    <!-- </block> -->
 
 
-    <block wx:if="{{inStorageIndex==1||inStorageIndex==2}}">
+    <!-- <block wx:if="{{inStorageIndex==1||inStorageIndex==2}}"> -->
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label">清洁剂数量</view>
@@ -102,7 +102,7 @@
 
         </view>
       </view>
-    </block>
+    <!-- </block> -->
 
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">

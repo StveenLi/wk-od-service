@@ -93,14 +93,14 @@
       </view>
     </view>
 
-    <view class="weui-cell weui-cell_select">
+    <!-- <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">安装条件</view>
       </view>
       <view class="weui-cell__bd">
         {{orderDetail.found.checkResult == 0?'具备':' 不具备'}}
       </view>
-    </view>
+    </view> -->
 
     <block wx:if="{{selectIndex==1}}">
       <view class="weui-cell weui-cell_input">

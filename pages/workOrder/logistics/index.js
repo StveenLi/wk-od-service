@@ -129,6 +129,34 @@ Page({
       })
       return;
     }
+    // //goSignAddress:'',
+    // arriveSignAddress: '',
+    //   returnSignAddress: '',
+    if (that.data.goSignAddress == '') {
+      wx.showToast({
+        title: '尚未出发签到！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (that.data.arriveSignAddress == '') {
+      wx.showToast({
+        title: '尚未到达签到！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (that.data.returnSignAddress == '') {
+      wx.showToast({
+        title: '尚未返回签到！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
     //doUpdate
     api.fetch({
 

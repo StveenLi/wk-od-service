@@ -22,7 +22,7 @@ Page({
     zx: '',
     other: '',
   },
-  remarkChange: function(e) {
+  remarksChange: function(e) {
     this.setData({
       remarks: e.detail.value
     })
@@ -77,6 +77,7 @@ Page({
       qy,
       zx,
       other,
+      remarks
     } = that.data;
     if(glgq =='' && p==''&&qy==''&&zx==''&&other==''){
       wx.showToast({
@@ -95,9 +96,11 @@ Page({
         roadToll:glgq,
         postage:qy,
         parkToll:p,
-        mileNum:zx,
+        coolieToll:zx,
+        otherToll:other,
         workLinkId: that.data.orderDetail.dWipe.links.id,
         stype: 'DWipe',
+        remarks: remarks,
         id: that.data.orderDetail.dWipe.id
       },
       callback: (err, result) => {

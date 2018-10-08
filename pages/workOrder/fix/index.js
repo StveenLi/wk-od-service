@@ -46,7 +46,8 @@ Page({
     commentFilePaths: [],
     patch: [],
     du_patchs:[],
-    faultResult:{}
+    faultResult:{},
+    undoNum:0
   },
 
   setPatch: function() {
@@ -235,7 +236,7 @@ Page({
     })
   },
 
-  lastSubmit: function(e) {
+  lastSubmit: function (undoSuccess) {
     let that = this;
     //doUpdate
     api.fetch({
@@ -258,12 +259,16 @@ Page({
       callback: (err, result) => {
         if (result.success) {
           //doSubmit
+          let status = 10;
+          if (that.data.undoNum == 20){
+            status = 20
+          }
           api.fetch({
             url: 'rest/work/doSubmit',
             data: {
               bigWorkOrderId: that.data.orderDetail.repair.pWrok.id,
               workId: that.data.listItem.id,
-              status: 10,
+              status: status,
               stype: 'Repair',
             },
             callback: (err, result) => {
@@ -586,11 +591,20 @@ Page({
       }
     })
   },
+
+
+  unDoSuccess: function(){
+    this.showDialogBtn();
+    this.setData({
+      undoNum: 20
+    })
+  },
   /**
    * 弹窗
    */
   showDialogBtn: function() {
     let that = this;
+    
     const {
       inputVal,
       confirmMachineCode,

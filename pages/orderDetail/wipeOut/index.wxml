@@ -34,7 +34,7 @@
         <view class="weui-label">过路过桥费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='glgqChange' placeholder="过路过桥费" disabled='true' value='{{orderDetail.dWipe.postage}}' />
+        <input class="weui-input" bindinput='glgqChange' placeholder="过路过桥费" disabled='true' value='{{orderDetail.dWipe.roadToll}}' />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -42,7 +42,7 @@
         <view class="weui-label">停车费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='PChange' placeholder="停车费" disabled='true' value='{{orderDetail.dWipe.postage}}'  />
+        <input class="weui-input" bindinput='PChange' placeholder="停车费" disabled='true' value='{{orderDetail.dWipe.parkToll}}'  />
       </view>
     </view>
 

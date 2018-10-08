@@ -86,7 +86,7 @@
       </view>
     </view>
 
-    <view class="weui-cell weui-cell_select">
+    <!-- <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">安装条件</view>
       </view>
@@ -95,7 +95,7 @@
           <view class="weui-select weui-select_in-select-after">{{typeSelect[selectIndex]}}</view>
         </picker>
       </view>
-    </view>
+    </view> -->
     <view class="weui-cell weui-cell_input" style='margin-top:5px'>
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签出</view>

@@ -63,7 +63,7 @@
 
       <view class="weui-cell weui-cell_select">
         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-          <view class="weui-label">故障类型</view>
+          <view class="weui-label" style='width:50px;'>故障类型</view>
         </view>
         <view class="weui-cell__bd">
           <picker mode="multiSelector" bindchange="bindFaultPickerChange" bindcolumnchange="bindFaultColumnChange" value="{{faultIndex}}" range="{{faultList}}">
@@ -256,7 +256,9 @@
 <block wx:else>
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
+    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>维修完成</button>
+        <button class='flex-1 bottom-btn' bindtap='unDoSuccess'>维修未完成</button>
+
   </view>
 </block>
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>
