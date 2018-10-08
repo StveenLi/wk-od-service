@@ -39,21 +39,61 @@ wx.getSystemInfo({
       showModal: false,
       inputVal:'',
       commentVal: '',
-      commentFilePaths: []
-
+      commentFilePaths: [],
+      MNTItems: [],
+      MNTIndex: 0,
+      MNT2: '',
+      MNT1: '',
+      nowJX: ''
     },
-
+  bindMNumTypeChange: function (e) {
+    this.setData({
+      MNTIndex: e.detail.value
+    })
+  },
+  MNT1Change: function (e) {
+    this.setData({
+      MNT1: e.detail.value
+    })
+  },
+  MNT2Change: function (e) {
+    this.setData({
+      MNT2: e.detail.value
+    })
+  },
+  getMNTFaultList: function () {
+    let that = this;
+    api.fetch({
+      url: 'rest/comment/findFaultList?code=XWJXH',
+      callback: (err, result) => {
+        if (result.success) {
+          let xwjjxs = [];
+          for (let item of result.list[0].nodes) {
+            if (that.data.nowJX == item.dicCode) {
+              this.setData({
+                MNTIndex: xwjjxs.length
+              })
+            }
+            xwjjxs.push(item.dicCode);
+          }
+          that.setData({
+            MNTItems: xwjjxs
+          })
+        }
+      }
+    })
+  },
     lastSubmit: function(e) {
       let that = this;
       //doUpdate
-      if (that.data.inputVal == '') {
-        wx.showToast({
-          title: '请确认您维修的机器编号',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
+      // if (that.data.inputVal == '') {
+      //   wx.showToast({
+      //     title: '请确认您维修的机器编号',
+      //     icon: 'none',
+      //     duration: 2000
+      //   })
+      //   return;
+      // }
       api.fetch({
         url: 'rest/work/doUpdate',
         data: {
@@ -64,6 +104,7 @@ wx.getSystemInfo({
           workLinkId: that.data.orderDetail.intall.links.id,
           stype: 'Install',
           id: that.data.orderDetail.intall.id,
+          machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
         },
         callback: (err, result) => {
           if (result.success) {
@@ -169,7 +210,7 @@ wx.getSystemInfo({
           for (let tempImg of res.tempFilePaths) {
             wx.uploadFile({
               url: api.url + '/rest/comment/upload',
-              filePath: res.tempFilePaths[0],
+              filePath: tempImg,
               name: 'file',
               header: {
                 "Content-Type": "multipart/form-data",
@@ -259,19 +300,32 @@ wx.getSystemInfo({
         callback: (err, result) => {
           if (result.success) {
             let fis = [];
+            let jqjxArray = [];
+
             if (result.intall.photoFiles instanceof Array) {
               for (let item of result.intall.photoFiles) {
                 fis.push(item.url)
               }
             }
+
+            console.log(result.fromData[3].value)
+            if (result.fromData[3].value != null) {
+              jqjxArray = result.fromData[3].value.split('/');
+            }
+
             self.setData({
               orderDetail: result,
               nowAddress: result.signInAddress == null ? '' : result.signInAddress,
               outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
               files: fis,
-              photoFiles: fis
+              photoFiles: fis,
+              MNT1: jqjxArray[0],
+              MNT2: jqjxArray[2],
+              nowJX: jqjxArray[1]
             })
-            self._seeDoneChange()
+            self._seeDoneChange();
+            self.getMNTFaultList();
+
           }
         }
       });

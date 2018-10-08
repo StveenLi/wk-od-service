@@ -319,28 +319,28 @@ Page({
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count:6,
       success: function (res) {
-        wx.uploadFile({
-          url: api.url + '/rest/comment/upload',
-          filePath: res.tempFilePaths[0],
-          name: 'file',
-          header: { "Content-Type": "multipart/form-data" },
-          success: function (result) {
-            var resultData = JSON.parse(result.data)
-            let pfs = that.data.photoFiles;
-            if (resultData.success){
-              pfs.push(resultData.url);
-              that.setData({
-                photoFiles:pfs
-              })
-
-              api.cacheImg(that.data.orderDetail.inbox.id, 'Inbox', resultData.url);
-
+        for (let tempImg of res.tempFilePaths) {
+          wx.uploadFile({
+            url: api.url + '/rest/comment/upload',
+            filePath: tempImg,
+            name: 'file',
+            header: { "Content-Type": "multipart/form-data" },
+            success: function (result) {
+              var resultData = JSON.parse(result.data)
+              let pfs = that.data.photoFiles;
+              if (resultData.success){
+                pfs.push(resultData.url);
+                that.setData({
+                  photoFiles:pfs
+                })
+                api.cacheImg(that.data.orderDetail.inbox.id, 'Inbox', resultData.url);
+              }
+            },
+            fail: function (e) {
+              console.log(e);
             }
-          },
-          fail: function (e) {
-            console.log(e);
-          }
-        })
+          })
+        }
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         that.setData({
           files: that.data.files.concat(res.tempFilePaths)

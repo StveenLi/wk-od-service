@@ -12,8 +12,12 @@
   <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
   <view class='flex-row box-all border-bottom-gainsboro'>
     <view class='content-style flex-1 padding-5'>{{item.name}}</view>
-    <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
-  </view>
+<block wx:if="{{item.name == '注意'}}">
+        <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value}}</view>
+      </block>
+      <block wx:else>
+        <view class='content-style padding-5'>{{item.value == null?'-':item.value}}</view>
+      </block>  </view>
   </block>
 </view>
 <view class='middle-box'>

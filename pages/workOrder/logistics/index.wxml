@@ -31,14 +31,14 @@
     </view>
   </view>
 
-  <view class="weui-cell weui-cell_input border-bottom-gainsboro">
+  <!-- <view class="weui-cell weui-cell_input border-bottom-gainsboro">
     <view class="weui-cell__hd">
       <view class="weui-label">站点名称</view>
     </view>
     <view class="weui-cell__bd">
       <input class="weui-input" placeholder="{{orderDetail.delivery.toWh}}" disabled='false'/>
     </view>
-  </view>
+  </view> -->
 
 
   <view class="weui-cell weui-cell_input">

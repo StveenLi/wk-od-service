@@ -306,7 +306,6 @@ Page({
                 that.setData({
                   photoFiles: pfs
                 })
-                console.log(resultData.url)
               }
             },
             fail: function(e) {

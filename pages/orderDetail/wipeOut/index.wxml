@@ -22,7 +22,6 @@
 </view>
   <view class='middle-box'>
     <view class="weui-cell weui-cell_input">
-
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
         <view class='order-type-icon'>销</view>
