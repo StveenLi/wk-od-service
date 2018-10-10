@@ -20,9 +20,51 @@ Page({
     showPopup: false,
     commentVal: '',
     commentFilePaths: [],
+    qjjstepper: {
+      stepper: 0,
+      min: 0,
+      max: 100,
+      size: 'small'
+    },
+    ljjstepper: {
+      stepper: 0,
+      min: 0,
+      max: 100,
+      size: 'small'
+    },
+    cgjstepper: {
+      stepper: 0,
+      min: 0,
+      max: 100,
+      size: 'small'
+    },
   },
 
+  setHXPNmu:function(){
 
+  },
+
+  handleqjjstepperChange({
+    detail: stepper
+  }) {
+    this.setData({
+      'qjjstepper.stepper': stepper
+    });
+  },
+  handleljjstepperChange({
+    detail: stepper
+  }) {
+    this.setData({
+      'ljjstepper.stepper': stepper
+    });
+  },
+  handlecgjstepperChange({
+    detail: stepper
+  }) {
+    this.setData({
+      'cgjstepper.stepper': stepper
+    });
+  },
 
   bindMachineChange: function(e) {
     console.log('picker country 发生选择改变，携带值为', e.detail.value);
@@ -142,6 +184,13 @@ Page({
     this.setData({
       commentFilePaths: commentFilePaths
     })
+  },
+  popStatusChange(e) {
+    this.setData({
+      showPopup: e.detail,
+      commentVal:''
+    })
+    console.log('commentVal clear!')
   },
 
   _seeDoneChange: function () {

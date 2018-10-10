@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "comment-component": "/components/workComment/index",
+    "comment-view": "/components/commentView/index"
+  }
+}

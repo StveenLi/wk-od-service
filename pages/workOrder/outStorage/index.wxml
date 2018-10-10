@@ -41,7 +41,35 @@
   </view>
 
 
+  <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">清洁剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          <stepper stepper="{{ qjjstepper.stepper }}" min="{{ qjjstepper.min }}" max="{{ qjjstepper.max }}" bind:change="handleqjjstepperChange">
+          </stepper>
+        </view>
+      </view>
 
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">亮洁剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          <stepper stepper="{{ ljjstepper.stepper }}" min="{{ ljjstepper.min }}" max="{{ljjstepper.max }}" bind:change="handleljjstepperChange">
+          </stepper>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">除垢剂数量</view>
+        </view>
+        <view class="weui-cell__bd" style='padding:10px 0'>
+          <stepper stepper="{{ cgjstepper.stepper }}" min="{{ cgjstepper.min }}" max="{{ cgjstepper.max }}" bind:change="handlecgjstepperChange">
+          </stepper>
+        </view>
+      </view>
 
 
 
@@ -96,4 +124,4 @@
 </block>
 
 
-<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

@@ -89,5 +89,6 @@
   </view>
 </view>
 
-
-<button class='bottom-btn' bindtap='finalSub'>发起</button>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='finalSub'>发起</button>
+</view>

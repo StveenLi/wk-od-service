@@ -23,3 +23,13 @@
     </view>
   </block>
 </view>
+
+
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+  <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
+</view>
+<!-- <button class='bottom-btn' bindtap='toCommit'>评论</button> -->
+
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

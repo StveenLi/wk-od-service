@@ -40,6 +40,15 @@ Component({
 
     },
 
+
+    lostFouse:function(){
+      this.setData({
+        commentVal: '',
+      })
+      this._popupTarigger();
+
+    },
+
     // 9.17 做到这里  --组件数据未保存
     togglePopup: function (e) {
       let that = this;
@@ -69,6 +78,7 @@ Component({
       wx.chooseImage({
         sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        count: 3,
         success: function (res) {
           for (let tempImg of res.tempFilePaths) {
             wx.uploadFile({

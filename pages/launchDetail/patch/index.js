@@ -8,7 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    showPopup: false,
+    commentVal: '',
+    commentFilePaths: [],
+    user: {},
   },
 
   loadDetail: function (item) {
@@ -19,10 +22,22 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            oitem:item
           })
         }
       }
     });
+  },
+
+  unLaunch: function () {
+    let that = this;
+    api._unLaunch(that.data.orderDetail.patch.links.id, that.unLaunchSuccessFunc);
+  },
+
+  unLaunchSuccessFunc() {
+    wx.navigateBack({
+
+    })
   },
 
   /**
@@ -31,7 +46,15 @@ Page({
   onLoad: function (options) {
     let that = this;
     let item = JSON.parse(options.item);
-    that.loadDetail(item)
+    that.loadDetail(item);
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data
+        })
+      },
+    });
   },
 
 
@@ -82,5 +105,43 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.patch.pWrok.id,
+      that.data.orderDetail.patch.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.oitem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
   }
 })

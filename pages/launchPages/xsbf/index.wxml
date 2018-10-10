@@ -46,30 +46,30 @@
     </view>
   </block>
 
-    <view class="weui-cells">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__hd">
-              <view class="weui-uploader__title">图片附件上传</view>
-              <view class="weui-uploader__info">{{files.length}}/6</view>
+  <view class="weui-cells">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__hd">
+            <view class="weui-uploader__title">图片附件上传</view>
+            <view class="weui-uploader__info">{{files.length}}/6</view>
+          </view>
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                </view>
+              </block>
             </view>
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{files}}" wx:key="*this">
-                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                  </view>
-                </block>
-              </view>
-              <view class="weui-uploader__input-box">
-                <view class="weui-uploader__input" bindtap="chooseImage"></view>
-              </view>
+            <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="chooseImage"></view>
             </view>
           </view>
         </view>
       </view>
     </view>
+  </view>
 
 
   <view class="weui-cell weui-cell_input">
@@ -82,6 +82,6 @@
   </view>
 
 </view>
-
-
-<button class='bottom-btn' bindtap='finalSub'>发起</button>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='finalSub'>发起</button>
+</view>
