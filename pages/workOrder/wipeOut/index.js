@@ -21,6 +21,7 @@ Page({
     qy: '',
     zx: '',
     other: '',
+    melis:''
   },
   remarksChange: function(e) {
     this.setData({
@@ -52,6 +53,11 @@ Page({
       other: e.detail.value
     })
   },
+  melisChange: function (e) {
+    this.setData({
+      melis: e.detail.value
+    })
+  },
 
   loadDetail: function(item) {
     let self = this;
@@ -77,6 +83,7 @@ Page({
       qy,
       zx,
       other,
+      melis,
       remarks
     } = that.data;
     if(glgq =='' && p==''&&qy==''&&zx==''&&other==''){
@@ -101,18 +108,18 @@ Page({
         workLinkId: that.data.orderDetail.dWipe.links.id,
         stype: 'DWipe',
         remarks: remarks,
-        id: that.data.orderDetail.dWipe.id
+        id: that.data.orderDetail.dWipe.id,
+        mileNum: melis
       },
       callback: (err, result) => {
         if (result.success) {
-          console.log(result);
           //doSubmit
           api.fetch({
             url: 'rest/work/doSubmit',
             data: {
               bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
               workId: that.data.listItem.id,
-              status: 10,
+              status: 6,
               stype: 'DWipe',
             },
             callback: (err, result) => {
@@ -129,14 +136,55 @@ Page({
     })
   },
 
+  sureDone:function(){
+    let that = this;
+    api.fetch({
+      url: 'rest/work/doSubmit',
+      data: {
+        bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
+        workId: that.data.listItem.id,
+        status: 8,
+        stype: 'DWipe',
+      },
+      callback: (err, result) => {
+        console.log(result);
+        if (result.success) {
+          wx.navigateBack({
+            url: '/pages/work/index'
+          })
+        }
+      }
+    })
+  },
+  unSureDone: function () {
+    let that = this;
+    api.fetch({
+      url: 'rest/work/doSubmit',
+      data: {
+        bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
+        workId: that.data.listItem.id,
+        status: 12,
+        stype: 'DWipe',
+      },
+      callback: (err, result) => {
+        console.log(result);
+        if (result.success) {
+          wx.navigateBack({
+            url: '/pages/work/index'
+          })
+        }
+      }
+    })
+  },
+
   _seeDoneChange: function() {
     let that = this;
     //如果用户为员工&&工单未被查看
-    if (that.data.user.type == 1 && that.data.orderDetail.found.links.subStatus == 0) {
+    if (that.data.user.type == 1 && that.data.orderDetail.dWipe.links.subStatus == 0) {
       api.fetch({
         url: 'rest/work/doSubmit',
         data: {
-          bigWorkOrderId: that.data.orderDetail.found.pWrok.id,
+          bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
           workId: that.data.listItem.id,
           status: 5,
           stype: 'Found',

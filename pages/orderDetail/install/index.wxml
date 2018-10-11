@@ -50,7 +50,7 @@
       <view class="weui-label">备注</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" bindinput='remarkChange' disabled='flase' placeholder="{{orderDetail.intall.remarks}}" />
+      <input class="weui-input" bindinput='remarkChange' disabled='flase' placeholder="{{orderDetail.intall.links.remarks}}" />
     </view>
   </view>
 

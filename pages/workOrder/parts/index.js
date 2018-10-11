@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    user:{}
+    user:{},
+    commentVal: '',
+    commentFilePaths: []
   },
 
   /**
@@ -31,6 +33,14 @@ Page({
     });
   },
 
+  toFix:function(){
+    let that = this;
+    let navigateUrl = '/pages/orderDetail/fix/index?item=' + JSON.stringify(that.data.orderDetail.workDto);
+    wx.navigateTo({
+      url: navigateUrl,
+    })
+  },
+
   loadDetail: function (item) {
     let self = this;
     api.fetch({
@@ -44,10 +54,17 @@ Page({
       }
     });
   },
-  lastSubmit:function(){
+  lastSubmit_no:function(){
+    this.lastSubmit(12)
+  },
+  lastSubmit:function(status_no){
     let that = this;
     let status;
-    that.data.user.type == 2?status=8:status=10;
+    if (status_no==12){
+      status = 12;
+    }else{
+      that.data.user.type == 2 ? status = 8 : status = 10;
+    }
     api.fetch({
       url: 'rest/work/doSubmit',
       data: {
@@ -115,5 +132,44 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  //评论组件
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.patch.pWrok.id,
+      that.data.orderDetail.patch.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
   }
 })

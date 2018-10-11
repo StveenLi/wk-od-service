@@ -202,8 +202,8 @@ Page({
             orderDetail: result,
             goSignAddress: result.depart == null ? '' : result.depart,
             arriveSignAddress: result.reach == null ? '' : result.reach,
-            returnSignAddress: result.back == null?'':result.back
-
+            returnSignAddress: result.back == null?'':result.back,
+            signImg: result.delivery.signPhoto
           })
           self._seeDoneChange();
         }
@@ -218,7 +218,7 @@ Page({
       api.fetch({
         url: 'rest/work/doSubmit',
         data: {
-          bigWorkOrderId: that.data.orderDetail.delivery.pWrok.id,
+          bigWorkOrderId: that.data.orderDetail.delivery.pWrodeliveryk.id,
           workId: that.data.listItem.id,
           status: 5,
           stype: 'Delivery',
@@ -397,6 +397,8 @@ Page({
             that.setData({
               signImg: resultData.url
             })
+            api.cacheSign(that.data.orderDetail.delivery.id, 'Delivery', resultData.url);
+
           },
           fail: function (e) {
             console.log(e);

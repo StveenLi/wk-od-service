@@ -9,7 +9,15 @@ Page({
     items: [
         { 'as': [1,2,3,4] }, 
         { 'as': [1,2,3]}
-      ]
+      ],
+    userRes:'',
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    bindUserRes:'',
+    systemRes:'',
+    qyLoginRes:'',
+    qyUserRes:'',
+    mobileRes:''
+
   },
 
 
@@ -37,9 +45,70 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          systemRes:JSON.stringify(res)
+        })
+
+        if (res.environment) {
+          wx.showToast({
+            title: '企业号！',
+          })
+          wx.qy.login({
+            success: function (res) {
+              that.setData({
+                qyLoginRes: JSON.stringify(res)
+
+              })
+
+
+              wx.qy.getEnterpriseUserInfo({
+                success: function (res) {
+                  var userInfo = res.userInfo
+                  that.setData({
+                    qyUserRes:JSON.stringify(userInfo)
+                  })
+                }
+              })
+
+              wx.qy.getMobile({
+                success: function (res) {
+                  that.setData({
+                    mobileRes:JSON.stringify(res)
+                  })
+                }
+              })
+            }
+          });
+        }
+      }
+    })
+    this.getinfo();
   },
 
+  getinfo:function(){
+    let that = this;
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function (res) {
+              console.log(res.userInfo)
+              that.setData({
+                userRes: JSON.stringify(res.userInfo)
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+  bindGetUserInfo(e) {
+    this.getinfo()
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

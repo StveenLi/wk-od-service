@@ -31,8 +31,8 @@
         <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
         <view class='order-type-icon'>销</view>
       </view>
-      </view>
-  <!-- 备注 -->
+    </view>
+    <!-- 备注 -->
 
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
@@ -68,7 +68,14 @@
         <input class="weui-input" bindinput='zxChange' type='digit' placeholder="装卸费" />
       </view>
     </view>
-
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">公里数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='melisChange' type='digit' placeholder="公里数" />
+      </view>
+    </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">其它费用</view>
@@ -85,18 +92,98 @@
       <view class="weui-cell__bd">
         <input class="weui-input" bindinput='remarksChange' placeholder="备注" />
       </view>
-      </view>
-</view>
-<comment-view comments="{{orderDetail.comments}}"></comment-view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{user.type != 2}}">
+  <comment-view comments="{{orderDetail.comments}}"></comment-view>
 
-<view class='bottom-btn-view flex-row'>
-  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
-</view>
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
+  </view>
 </block>
 
 <block wx:if="{{user.type == 2}}">
-  <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
+
+  <view class='middle-box'>
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+        <view class='order-type-icon'>销</view>
+      </view>
+    </view>
+    <!-- 备注 -->
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">过路过桥费</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='glgqChange' placeholder="过路过桥费" disabled='true' value='{{orderDetail.dWipe.roadToll}}' />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">停车费</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='PChange' placeholder="停车费" disabled='true' value='{{orderDetail.dWipe.parkToll}}' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">汽油费</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='qyChange' placeholder="汽油费" disabled='true' value='{{orderDetail.dWipe.postage}}' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">装卸费</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='zxChange' placeholder="装卸费" disabled='true' value='{{orderDetail.dWipe.coolieToll}}' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">公里数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="公里数" disabled='true' value='{{orderDetail.dWipe.mileNum}}' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">其它费用</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='otherChange' placeholder="其它费用" disabled='true' value='{{orderDetail.dWipe.otherToll}}' />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">备注</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='remarksChange' placeholder="备注" disabled='true' value='{{orderDetail.dWipe.remarks}}' />
+      </view>
+    </view>
+  </view>
+  <comment-view comments="{{orderDetail.comments}}"></comment-view>
+
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <button class='flex-1 bottom-btn' bindtap='sureDone'>同意</button>
+    <button class='flex-1 bottom-btn' bindtap='unSureDone'>不同意</button>
+  </view>
 </block>
 
 

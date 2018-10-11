@@ -1,15 +1,10 @@
 <view style='background:#fff'>
-
-<block wx:for='{{items}}'>
-  <view class='flex-row'>
-    <block wx:for='{{item.as}}'>
-      <view class='flex-1'>
-        <view>
-          <image src='../../images/icon/cc.png' style='width:45px;height:45px;'></image>
-        </view>
-        <view>工单出差</view>
-      </view>
-    </block>
+  <view>
+    <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
   </view>
-</block>
+  <view style='width:300px;display:block;word-break: break-all;word-wrap: break-word;'>system:{{systemRes}}</view>
+  <view style='width:300px;display:block;word-break: break-all;word-wrap: break-word;'>user:{{userRes}}</view>
+  <view style='width:300px;display:block;word-break: break-all;word-wrap: break-word;'>qyLogin:{{qyLoginRes}}</view>
+  <view style='width:300px;display:block;word-break: break-all;word-wrap: break-word;'>qyUserRes:{{qyUserRes}}</view>
+  <view style='width:300px;display:block;word-break: break-all;word-wrap: break-word;'>mobileRes:{{mobileRes}}</view>
 </view>

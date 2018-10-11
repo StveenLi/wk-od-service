@@ -2,7 +2,7 @@
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
-<view style='text-align:center;'>补件工单</view>
+  <view style='text-align:center;'>补件工单</view>
   <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
     <view class='flex-1'>{{orderDetail.wrCode}}</view>
     <view class='flex-1 work-order-content'>{{orderDetail.repair.pWrok.name}}</view>
@@ -15,11 +15,23 @@
     </view>
   </block>
 </view>
-<block wx:if="{{user.type != 2}}">
+<block wx:if="{{orderDetail.workDto}}">
+<view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toFix'>查看关联的维修工单 ></view>
+</block>
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
 
-<button class='bottom-btn' bindtap='lastSubmit'>确认发货</button>
+<block wx:if="{{user.type != 2}}">
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <button class='flex-1 bottom-btn' bindtap='lastSubmit'>确认发货</button>
+  </view>
 </block>
 <block wx:if="{{user.type == 2}}">
-
-<button class='bottom-btn' bindtap='lastSubmit'>审核</button>
+  <view class='bottom-btn-view flex-row'>
+      <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+      <button class='flex-1 bottom-btn' bindtap='lastSubmit'>同意</button>
+      <button class='flex-1 bottom-btn' bindtap='lastSubmit_no'>不同意</button>
+  </view>
 </block>
+
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

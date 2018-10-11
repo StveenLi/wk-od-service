@@ -56,7 +56,7 @@
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>故障类型</view>
-        <view class='padding-5 work-order-content'>{{orderDetail.repair.faultTypeName}} {{orderDetail.repair.faultChildTypeName}}</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.repair.faultTypeName}} {{orderDetail.repair.faultChildTypeName == null?'':orderDetail.repair.faultChildTypeName}}</view>
       </view>
     </view>
 

@@ -31,7 +31,7 @@
 
 .order-type-parts{
   font-size: 28px;
-  background: rgb(69, 138, 89);
+  background: #DCD765;
   border-radius: 50%; 
   color: #fff;
   width: 50px;

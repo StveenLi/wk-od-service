@@ -9,8 +9,8 @@ Page({
   data: {
     user:{},
     showPopup: false,
-    commentVal: ''
-  },
+    commentVal: '',
+    commentFilePaths: []  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -116,50 +116,42 @@ Page({
   onShareAppMessage: function () {
   
   },
-  toCommit: function () {
+  toCommit: function (options) {
     this.setData({
-      showPopup: !this.data.showPopup
-    });
+      showPopup: true
+    })
   },
   textAreaChange: function (e) {
     this.setData({
       commentVal: e.detail.value
     })
   },
-  togglePopup_false: function () {
-    this.setData({
-      showPopup: !this.data.showPopup,
-      commentVal: ''
-    });
-  },
-  togglePopup: function () {
+  pathTo(e) {
     let that = this;
-    if (that.data.commentVal == '') {
-      wx.showToast({
-        title: '请输入评论内容再评论！',
-        duration: '2000',
-        icon: 'none'
-      })
-      return;
-    }
-    api.fetch({
-      url: 'rest/work/doAddComment',
-      data: {
-        commentContent: that.data.commentVal,
-        userId: that.data.user.userId,
-        workId: that.data.orderDetail.patch.pWrok.id,
-        workLinkId: that.data.orderDetail.patch.links.id
-      },
-      callback: (err, result) => {
-        if (result.success) {
-          console.log(result);
-          this.setData({
-            showPopup: !this.data.showPopup,
-            commentVal: ''
-          });
-          that.loadDetail(that.data.listItem)
-        }
-      }
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
     })
   },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.patch.pWrok.id,
+      that.data.orderDetail.patch.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
+  }
 })

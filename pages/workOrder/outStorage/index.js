@@ -135,8 +135,29 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          let hxps = result.fromData[4].value;
+          hxps = hxps.substr(1, hxps.length - 2);
+          let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
+            qjjstepper: {
+              stepper: hxpsArray[0],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
+            ljjstepper: {
+              stepper: hxpsArray[1],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
+            cgjstepper: {
+              stepper: hxpsArray[2],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
           })
           self.getMachineOption(result.outbox.stockId, '');
           self._seeDoneChange();
@@ -253,7 +274,10 @@ Page({
         id: that.data.orderDetail.outbox.id,
         machineId: currentItem.machineId,
         machineNrs: currentItem.machineNrs,
-        machineType: currentItem.machineType
+        machineType: currentItem.machineType,
+        cgClean: that.data.cgjstepper.stepper,
+        qjClean: that.data.qjjstepper.stepper,
+        ljClean: that.data.ljjstepper.stepper 
       },
       callback: (err, result) => {
         if (result.success) {
@@ -283,7 +307,7 @@ Page({
   getMachineOption: function(whId, searchContent) {
     let self = this;
     api.fetch({
-      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent,
+      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent +'&status=MAC_STATUS_WILL_OUT',
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];

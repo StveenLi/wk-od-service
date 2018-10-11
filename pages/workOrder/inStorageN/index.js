@@ -201,10 +201,31 @@ Page({
               fis.push(item.url)
             }
           }
+          let hxps = result.fromData[3].value;
+          hxps = hxps.substr(1, hxps.length - 2);
+          let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
             files: fis,
-            photoFiles: fis
+            photoFiles: fis,
+            qjjstepper: {
+              stepper: hxpsArray[0],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
+            ljjstepper: {
+              stepper: hxpsArray[1],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
+            cgjstepper: {
+              stepper: hxpsArray[2],
+              min: 0,
+              max: 100,
+              size: 'small'
+            },
           })
           self._seeDoneChange();
         }

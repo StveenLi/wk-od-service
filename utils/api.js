@@ -71,6 +71,17 @@ const Util={
         }
       });
     },
+
+    cacheSign: function (id, stype, url) {
+      this.fetch({
+        url: 'rest/comment/cacheSign?id=' + id + '&stype=' + stype + '&signUrl=' + url,
+        callback: (err, result) => {
+          if (result.success) {
+            console.log('signUrl cache success')
+          }
+        }
+      });
+    },
     isPhoneNume:function (phoneNum) {
         if (!phoneNum){
             return false;

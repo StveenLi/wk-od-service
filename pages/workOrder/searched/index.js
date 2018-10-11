@@ -71,7 +71,8 @@ Page({
         remoteConfirm: that.data.isPhoneConfirm,
         workLinkId: that.data.orderDetail.found.links.id,
         stype: 'Found',
-        id: that.data.orderDetail.found.id
+        id: that.data.orderDetail.found.id,
+        remarks: that.data.remarks
       },
       callback: (err, result) => {
         if (result.success) {

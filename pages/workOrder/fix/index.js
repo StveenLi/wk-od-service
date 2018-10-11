@@ -239,6 +239,9 @@ Page({
   lastSubmit: function (undoSuccess) {
     let that = this;
     //doUpdate
+    let faultChildType = that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
+
+    console.log(faultChildType)
     api.fetch({
 
       url: 'rest/work/doUpdate',
@@ -254,7 +257,7 @@ Page({
         // actualMachineId: that.data.currentItem.machineId
         machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
         faultType: that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].dicCode,
-        faultChildType: that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
+        faultChildType: faultChildType
       },
       callback: (err, result) => {
         if (result.success) {

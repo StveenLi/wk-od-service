@@ -12,7 +12,7 @@
   </view>
 </view>
 <view class='my-workorder'>
-  <view>我发起的</view>
+  <view bindtap='getMyselfInfo'>我发起的</view>
 </view>
 <block wx:for="{{myOrderList}}" wx:key="index">
   <view style='margin-bottom:10px'></view>

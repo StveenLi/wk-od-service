@@ -321,7 +321,8 @@ wx.getSystemInfo({
               photoFiles: fis,
               MNT1: jqjxArray[0],
               MNT2: jqjxArray[2],
-              nowJX: jqjxArray[1]
+              nowJX: jqjxArray[1],
+              signImg:result.intall.signUrl
             })
             self._seeDoneChange();
             self.getMNTFaultList();
@@ -496,6 +497,7 @@ wx.getSystemInfo({
               that.setData({
                 signImg: resultData.url
               })
+              api.cacheSign(that.data.orderDetail.intall.id, 'Install', resultData.url);
             },
             fail: function(e) {
               console.log(e);
