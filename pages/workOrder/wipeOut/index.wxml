@@ -181,8 +181,10 @@
 
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+    <block wx:if="{{orderDetail.dWipe.links.subStatus!=0&&orderDetail.dWipe.links.subStatus!=5}}">
     <button class='flex-1 bottom-btn' bindtap='sureDone'>同意</button>
     <button class='flex-1 bottom-btn' bindtap='unSureDone'>不同意</button>
+    </block>
   </view>
 </block>
 

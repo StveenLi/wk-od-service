@@ -47,11 +47,11 @@
         </view>
         <view class="weui-cell__bd" style='display:flex;flex-direction:row'>
           <input class="" placeholder="" bindinput='MNT1Change' style='border:1px solid #999;margin-top:2px;border-radius:5px;' />
-          <text style='padding:5px;'>\</text>
+          <text style='padding:5px;'>/</text>
           <picker bindchange="bindMNumTypeChange" value="{{MNTIndex}}" range="{{MNTItems}}">
           <view class="padding-5 " style='width:70px;'>{{MNTItems[MNTIndex]}}</view>
         </picker>
-        <text style='padding:5px;'>\</text>
+        <text style='padding:5px;'>/</text>
                   <input style='border:1px solid #999;margin-top:2px;border-radius:5px;' placeholder="" bindinput='MNT2Change' />
 
         </view>

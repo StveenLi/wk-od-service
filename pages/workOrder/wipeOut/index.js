@@ -143,7 +143,7 @@ Page({
       data: {
         bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
         workId: that.data.listItem.id,
-        status: 8,
+        status: 10,
         stype: 'DWipe',
       },
       callback: (err, result) => {
@@ -187,7 +187,7 @@ Page({
           bigWorkOrderId: that.data.orderDetail.dWipe.pWrok.id,
           workId: that.data.listItem.id,
           status: 5,
-          stype: 'Found',
+          stype: 'DWipe',
         },
         callback: (err, result) => {
           console.log('see done');

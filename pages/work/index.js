@@ -44,6 +44,7 @@ Page({
     // 当前页是最后一页
     setTimeout(function() {
       console.log('上拉加载更多');
+      self.loadListData('')
       self.setData({
         hideBottom: false
       })
@@ -73,6 +74,11 @@ Page({
   toFlowPage: function(e) {
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
+
+
+    if (item.workStatus == 20){
+      return;
+    }
     if (this.data.activeIndex == 0) {
       if (item.canDO == 'Y') {
         if (item.workType == 'Repair') {

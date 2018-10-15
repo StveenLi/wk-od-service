@@ -53,32 +53,46 @@ Page({
         })
 
         if (res.environment) {
-          wx.showToast({
-            title: '企业号！',
-          })
+         
           wx.qy.login({
             success: function (res) {
               that.setData({
                 qyLoginRes: JSON.stringify(res)
-
               })
 
 
               wx.qy.getEnterpriseUserInfo({
                 success: function (res) {
+                  wx.showToast({
+                    title: 'qyuserinfoSuccess！',
+                  })
                   var userInfo = res.userInfo
                   that.setData({
                     qyUserRes:JSON.stringify(userInfo)
+                  })
+                },
+                fail:function(res){
+                  that.setData({
+                    qyUserRes: JSON.stringify(userInfo)
                   })
                 }
               })
 
               wx.qy.getMobile({
                 success: function (res) {
+                  wx.showToast({
+                    title: 'qyMobileSuccess！',
+                  })
                   that.setData({
                     mobileRes:JSON.stringify(res)
                   })
+                },
+                fail: function (res) {
+                  that.setData({
+                    qyUserRes: JSON.stringify(userInfo)
+                  })
                 }
+                
               })
             }
           });

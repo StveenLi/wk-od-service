@@ -239,9 +239,9 @@ Page({
   lastSubmit: function (undoSuccess) {
     let that = this;
     //doUpdate
-    let faultChildType = that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
+    let faultChildType = that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
 
-    console.log(faultChildType)
+    // console.log(faultChildType)
     api.fetch({
 
       url: 'rest/work/doUpdate',

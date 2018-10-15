@@ -16,7 +16,14 @@
 </view>
 <block wx:for="{{myOrderList}}" wx:key="index">
   <view style='margin-bottom:10px'></view>
-  <view class="work-item view-shadow" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toDetailPage">
+  <view class="work-item view-shadow" style='position:relative;' data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toDetailPage">
+
+    <block wx:if="{{item.workStatus == 8}}">
+      <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+    </block>
+    <block wx:if="{{item.workStatus == 12}}">
+      <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+    </block>
     <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
       <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
       <view class='flex-1 date-style'>{{item.assignDate}}</view>

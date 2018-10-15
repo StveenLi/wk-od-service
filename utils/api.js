@@ -1,6 +1,9 @@
 'use strict';
 // api 路径
-const HOST = 'https://test.tianchu.linkitchen.com/CServer';
+//测试
+// const HOST = 'https://test.tianchu.linkitchen.com/CServer';
+const HOST = 'https://www.linkitchen.com';
+
 // const HOST = 'http://192.168.0.193:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={

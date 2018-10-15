@@ -28,7 +28,9 @@
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
+  <block wx:if="{{!orderDetail.workDto}}">
+    <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
+  </block>
 </view>
 <!-- <button class='bottom-btn' bindtap='toCommit'>评论</button> -->
 

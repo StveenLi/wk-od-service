@@ -186,16 +186,20 @@ Page({
   itemOptionClick: function (e) {
     let self = this;
     let item = e.currentTarget.dataset.item;
-    console.log(item)
+    let finalValNum = self.data.finalValNum;
+
     let inputVal = self.data.inputVal;
     let citem = e.currentTarget.dataset.citem;
     inputVal[item] = e.currentTarget.dataset.citem.name
     let finalVal = self.data.finalVal;
     finalVal[item] = { name: citem.name, value: citem.value, id: citem.id }
+    finalValNum[item] = "1";
     this.setData({
       inputVal: inputVal,
       inputSearch: false,
-      finalVal: finalVal
+      finalVal: finalVal,
+      finalValNum: finalValNum
+
     });
   },
 
