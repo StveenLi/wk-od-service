@@ -63,6 +63,16 @@ Page({
     let that = this;
     let pids = '';
     let nums = '';
+
+    if(that.data.finalVal.length == 0){
+      wx.showToast({
+        title: '请选择至少一项后再提交！',
+        duration:2000,
+        icon:'none'
+      })
+      return;
+    }
+
     for (let item of that.data.finalVal){
       pids += item.id + '@';
     }

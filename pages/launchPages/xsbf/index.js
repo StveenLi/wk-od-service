@@ -21,6 +21,32 @@ Page({
 
   finalSub:function(){
     let that = this;
+    const { nowAddress, outAddress, customer} = that.data
+    if (nowAddress == ''){
+      wx.showToast({
+        title: '请签入后再发起！',
+        icon:'none',
+        duration:2000
+      })
+      return;
+    }
+    if (outAddress == '') {
+      wx.showToast({
+        title: '请签出后再发起！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (customer == ''){
+      wx.showToast({
+        title: '请填写客户后再发起！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
     api.fetch({
       url: 'rest/work/doVisit',
       data: {

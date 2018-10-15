@@ -19,6 +19,22 @@ Page({
 
   finalSub:function(){
     let that = this;
+    if (!that.data.currentItem.machineId){
+      wx.showToast({
+        title: '请选择正确的机器编号后再发起',
+        icon:'none',
+        duration:2000
+      })
+      return;
+    }
+    if (that.data.newMachineCode==''){
+      wx.showToast({
+        title: '请输入新机器编号',
+        duration:2000,
+        icon:'none'
+      })
+      return;
+    }
     api.fetch({
       url: 'rest/work/doMachineChange',
       data: {

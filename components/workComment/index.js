@@ -41,13 +41,13 @@ Component({
     },
 
 
-    lostFouse:function(){
-      this.setData({
-        commentVal: '',
-      })
-      this._popupTarigger();
+    // lostFouse:function(){
+    //   this.setData({
+    //     commentVal: '',
+    //   })
+    //   this._popupTarigger();
 
-    },
+    // },
 
     // 9.17 做到这里  --组件数据未保存
     togglePopup: function (e) {

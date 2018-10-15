@@ -4,7 +4,8 @@
     <view class="zan-btns">
       <view style='background:#fff;'>
         <view style='padding:10px'>评论：</view>
-        <textarea style="height: 5rem;font-size:16px;padding:0 10px" bindblur="lostFouse" bindinput="textAreaChange" value="{{commentVal}}" disabled='{{!showPopup}}' />
+
+        <textarea wx:if="{{showPopup}}" style="height: 5rem;font-size:16px;padding:0 10px" bindblur="lostFouse" bindinput="textAreaChange" value="{{commentVal}}" disabled='{{!showPopup}}' />
 
         <view class="page__bd" style='margin:30px 0'>
     <view class="weui-cells">
