@@ -1,8 +1,13 @@
 {
   "pages": [
     "pages/login/index",
-    "pages/main/index",
     "pages/index/index",
+    
+    "pages/launchPages/vacate/vacate",
+    "pages/launchPages/marketdetail/marketdetail",
+    "pages/main/index",
+    
+    
     "pages/logs/logs",
     "pages/work/index",
     "pages/workNode/workNode",
