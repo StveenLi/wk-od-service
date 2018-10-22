@@ -1,0 +1,71 @@
+
+.flex{
+  display:flex;
+}
+.scroll{
+  padding:5px 0;
+  background-color:#ff8034;
+  font-size:15px;
+  justify-content: space-around;
+}
+.select{
+  border-bottom:2px solid white;
+  color:white;
+  font-weight:700;
+  opacity:.8;
+  transition:1s;
+}
+.pad{
+  padding:2px 5px;
+  border-height:0;
+}
+.maket_info_first{
+  height:45px;
+  justify-content: space-between;
+  padding:0 13px;
+  border-bottom:1px solid #eee;
+  line-height:45px;
+  font-size:16px;
+}
+.ft14{
+  font-size:14px;
+}
+
+.maket_info_first  image{
+  width:20px;
+  height:20px;
+  margin-left:5px;
+  vertical-align:middle;
+}
+.maket_info_first input{
+  display:inline-block;
+  width:170px;
+  height:45px;
+  text-align:right;
+  border:none;
+  font-size:14px;
+  vertical-align:middle;
+}
+.radioitem{
+  display:flex;
+  flex-direction: row;
+  line-height:45px;
+}
+.radio-group{
+  text-align:left;
+}
+.disnone{
+  display:none;
+}
+.radio{
+  width:54%;
+  position:absolute;
+  left:0;
+  right:0;
+  margin:20px auto;
+}
+button{
+  margin-top:40px;
+  color:white;
+  background-color:#3c8df9;
+}
