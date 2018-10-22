@@ -144,7 +144,7 @@ Page({
     //发起
   finalSub: function (e) {
      let that = this;
-    //  console.log(e)
+     console.log(e)
     api.fetch({
       // url: 'rest/work/doMachineChange',
       data: {
@@ -158,15 +158,15 @@ Page({
       },
       callback: (err, result) => {
         if (result.success) {
-          // wx.navigateBack({
-          //   url: '/pages/launch/index'
-          // })
+          wx.navigateBack({
+            url: '/pages/launch/index'
+          })
         } else {
-          // wx.showToast({
-          //   title: result.msg,
-          //   icon: 'none',
-          //   duration: 2000
-          // })
+          wx.showToast({
+            title: result.msg,
+            icon: 'none',
+            duration: 2000
+          })
         }
       }
     });

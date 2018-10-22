@@ -1,0 +1,491 @@
+<form bindsubmit="finalSub">
+<view class="nav">
+  <scroll-view class="scroll" scroll-y="true" scroll-left="{{scrollLeft}}">
+    <view class="scroll flex">
+      <view class="maket_info">
+        <view class="pad {{flag==0?'select':''}}" id="0" bindtap="switchNav">基本信息 >></view>
+      </view>
+      <view class="">
+        <view class=" pad {{flag==1?'select':''}}" id="1" bindtap="switchNav">安装信息 >></view>
+      </view>
+      <view class="">
+        <view class=" pad {{flag==2?'select':''}}" id="2" bindtap="switchNav">开票信息  >></view>
+      </view>
+      <view class="maket_info">
+        <view class="pad {{flag==3?'select':''}}" id="3" bindtap="switchNav">收票信息</view>
+      </view>
+    </view>
+  </scroll-view>
+  <swiper current="{{currentTab}}" style="height:1500px;" duration="300" bindchange="switchTab">
+    
+    <!-- //基本信息 -->
+    <swiper-item>
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">运营商平台</view>
+        <view>
+          <input bindtap="changeShowModel" value="{{ pt }}" name="yunyingshang" class="ft14">
+          </input>
+          <image class="{{disnone?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue"></image>
+        </view>
+
+      </view>
+      <sale-detail show="{{showModal}}" height='20%'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange">
+            <label class="radioitem" wx:for="{{companyname}}" wx:key="{{ index }}">
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">客户类型</view>
+        <view>
+          <input bindtap="changeShowModel1" value="{{ khlx }}"  class="ft14" />
+          <image class="{{disnone1?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue1"></image>
+        </view>
+      </view>
+
+      <sale-detail show="{{showModal1}}" height='10%'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange1">
+            <label class="radioitem" wx:for="{{clienttype}}" wx:key="{{ index }}">
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+          <button formType="submit"></button>
+        </view>
+      </sale-detail>
+
+
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">客户名称</view>
+        <view>
+          <input placeholder='请输入完整客户名称'></input>
+        </view>
+      </view>
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">终端客户名称</view>
+        <view>
+          <input placeholder='请输入终端使用店名'></input>
+        </view>
+      </view>
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">负责销售</view>
+        <view>
+          <input placeholder='希尔对应销售'></input>
+        </view>
+      </view>
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">洗碗机机型</view>
+        <view>
+          <input bindtap="changeShowModel2" value="{{ xwjjx }}"  class="ft14" />
+          <image class="{{disnone2?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue2"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal2}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange2">
+            <label class="radioitem" wx:for="{{dishwashermodel}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">另配分配器</view>
+        <view>
+          <input bindtap="changeShowModel3" value="{{ lpfpq }}" class="ft14" />
+          <image class="{{disnone3?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue3"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal3}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange3">
+            <label class="radioitem" wx:for="{{distributor}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">其他配件</view>
+        <view>
+          <input bindtap="changeShowModel4" value="{{ qtpj }}" class="ft14" />
+          <image class="{{disnone4?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue4"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal4}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange4">
+            <label class="radioitem" wx:for="{{parts}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">清洁剂每月发货计划</view>
+        <view>
+          <input bindtap="changeShowModel5" value="{{ fhjh }}" class="ft14" />
+          <image class="{{disnone5?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue5"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal5}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange5">
+            <label class="radioitem" wx:for="{{delplan}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+    </swiper-item>
+
+
+
+    <!-- //安装信息 -->
+    <swiper-item>
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">安装联系人</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">安装联系人电话</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">安装地址</view>
+        <view>
+          <input placeholder='请输入' type="text" maxlength="11"></input>
+        </view>
+      </view>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font" type="text" maxlength="11">安装街道详细地址</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">安装具体位置</view>
+        <view>
+          <input type="text" placeholder='请输入' maxlength="11"></input>
+        </view>
+      </view>
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">预计安装时间</view>
+        <view class="section">
+          <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+            <view class="picker ft14">
+              {{ azsj }} {{date}}
+            </view>
+          </picker>
+        </view>
+      </view>
+
+
+
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">收货地址</view>
+        <view>
+          <input bindtap="changeShowModel6" value="{{ shdz }}" class="ft14" />
+          <image class="{{disnone6?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue6"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal6}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange6">
+            <label class="radioitem" wx:for="{{profile}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+    </swiper-item>
+
+
+
+    <!-- //开票信息 -->
+    <swiper-item>
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">开票类型</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">开票抬头</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">税号</view>
+        <view>
+          <input placeholder='请输入' type="text" maxlength="11"></input>
+        </view>
+      </view>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font" type="text" maxlength="11">开票地址</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">开户银行名称</view>
+        <view>
+          <input type="text" placeholder='请输入' maxlength="11"></input>
+        </view>
+      </view>
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">开户银行账号</view>
+        <view>
+          <input type="text" placeholder='请输入' maxlength="11"></input>
+        </view>
+
+      </view>
+    </swiper-item>
+
+
+
+    <!-- //收票信息 -->
+    <swiper-item>
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">收票联系人</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">收票联系人电话</view>
+        <view>
+          <input placeholder='请输入'></input>
+        </view>
+      </view>
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">收票地址</view>
+        <view>
+          <input placeholder='请输入' type="text" maxlength="11"></input>
+        </view>
+      </view>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">连锁客户</view>
+        <view>
+          <input bindtap="changeShowModel7" value="{{ lskh }}" class="ft14" />
+          <image class="{{disnone7?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue7"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal7}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange7">
+            <label class="radioitem" wx:for="{{customer}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">月租金</view>
+        <view>
+          <input type="text" placeholder='请输入' maxlength="11"></input>
+        </view>
+      </view>
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">月度/季度开票</view>
+        <view>
+          <input bindtap="changeShowModel8" value="{{ kp }}" class="ft14" />
+          <image class="{{disnone8?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue8"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal8}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange8">
+            <label class="radioitem" wx:for="{{invoice}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">押金</view>
+        <view>
+          <input bindtap="changeShowModel9" value="{{ yj }}" class="ft14" />
+          <image class="{{disnone9?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue9"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal9}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange9">
+            <label class="radioitem" wx:for="{{cash}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">押金金额</view>
+        <view>
+          <input type="text" placeholder='如无押金,请输入0' maxlength="11"></input>
+        </view>
+      </view>
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">押金金额</view>
+        <view>
+          <input type="text" placeholder='如无特殊要求,请填写无' maxlength="11"></input>
+        </view>
+      </view>
+
+
+
+
+
+
+      <view class="flex maket_info_first">
+        <view class="maket_info_first_font">是否回购/外购项目</view>
+        <view>
+          <input bindtap="changeShowModel10" value="{{ hg }}" class="ft14" />
+          <image class="{{disnone10?'':'disnone'}}" src="/images/detele.png" catchtap="changevalue10"></image>
+        </view>
+      </view>
+      <sale-detail show="{{showModal10}}" height='20%' bindcancel="modalCancel" bindconfirm='modalConfirm'>
+        <view class="radio">
+          <radio-group class="radio-group" bindchange="radioChange10">
+            <label class="radioitem" wx:for="{{outsource}}" wx:key="{{ index }}">
+
+              <radio value="{{item.name}}" checked="{{}}" />
+              <view>{{item.value}}</view>
+            </label>
+          </radio-group>
+        </view>
+      </sale-detail>
+      <button formType="submit">提交</button>
+    </swiper-item>
+  </swiper>
+  
+</view>
+</form>

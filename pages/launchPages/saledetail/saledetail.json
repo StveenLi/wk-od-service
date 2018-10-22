@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "sale-detail": "../../../components/sale-detail/model",
+    "sale-detailtotall":"../../../components/sale-detailtotall/sale-detailtotall"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#FF5F11",
+  "navigationBarTitleText": "销售项目详细",
+  "navigationBarTextStyle": "white"
+}
