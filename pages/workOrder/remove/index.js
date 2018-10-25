@@ -13,42 +13,42 @@ Page({
     files: [],
     date: new Date().format("yyyy-MM-dd hh:mm:ss"),
     isPhoneFix: false,
-    outAddress:'',
-    nowAddress:'',
-    remarks:'',
-    photoFiles:[],
-    user:{},
+    outAddress: '',
+    nowAddress: '',
+    remarks: '',
+    photoFiles: [],
+    user: {},
     showPopup: false,
     commentVal: '',
     commentFilePaths: [],
-    removeRs:[],
-    removeRIndex:0
+    removeRs: [],
+    removeRIndex: 0
   },
-  getRemoveReasonList: function () {
+  getRemoveReasonList: function() {
     let that = this;
     api.fetch({
       url: 'rest/comment/findFaultList?code=cjyy',
       callback: (err, result) => {
         if (result.success) {
           that.setData({
-            removeRs:result.list[0].nodes
+            removeRs: result.list[0].nodes
           })
         }
       }
     })
   },
-  bindRemoveRChange:function(e){
+  bindRemoveRChange: function(e) {
     this.setData({
-      removeRIndex:e.detail.value
+      removeRIndex: e.detail.value
     })
   },
-  switchChange: function () {
+  switchChange: function() {
     let self = this;
     this.setData({
       isPhoneFix: !self.data.isPhoneFix
     })
   },
-  loadDetail: function (item) {
+  loadDetail: function(item) {
     let self = this;
     api.fetch({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
@@ -65,7 +65,7 @@ Page({
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
             files: fis,
-            photoFiles:fis
+            photoFiles: fis
           })
           self._seeDoneChange();
         }
@@ -73,7 +73,7 @@ Page({
     });
   },
 
-  _seeDoneChange: function () {
+  _seeDoneChange: function() {
     let that = this;
     //如果用户为员工&&工单未被查看
     if (that.data.user.type == 1 && that.data.orderDetail.dell.links.subStatus == 0) {
@@ -92,20 +92,22 @@ Page({
     }
   },
 
-  chooseImage: function (e) {
+  chooseImage: function(e) {
     var that = this;
     wx.chooseImage({
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: 6,
-      success: function (res) {
+      success: function(res) {
         for (let tempImg of res.tempFilePaths) {
           wx.uploadFile({
             url: api.url + '/rest/comment/upload',
             filePath: tempImg,
             name: 'file',
-            header: { "Content-Type": "multipart/form-data" },
-            success: function (result) {
+            header: {
+              "Content-Type": "multipart/form-data"
+            },
+            success: function(result) {
               var resultData = JSON.parse(result.data)
               let pfs = that.data.photoFiles;
               if (resultData.success) {
@@ -117,7 +119,7 @@ Page({
 
               }
             },
-            fail: function (e) {
+            fail: function(e) {
               console.log(e);
             }
           })
@@ -129,29 +131,29 @@ Page({
       }
     })
   },
-  previewImage: function (e) {
+  previewImage: function(e) {
     wx.previewImage({
       current: e.currentTarget.id, // 当前显示图片的http链接
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
-  delImage:function(e){
+  delImage: function(e) {
     let fis = this.data.files;
     let index = fis.indexOf(e.target.dataset.currentimg)
-    fis.splice(index,1);
+    fis.splice(index, 1);
     this.setData({
       files: fis,
-      photoFiles:fis
+      photoFiles: fis
     })
   },
 
-  lastSubmit: function (e) {
+  lastSubmit: function(e) {
     let that = this;
     //doUpdate
-    if(that.data.nowAddress == ''){
+    if (that.data.nowAddress == '') {
       wx.showToast({
         title: '您还未签入！',
-        icon:'none',
+        icon: 'none',
         duration: 2000
       })
       return;
@@ -204,7 +206,7 @@ Page({
       }
     })
   },
-  remarkChange: function (e) {
+  remarkChange: function(e) {
     this.setData({
       remarks: e.detail.value
     })
@@ -212,11 +214,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     let that = this;
     wx.getStorage({
       key: 'user',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           user: res.data
         })
@@ -233,72 +235,105 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+    this.setlocation();
+  },
+  setlocation:function(){
+    let self = this;
+    const item = self.data.listItem;
+    api.fetch({
+      url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
+      callback: (err, result) => {
+        if (result.success) {
+          self.setData({
+            nowAddress: result.signInAddress == null ? '' : result.signInAddress,
+            outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
+          })
+        }
+      }
+    });
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
-  locationSignIn: function () {
-    this.loactionSign('in')
+  locationSignIn: function() {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Dell',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
   },
-  loactionSignOut: function () {
-    this.loactionSign('out')
+  loactionSignOut: function() {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Dell',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
   },
-  loactionSign: function (inOrOut) {
+  loactionSign: function(inOrOut) {
     let that = this;
     qqmapsdk = new QQMapWX({
       key: 'O2ABZ-GXFCP-YY5D3-VOVIV-PWJ2Q-D7BKJ' // 必填
     });
     wx.getLocation({
       type: 'wgs84',
-      success: function (res) {
+      success: function(res) {
         //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
             longitude: res.longitude
           },
-          success: function (addressRes) {
+          success: function(addressRes) {
             console.log(addressRes);
             var address = addressRes.result.formatted_addresses.recommend;
             var inSign = {};
@@ -312,13 +347,17 @@ Page({
             inSign.workId = that.data.listItem.id;
             wx.getStorage({
               key: 'systemInfo',
-              success: function (res) {
+              success: function(res) {
                 inSign.phone = res.data.model
               },
             });
             inSign.userId = that.data.user.userId
             inSign.signArddessDetail = addressRes.result.address;
-            inOrOut == 'in' ? that.setData({ nowAddress: address }) : that.setData({ outAddress: address });
+            inOrOut == 'in' ? that.setData({
+              nowAddress: address
+            }) : that.setData({
+              outAddress: address
+            });
 
             api.fetch({
               url: 'rest/work/sign',
@@ -333,12 +372,12 @@ Page({
     })
   },
   //评论组件
-  toCommit: function (options) {
+  toCommit: function(options) {
     this.setData({
       showPopup: true
     })
   },
-  textAreaChange: function (e) {
+  textAreaChange: function(e) {
     this.setData({
       commentVal: e.detail.value
     })
@@ -354,7 +393,11 @@ Page({
   },
   subComment(e) {
     let that = this;
-    const { commentFilePaths, commentVal, user } = this.data
+    const {
+      commentFilePaths,
+      commentVal,
+      user
+    } = this.data
     api._submitComment(
       commentVal,
       user.userId,
@@ -365,7 +408,9 @@ Page({
     this.loadDetail(this.data.listItem)
   },
   delCommentImage(e) {
-    let { commentFilePaths } = this.data
+    let {
+      commentFilePaths
+    } = this.data
     commentFilePaths.splice(e.detail, 1);
     this.setData({
       commentFilePaths: commentFilePaths

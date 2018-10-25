@@ -58,67 +58,43 @@ Page({
   },
 
   locationSignGo: function () {
-    this.loactionSign('go')
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
   },
   locationSignArrive: function () {
-    this.loactionSign('arrive')
+    let that = this;
+    let signInfo = {
+      inOrOut: 'return',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
   },
 
   loactionReturnArrive: function () {
-    this.loactionSign('return')
-  },
-  loactionSign: function (inOrOut) {
     let that = this;
-    qqmapsdk = new QQMapWX({
-      key: 'O2ABZ-GXFCP-YY5D3-VOVIV-PWJ2Q-D7BKJ' // 必填
-    });
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (addressRes) {
-            console.log(addressRes);
-            var address = addressRes.result.formatted_addresses.recommend;
-            var inSign = {};
-            inSign.signAddress = address;
-            inSign.signTime = new Date().format("yyyy-MM-dd hh:mm:ss");
-
-            inSign.signType = (inOrOut == 'go' ? 1 : inOrOut == 'return'?2:3); //1签入2签出
-            inSign.signX = res.latitude;
-            inSign.signY = res.longitude;
-            inSign.stype = 'Delivery';
-            inSign.workId = that.data.listItem.id;
-            wx.getStorage({
-              key: 'systemInfo',
-              success: function (res) {
-                inSign.phone = res.data.model
-              },
-            });
-            inSign.userId = that.data.user.userId;
-            inSign.signArddessDetail = addressRes.result.address;
-            inOrOut == 'go' ? that.setData({ goSignAddress: address }) : inOrOut == 'return' ? that.setData({ returnSignAddress: address }) : that.setData({ arriveSignAddress: address });
-
-            api.fetch({
-              url: 'rest/work/sign',
-              data: inSign,
-              callback: (err, result) => {
-                wx.showToast({
-                  title: '签到成功！',
-                  icon:'success',
-                  duration:2000
-                })
-              }
-            })
-          }
-        })
-      }
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
+  
   lastSubmit: function (e) {
     let that = this;
     if(that.data.signImg == ''){
@@ -218,7 +194,7 @@ Page({
       api.fetch({
         url: 'rest/work/doSubmit',
         data: {
-          bigWorkOrderId: that.data.orderDetail.delivery.pWrodeliveryk.id,
+          bigWorkOrderId: that.data.orderDetail.delivery.pWrok.id,
           workId: that.data.listItem.id,
           status: 5,
           stype: 'Delivery',
@@ -277,7 +253,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.setlocation();
+  },
+
+  setlocation: function () {
+    let self = this;
+    const item = self.data.listItem;
+    api.fetch({
+      url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
+      callback: (err, result) => {
+        if (result.success) {
+          self.setData({
+            goSignAddress: result.depart == null ? '' : result.depart,
+            arriveSignAddress: result.reach == null ? '' : result.reach,
+            returnSignAddress: result.back == null ? '' : result.back,
+          })
+        }
+      }
+    });
   },
 
   /**

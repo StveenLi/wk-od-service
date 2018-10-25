@@ -1,11 +1,13 @@
 'use strict';
+var QQMapWX = require('qqmap-wx-jssdk.js');
+var qqmapsdk;
 // api 路径
 //测试
 const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
 // const HOST = 'https://www.linkitchen.com';
 
-// const HOST = 'http://192.168.0.193:8080/CServer';
+// const HOST = 'http://192.168.0.102:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={
     HOST:HOST
@@ -301,6 +303,40 @@ const Util={
         }
       })
     },
+
+  loactionSign: function (inOrOut, stype, workId, userId, latitude, longitude,address,successFunc) {
+    let that = this;
+    qqmapsdk = new QQMapWX({
+      key: 'O2ABZ-GXFCP-YY5D3-VOVIV-PWJ2Q-D7BKJ' // 必填
+    });
+    
+    var inSign = {};
+    inSign.signAddress = address;
+    inSign.signTime = new Date().format("yyyy-MM-dd hh:mm:ss");
+
+    inSign.signType = inOrOut == 'in' ? 1 : inOrOut=='out'?2:3; //1签入2签出3到达
+    inSign.signX = latitude;
+    inSign.signY = longitude;
+    inSign.stype = stype;
+    inSign.workId = workId;
+    wx.getStorage({
+      key: 'systemInfo',
+      success: function (res) {
+        inSign.phone = res.data.model
+      },
+    });
+    inSign.userId = userId
+    inSign.signArddessDetail = address;
+    // inOrOut == 'in' ? that.setData({ nowAddress: address }) : that.setData({ outAddress: address });
+
+    that.fetch({
+      url: 'rest/work/sign',
+      data: inSign,
+      callback: (err, result) => {
+        successFunc();
+      }
+    })
+  },
 
 }
 

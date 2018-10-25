@@ -39,7 +39,7 @@
       <view class="weui-label">机器状态</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" bindinput='placeChange' placeholder="待翻新" disabled='false'/>
+      <input class="weui-input" bindinput='placeChange' placeholder="待翻新" disabled='false' />
     </view>
   </view>
 
@@ -52,32 +52,41 @@
     </view>
   </view>
 
+  <!-- <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch ">
+      <view class="weui-cell__bd">申请配件</view>
+      <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
+        去申请 >
+      </view>
+    </view>
+  </view> -->
+
   <view class="page__bd">
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <view class="weui-uploader">
-              <view class="weui-uploader__hd">
-                <view class="weui-uploader__title">图片附件上传</view>
-                <view class="weui-uploader__info">{{files.length}}/6</view>
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__title">图片附件上传</view>
+              <view class="weui-uploader__info">{{files.length}}/6</view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
               </view>
-              <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderFiles">
-                  <block wx:for="{{files}}" wx:key="*this">
-                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                    </view>
-                  </block>
-                </view>
-                <view class="weui-uploader__input-box">
-                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
             </view>
           </view>
         </view>
       </view>
     </view>
+  </view>
 
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
@@ -91,5 +100,5 @@
 
 
 <view class='bottom-btn-view flex-row'>
-  <button class='flex-1 bottom-btn' bindtap='finalSub'>发起</button>
+  <button class='flex-1 bottom-btn' bindtap='finalSub'>申请补件 ></button>
 </view>

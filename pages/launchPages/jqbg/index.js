@@ -16,7 +16,12 @@ Page({
     newMachineCode:'',currentItem:{},
     user:{}
   },
-
+  toRequestPage: function () {
+    let that = this;
+    wx.navigateTo({
+      url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id
+    })
+  },
   finalSub:function(){
     let that = this;
     if (!that.data.currentItem.machineId){
@@ -49,9 +54,28 @@ Page({
       },
       callback: (err, result) => {
         if (result.success) {
-          wx.navigateBack({
-            url:'/pages/launch/index'
-          })
+          // wx.navigateBack({
+          //   url:'/pages/launch/index'
+          // })
+
+          wx.showModal({
+            title: '是否申请补件？',
+            // content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+            confirmText: "申请",
+            cancelText: "不申请",
+            success: function (res) {
+              console.log(res);
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: 'request?workLinkId=' + result.one
+                })
+              } else {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          });
         }else{
           wx.showToast({
             title: result.msg,
@@ -143,9 +167,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
   },
-
+ 
   /**
    * 生命周期函数--监听页面隐藏
    */

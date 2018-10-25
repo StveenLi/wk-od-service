@@ -77,11 +77,12 @@
           <view class="weui-label" style='padding:5px 0'>解决方案</view>
         </view>
         <view class="weui-cell__bd">
-        <block wx:if="{{!showPopup}}">
-        <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' value='{{remarks}}' ></textarea></block>
+          <block wx:if="{{!showPopup}}">
+            <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' value='{{remarks}}'></textarea>
+          </block>
         </view>
       </view>
-      
+
 
       <!-- <block wx:if="{{errorIndex == 1}}">
 
@@ -116,18 +117,18 @@
         <view wx:for="{{du_patchs}}" wx:key="*this">
           <view style='color:#999'>
             <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
-            <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
-            <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
+              <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+              <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
             </view>
             <view wx:for="{{item}}" wx:key="*this">
 
               <view> {{item.groupName}}*{{item.groupValue}} </view>
-              
+
             </view>
           </view>
         </view>
-        
-        
+
+
 
         <!-- <block wx:for='{{patch}}'>
           
@@ -194,7 +195,7 @@
               {{item.progress}}%
             </cover-view>
             <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
-            
+
           </view>
 
           <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
@@ -248,7 +249,7 @@
 
 
 </block>
-  <comment-view comments="{{orderDetail.comments}}"></comment-view>
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
 
 <block wx:if="{{user.type == 2}}">
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
@@ -257,7 +258,7 @@
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
     <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>维修完成</button>
-        <button class='flex-1 bottom-btn' bindtap='unDoSuccess'>维修未完成</button>
+    <button class='flex-1 bottom-btn' bindtap='unDoSuccess'>维修未完成</button>
 
   </view>
 </block>

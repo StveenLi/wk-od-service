@@ -4,7 +4,7 @@
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
-    <view class='flex-1 middle-all'>补件单</view>
+  <view class='flex-1 middle-all'>补件单</view>
 
   <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
     <view class='flex-1'>{{orderDetail.wrCode}}</view>
@@ -22,6 +22,23 @@
       </block>
     </view>
   </block>
+
+  <view class=" weui-cells_after-title border-bottom-gainsboro">
+    <view class=" weui-cell_switch">
+      <view class="weui-cell__bd"></view>
+    </view>
+    <view wx:for="{{du_patchs}}" wx:key="*this">
+      <view style='color:#999'>
+        <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+          <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+          <!-- <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view> -->
+        </view>
+        <view wx:for="{{item}}" wx:key="*this">
+          <view> {{item.groupName}}*{{item.groupValue}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
 
 

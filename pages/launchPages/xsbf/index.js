@@ -72,62 +72,27 @@ Page({
   },
 
   locationSignIn: function () {
-    console.log('in')
-    this.loactionSign('in')
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Visit',
+      workId: '',
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
   },
   loactionSignOut: function () {
-    this.loactionSign('out')
-  },
-  loactionSign: function (inOrOut) {
     let that = this;
-    qqmapsdk = new QQMapWX({
-      key: 'O2ABZ-GXFCP-YY5D3-VOVIV-PWJ2Q-D7BKJ' // 必填
-    });
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function (addressRes) {
-            console.log(addressRes);
-            var address = addressRes.result.formatted_addresses.recommend;
-            var inSign = {};
-            inSign.signAddress = address;
-            inSign.signTime = new Date().format("yyyy-MM-dd hh:mm:ss");
-
-            inSign.signType = inOrOut == 'in' ? 1 : 2; //1签入2签出
-            inSign.signX = res.latitude;
-            inSign.signY = res.longitude;
-            inSign.stype = 'Visit';
-            // inSign.workId = that.data.listItem.id;
-            wx.getStorage({
-              key: 'systemInfo',
-              success: function (res) {
-                inSign.phone = res.data.model
-              },
-            });
-            inSign.userId = that.data.user.userId
-            inSign.signArddessDetail = addressRes.result.address;
-            inOrOut == 'in' ? that.setData({
-              nowAddress: address
-            }) : that.setData({
-              outAddress: address
-            });
-
-            api.fetch({
-              url: 'rest/work/sign',
-              data: inSign,
-              callback: (err, result) => {
-                console.log(result);
-              }
-            })
-          }
-        })
-      }
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Visit',
+      workId: '',
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
 
@@ -150,6 +115,7 @@ Page({
         })
       },
     });
+    
   },
 
   /**
@@ -163,7 +129,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    let that = this;
+    wx.getStorage({
+      key: 'visitInAddr',
+      success: function (res) {
+        that.setData({
+          nowAddress: res.data
+        })
+      },
+    });
+    wx.getStorage({
+      key: 'visitOutAddr',
+      success: function (res) {
+        that.setData({
+          outAddress: res.data
+        })
+      },
+    });
   },
 
   /**

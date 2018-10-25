@@ -69,8 +69,51 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setPatch();
   },
+
+  setPatch: function () {
+    let self = this;
+    let item = this.data.listItem
+    api.fetch({
+      url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
+      callback: (err, result) => {
+        if (result.success) {
+          let du_patches = [];
+          let du_id = 0;
+          let du_times = 0;
+          let du_patch_children = [];
+
+          for (let pa of result.patch) {
+            if (result.patch.indexOf(pa) === 0) {
+              du_id = pa.wId;
+            }
+            if (du_id == pa.wId) {
+              du_patch_children.push(pa);
+            }
+            if (du_id != pa.wId) {
+              du_patches.push(du_patch_children);
+              du_patch_children = [];
+              du_patch_children.push(pa);
+              du_times++;
+              du_id = pa.wId;
+            }
+            if (result.patch.indexOf(pa) === result.patch.length - 1) {
+              du_patches.push(du_patch_children);
+            }
+          }
+
+          self.setData({
+            du_patchs: du_patches
+          })
+          this.setData({
+            patch: result.patch
+          })
+        }
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面隐藏
