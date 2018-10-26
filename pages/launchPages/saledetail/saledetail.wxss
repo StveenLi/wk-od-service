@@ -1,16 +1,17 @@
-
+page{
+  background-color:white;
+}
 .flex{
   display:flex;
 }
 .scroll{
   padding:5px 0;
-  background-color:#ff8034;
   font-size:15px;
   justify-content: space-around;
 }
 .select{
-  border-bottom:2px solid white;
-  color:white;
+  border-bottom:2px solid #3c8df9;
+  color:#3c8df9;
   font-weight:700;
   opacity:.8;
   transition:1s;
@@ -27,8 +28,11 @@
   line-height:45px;
   font-size:16px;
 }
-.ft14{
+picker{
   font-size:14px;
+}
+picker text{
+  color:gray;
 }
 
 .maket_info_first  image{
@@ -65,7 +69,10 @@
   margin:20px auto;
 }
 button{
-  margin-top:40px;
+  position:absolute;
+  width:100%;
+  bottom:0;
   color:white;
   background-color:#3c8df9;
+  
 }

@@ -14,6 +14,7 @@ Page({
       { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
       { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
       { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
+      // { name: '销售项目详细', icon: '../../images/icon/xz.png', navigateUrl: '../launchPages/saledetail/saledetail' },
       
     ],
           user: {},
@@ -63,7 +64,7 @@ Page({
           url: 'rest/work/myWorkList?userId=' + res.data.userId,
           callback: (err, result) => {
             if (result.success) {
-              console.log(result)
+              //console.log(result)
               that.setData({
                 myOrderList: result.list
               })

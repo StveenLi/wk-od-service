@@ -5,7 +5,7 @@
       <view class="section">
         <picker name="Date" value="{{ index }}" range="{{ TypeArray }}" bindchange="bindTypeChange">
           <view class="picker">
-            {{ V_type }} {{ TypeArray[index] }}
+            <text>{{ V_type }} </text>{{ TypeArray[index] }}
           </view>
         </picker>
       </view>
@@ -15,7 +15,7 @@
       <view class="section">
         <picker name="start_time" mode="date" value="{{ date }}" start="2015-09-01" end="2017-09-01" bindchange='start_time'>
           <view class="picker">
-            {{ V_start }}{{ date1 }}
+            <text>{{ V_start }}</text>{{ date1 }}
           </view>
         </picker>
       </view>
@@ -25,7 +25,7 @@
       <view class="section">
         <picker name="end_time" mode="date" value="{{ date }}" start="2015-09-01" end="2017-09-01" bindchange="V_end">
           <view class="picker">
-            {{ V_end }}{{ date2 }}
+            <text>{{ V_end }}</text>{{ date2 }}
           </view>
         </picker>
       </view>

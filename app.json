@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/launchPages/saledetail/saledetail",
     "pages/login/index",
+    "pages/launchPages/saledetail/saledetail",
     "pages/orderDetail/searched/index",
     "pages/orderDetail/wipeOut/index",
     "pages/launchPages/vacate/vacate",

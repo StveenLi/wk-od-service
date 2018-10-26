@@ -5,117 +5,129 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user:{},
     flag: 0,
     currentTab: 0,
     showModal:false,
     scrollLeft:0,
     winHeight:'',
     azsj:'请选择 >',
-    disnone:false,
-    pt:'请选择 >',
-
-    companyname:[
-      { name: '上海洁先实业有限公司', value:'上海洁先实业有限公司'},
-      { name: '北京安优净科技有限公司', value:'北京安优净科技有限公司'},
-      { name: '深圳食卫科技有限公司', value:'深圳食卫科技有限公司' },
-      { name: '上海洁先智能科技有限公司', value:'上海洁先智能科技有限公司' }
-
-    ],
-    disnone1:false,
-    showModal1:false,
-    khlx: '请选择 >',
-    clienttype: [
-      { name: '直销客户', value: '直销客户' },
-      { name: '代理商客户', value: '代理商客户' },
-    ],
-    disnone2:false,
-    showModal2: false,
-    xwjjx: '请选择 >',
-    dishwashermodel: [
-      { name: '60D+Suma分配器', value: '60D+Suma分配器' },
-      { name: '60S+Suma分配器', value: '60S+Suma分配器' },
-      { name: '60D+Suma分配器', value: '60D+Suma分配器' },
-      { name: '60S+Suma分配器', value: '60S+Suma分配器' }
-
-    ],
-    // 另配分配器
-    disnone3: false,
-    showModal3: false,
-    lpfpq: '请选择 >',
-    distributor: [
-      { name: 'Suma分配器', value: 'Suma分配器' },
-      { name: 'D3000分配器', value: 'D3000分配器' },
-    ],
-    //其他配件
-    disnone4: false,
-    showModal4: false,
-    qtpj: '请选择 >',
-    parts: [
-      { name: '预洗缸(FT-5100A)', value: '预洗缸(FT-5100A)' },
-      { name: '烘干模块(10Kw)', value: '烘干模块(10Kw)' },
-      { name: '烘干机(200RE)', value: '烘干机(200RE)' },
-      { name: '烘干机(200RS)', value: '烘干模块(200RS)' },
-      { name: '无', value: '无' },
-    ],
-    //每月发货计划
-    disnone5: false,
-    showModal5: false,
-    fhjh: '请选择 >',
-    delplan: [
-      { name: '(2+1+0.5)每月', value: '(2+1+0.5)每月' },
-      { name: '(3+2+0.5)每月', value: '(3+2+0.5)每月' },
-      { name: '(6+4+1)每月', value: '(6+4+1)每月' },
-      { name: '(2+1+0.5)每2月', value: '(2+1+0.5)每2月' },
-      
-    ],
-    //收货地址
-    disnone6: false,
-    showModal6: false,
-    shdz: '请选择 >',
-    profile: [
-      { name: '客户安装地址', value: '客户安装地址' },
-      { name: '系统默认地址', value: '系统默认地址' },
-      { name: '其他备注请说明', value: '其他备注请说明' },
-      
-    ],
-    //连锁客户
-    disnone7: false,
-    showModal7: false,
-    lskh: '请选择 >',
-    customer: [
-      { name: '食其家', value: '食其家' },
-      { name: '凯瑞集团', value: '凯瑞集团' },
-      { name: '眉州东坡', value: '眉州东坡' },
-
-    ],
-    //月度/季度开票
-    disnone8: false,
-    showModal8: false,
-    kp: '请选择 >',
-    invoice: [
-      { name: '月度开票', value: '月度开票' },
-      { name: '季度开票', value: '季度开票' },
-      
-    ],
-    //押金
-    disnone9: false,
-    showModal9: false,
-    yj: '请选择 >',
-    cash: [
-      { name: '有', value: '有' },
-      { name: '无', value: '无' },
-
-    ],
-    //是否回购
-    disnone10: false,
-    showModal10: false,
-    hg: '请选择 >',
-    outsource: [
-      { name: '回购', value: '回购' },
-      { name: '外购', value: '外购' },
-
-    ],
     
+    pt:'请选择 >',
+    index:'',
+    companyname: ['上海洁先实业有限公司', '北京安优净科技有限公司', '深圳食卫科技有限公司', '上海洁先智能科技有限公司'],
+    companyname_:'',
+      
+
+    khlx: '请选择 >',
+    index1:'',
+    clienttype: ['直销客户', '代理商客户'],
+    clienttype_:'',
+    
+    
+    xwjjx: '请选择 >',
+    index2:'',
+    dishwashermodel: ['60D+Suma分配器', '60S+Suma分配器', '60D+Suma分配器', '60S+Suma分配器',],
+    dishwashermodel_:'',
+
+   
+    // 另配分配器
+    lpfpq: '请选择 >',
+    index3:'',
+    distributor: ['Suma分配器', 'D3000分配器'],
+    distributor_:'',
+    
+    //其他配件
+    qtpj: '请选择 >',
+    index4:'',
+    parts: ['预洗缸(FT-5100A)', '烘干模块(10Kw)', '烘干机(200RE)', '烘干机(200RS)', '无'],
+    parts_:'',
+    
+    //每月发货计划
+    fhjh: '请选择 >',
+    index5:'',
+    delplan: ['(2+1+0.5)每月', '(3+2+0.5)每月', '(6+4+1)每月', '(2+1+0.5)每2月'],
+    delplan_:'',
+    
+    //收货地址
+    shdz: '请选择 >',
+    index6:'',
+    profile: ['客户安装地址', '系统默认地址', '其他备注请说明'],
+    profile_:'',
+    
+    //连锁客户
+    lskh: '请选择 >',
+    index7:'',
+    customer: ['食其家', '凯瑞集团', '眉州东坡'],
+    customer_:'',
+    
+    //月度/季度开票
+    kp: '请选择 >',
+    index8:'',
+    invoice: ['月度开票', '季度开票'],
+    invoice_:'',
+    
+    //押金
+    yj: '请选择 >',
+    index9:'',
+    cash: ['有', '无'],
+    cash_:'',
+    
+    //是否回购
+    hg: '请选择 >',
+    index10:'',
+    outsource: ['回购', '外购'],
+    outsource_:'',
+
+    //客户名称
+    custormname:'',
+    //终端客户名称
+    zd_custormname:'',
+    //负责销售
+    sell:'',
+
+
+    //安装联系人
+    setupman:'',
+    //安装联系人电话
+    setupnumber:'',
+    //安装地址
+    setupadddress:'',
+    //安装街道详细地址
+    setupdetail:'',
+    //安装具体位置
+    setupdetailaddress:'',
+    
+
+    //开票类型
+    kp_type:'',
+    //开票抬头
+    kp_company:'',
+    //税号
+    tfn:'',
+    //开票地址
+    kp_address:'',
+    //开户银行名称
+    kp_bankname:'',
+    //开户银行账号
+    kp_banknumber: '',
+
+
+    //收票联系人
+    sp_name:'',
+    sp_number:'',
+    sp_address:'',
+    sp_money:'',
+    sp_yj:'',
+    sp_request:'',
+
+
+
+
+
+
+
+
   },
   
   
@@ -135,8 +147,19 @@ Page({
         that.setData({
           winHeight: calc
         });
-      }
+      },
+      
     });
+    
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data
+        })
+      },
+    });
+    
     
   },
 
@@ -165,7 +188,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+   
   },
 
   /**
@@ -214,245 +237,347 @@ Page({
     
   },
 
+  //picker
   //000000
   
-  radioChange(e){
+  bindPickerChange(e){
     let that = this;
     that.setData({
-      showModal:false,
-      pt:e.detail.value,
-      disnone: true
+      index:e.detail.value,
+      pt:"",
+      companyname_: that.data.companyname[e.detail.value]
     })
-  },
-  changevalue(){
-      this.setData({
-      pt: '请选择 >',
-      disnone: false
-    })
-  },
-
-  changeShowModel() {
-    this.setData({
-      showModal: true
-    })
+    
   },
   
   //111111
   
   
-  changeShowModel1(){
-    this.setData({
-      showModal1: true,
-
-    })
-  },
-  radioChange1(e){
+  bindPickerChange1(e) {
     let that = this;
-    that.setData({
-      showModal1: false,
-      khlx: e.detail.value,
-      disnone1: true
-    })
-  },
-  changevalue1(){
-    this.setData({
-      khlx: '请选择 >',
-      disnone1: false
+     that.setData({
+      index1: e.detail.value,
+       khlx: "",
+       clienttype_: that.data.clienttype[e.detail.value]
     })
   },
   
   //22222222
     
-  changeShowModel2() {
-    this.setData({
-      showModal2: true
-    })
-  },
-  radioChange2(e) {
+  bindPickerChange2(e) {
     let that = this;
     that.setData({
-      showModal2: false,
-      xwjjx: e.detail.value,
-      disnone2:true
+      index2: e.detail.value,
+      xwjjx: "",
+      dishwashermodel_: that.data.dishwashermodel[e.detail.value],
     })
-  },
-  changevalue2() {
-    this.setData({
-      xwjjx: '请选择 >',
-      disnone2: false
-    })
+    //console.log(this.data.dishwashermodel_)
   },
   
   //3333333333
-  changeShowModel3() {
-    this.setData({
-      showModal3: true
-    })
-  },
-  radioChange3(e) {
+  bindPickerChange3(e) {
     let that = this;
     that.setData({
-      showModal3: false,
-      lpfpq: e.detail.value,
-      disnone3: true
-    })
-  },
-  changevalue3() {
-    this.setData({
-      lpfpq: '请选择 >',
-      disnone3: false
+      index3: e.detail.value,
+      lpfpq: "",
+      distributor_: that.data.distributor[e.detail.value],
     })
   },
   //4444444444444
-  changeShowModel4() {
-    this.setData({
-      showModal4: true
-    })
-  },
-  radioChange4(e) {
+  bindPickerChange4(e) {
     let that = this;
     that.setData({
-      showModal4: false,
-      qtpj: e.detail.value,
-      disnone4: true
-    })
-  },
-  changevalue4() {
-    this.setData({
-      qtpj: '请选择 >',
-      disnone4: false
+      index4: e.detail.value,
+      qtpj: "",
+      parts_: that.data.parts[e.detail.value],
     })
   },
   //5555555555
-  changeShowModel5() {
+  bindPickerChange5(e) {
     this.setData({
-      showModal5: true
-    })
-  },
-  radioChange5(e) {
-    let that = this;
-    that.setData({
-      showModal5: false,
-      fhjh: e.detail.value,
-      disnone5: true
-    })
-  },
-  changevalue5() {
-    this.setData({
-      fhjh: '请选择 >',
-      disnone5: false
+      index5: e.detail.value,
+      fhjh: ""
     })
   },
   //预计安装时间
   bindDateChange: function (e) {
-    this.setData({
+    let that = this;
+    that.setData({
       date: e.detail.value,
-      azsj:''
+      azsj:'',
+      delplan_: that.data.delplan[e.detail.value]
     })
   },
 
   //6666666666666666
-  changeShowModel6() {
-    this.setData({
-      showModal6: true
-    })
-  },
-  radioChange6(e) {
+  bindPickerChange6: function (e) {
     let that = this;
     that.setData({
-      showModal6: false,
-      shdz: e.detail.value,
-      disnone6: true
-    })
-  },
-  changevalue6() {
-    this.setData({
-      shdz: '请选择 >',
-      disnone6: false
+      index6: e.detail.value,
+      shdz: '',
+      profile_: that.data.profile[e.detail.value]
     })
   },
   //777777777
-  changeShowModel7() {
-    this.setData({
-      showModal7: true
-    })
-  },
-  radioChange7(e) {
+  bindPickerChange7: function (e) {
     let that = this;
     that.setData({
-      showModal7: false,
-      lskh: e.detail.value,
-      disnone7: true
-    })
-  },
-  changevalue7() {
-    this.setData({
-      lskh: '请选择 >',
-      disnone7: false
+      index7: e.detail.value,
+      lskh: '',
+      customer_: that.data.customer[e.detail.value]
     })
   },
   //88888888888
-  changeShowModel8() {
-    this.setData({
-      showModal8: true
-    })
-  },
-  radioChange8(e) {
+  bindPickerChange8: function (e) {
     let that = this;
     that.setData({
-      showModal8: false,
-      kp: e.detail.value,
-      disnone8: true
-    })
-  },
-  changevalue8() {
-    this.setData({
-      kp: '请选择 >',
-      disnone8: false
+      index8: e.detail.value,
+      kp: '',
+      invoice_: that.data.invoice[e.detail.value]
     })
   },
   //99999999999
-  changeShowModel9() {
-    this.setData({
-      showModal9: true
-    })
-  },
-  radioChange9(e) {
+  bindPickerChange9: function (e) {
     let that = this;
     that.setData({
-      showModal9: false,
-      yj: e.detail.value,
-      disnone9: true
-    })
-  },
-  changevalue9() {
-    this.setData({
-      yj: '请选择 >',
-      disnone9: false
+      index9: e.detail.value,
+      yj: '',
+      cash_: that.data.cash[e.detail.value]
     })
   },
   //101010101010
-  changeShowModel10() {
+  bindPickerChange10: function (e) {
+    let that = this;
     this.setData({
-      showModal10: true
+      index10: e.detail.value,
+      hg: '',
+      outsource_: that.data.outsource[e.detail.value]
+    })
+    
+  },
+  
+  //去空格
+  //
+  verification(e){
+    var name =e.currentTarget.dataset.name;
+    this.setData({
+      [name]: e.detail.value.replace(/\s+/g, '')
     })
   },
-  radioChange10(e) {
+  
+  //add
+  //客户名称
+  add_custormname(e){
     let that = this;
     that.setData({
-      showModal10: false,
-      hg: e.detail.value,
-      disnone10: true
+     custormname:e.detail.value
+   }) 
+  },
+  //终端客户名称
+  add_zd_custormname(e){
+    let that = this;
+    that.setData({
+      zd_custormname: e.detail.value
+    }) 
+  },
+  //负责销售
+  add_sell(e){
+    let that = this;
+    that.setData({
+      sell: e.detail.value
     })
   },
-  changevalue10() {
-    this.setData({
-      hg: '请选择 >',
-      disnone10: false
+
+  //安装联系人
+  add_setupman(e){
+    let that = this;
+    that.setData({
+      setupman: e.detail.value
     })
   },
+  //安装联系人电话
+  add_setupnumber(e){
+    let that = this;
+    that.setData({
+      setupnumber: e.detail.value
+    })
+  },
+  //安装地址
+  add_setupadddress(e){
+    let that = this;
+    that.setData({
+      setupadddress: e.detail.value
+    })
+  },
+  
+  //安装街道详细地址
+  add_setupdetail(e){
+    let that = this;
+    that.setData({
+      setupdetail: e.detail.value
+    })
+  },
+
+  //安装具体位置
+  add_setupdetailaddress(e) {
+    let that = this;
+    that.setData({
+      setupdetailaddress: e.detail.value
+    })
+  },
+
+  
+  
+  //开票类型
+  add_kp_type(e) {
+    let that = this;
+    that.setData({
+      kp_type: e.detail.value
+    })
+  },
+  //开票抬头
+  add_kp_company(e) {
+    let that = this;
+    that.setData({
+      kp_company: e.detail.value
+    })
+  },
+  //税号
+  add_tfn(e) {
+    let that = this;
+    that.setData({
+      tfn: e.detail.value
+    })
+  },
+  
+  //开票地址
+  add_kp_address(e) {
+    let that = this;
+    that.setData({
+      kp_address: e.detail.value
+    })
+  },
+  //开户银行名称
+  add_kp_bankname(e) {
+    let that = this;
+    that.setData({
+      kp_bankname: e.detail.value
+    })
+  },
+  //开户银行账号
+  add_kp_banknumber(e) {
+    let that = this;
+    that.setData({
+      kp_banknumber: e.detail.value
+    })
+  },
+
+
+  //收票联系人
+  add_sp_name(e) {
+    let that = this;
+    that.setData({
+      sp_name: e.detail.value
+    })
+  },
+  //收票联系人电话
+  add_sp_number(e) {
+    let that = this;
+    that.setData({
+      sp_number: e.detail.value
+    })
+  },
+  //收票地址
+  add_sp_address(e) {
+    let that = this;
+    that.setData({
+      sp_address: e.detail.value
+    })
+  },
+  //月租金
+  add_sp_money(e) {
+    let that = this;
+    that.setData({
+      sp_money: e.detail.value
+    })
+  },
+  //押金金额
+  add_sp_yj(e) {
+    let that = this;
+    that.setData({
+      sp_yj: e.detail.value
+    })
+  },
+  //押金要求
+  add_sp_request(e) {
+    let that = this;
+    that.setData({
+      sp_request: e.detail.value
+    })
+  },
+  
+  
+  
+  
+  
+  //提交
   finalSub(e){
-    console.log(e);
-  }
+    
+    if(e.currentTarget.dataset.num == 0){
+        //基本信息
+      
+
+
+
+
+
+       this.setData({
+         currentTab:1
+       })
+
+    } else if (e.currentTarget.dataset.num == 1){
+        //安装信息
+
+      this.setData({
+        currentTab: 2
+      })
+
+
+    } else if (e.currentTarget.dataset.num == 2){
+        //开票信息
+      
+      
+      this.setData({
+        currentTab: 3
+      })
+
+      }else{
+        //收票信息
+
+      // api.fetch({
+      //   url: 'rest/work/doBigPatch',
+      //   data: {
+      //     userId: that.data.user.userId,
+
+      //   },
+      //   callback: (err, result) => {
+      //     if (result.success) {
+
+      //       wx.navigateBack({
+      //       })
+      //     }
+      //   }
+      // });
+
+      }
+
+
+
+
+   
+
+  },
+  
+  
 
 })

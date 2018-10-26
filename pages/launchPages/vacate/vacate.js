@@ -153,7 +153,7 @@ Page({
         V_type: e.detail.value.Date,
         V_day: e.detail.value.day,
         V_start_time: e.detail.value.start_time,
-        V_end_time: e.detail.value.start_time,
+        V_end_time: e.detail.value.end_time,
         V_test_reason: e.detail.value.test_reason
       },
       callback: (err, result) => {

@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.2.3",
 	"appid": "wx2d335ad7d259fad0",
-	"projectname": "jx-service-app",
+	"projectname": "jx-service-app1",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
