@@ -47,6 +47,18 @@ Page({
   },
 
 
+  unLaunch: function () {
+    let that = this;
+    api._unLaunch(that.data.orderDetail.travel.links.id, that.unLaunchSuccessFunc);
+  },
+
+  unLaunchSuccessFunc() {
+    wx.navigateBack({
+
+    })
+  },
+
+
   loadDetail: function (item) {
     let self = this;
     api.fetch({
