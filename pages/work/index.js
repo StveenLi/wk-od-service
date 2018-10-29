@@ -101,6 +101,8 @@ Page({
           navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'DWipe') {
           navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
+        } else if (item.workType == "Travel") {
+          navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
@@ -124,8 +126,9 @@ Page({
         navigateUrl = '/pages/orderDetail/parts/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'DWipe') {
         navigateUrl = '/pages/orderDetail/wipeOut/index?item=' + JSON.stringify(item);
+      } else if (item.workType == "Travel") {
+        navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
       }
-
     }
 
     wx.navigateTo({

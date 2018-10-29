@@ -23,60 +23,69 @@ Page({
     myOrderListIndex:0
   },
 
-  finalSub:function(){
+  lastSubmit_no: function () {
+    this.lastSubmit(12)
+  },
+  lastSubmit: function (status_no) {
     let that = this;
-    const { myOrderList, myOrderListIndex, liveIndex, traffics, trafficIndex, reason,startdate,enddate} = that.data;
-
-    if (myOrderList.length<1){
-      wx.showToast({
-        title: '您没有关联工单不能提交！',
-        duration:2000,
-        icon:'none'
-      })
-      return;
-    }
-    if (reason=='') {
-      wx.showToast({
-        title: '出差事由不能为空！！',
-        duration: 2000,
-        icon: 'none'
-      })
-      return;
+    let status;
+    if (status_no == 12) {
+      status = 12;
+    } else {
+      status = 8;
     }
     api.fetch({
-      url: 'rest/work/doTravel',
+      url: 'rest/work/doSubmit',
       data: {
-        stype: "Travel",
-        // userId: that.data.user.userId,
-        workLinkId: myOrderList[myOrderListIndex].workLinkId,
-        beginDate: startdate,
-        endDate: enddate,
-        isStay: liveIndex,
-        travelWay: traffics[trafficIndex],
-        businessReason: reason
+        bigWorkOrderId: that.data.orderDetail.travel.pWrok.id,
+        workId: that.data.listItem.id,
+        status: status,
+        stype: 'travel'
       },
       callback: (err, result) => {
+        console.log(result);
         if (result.success) {
           wx.navigateBack({
-            url: '/pages/launch/index'
-          })
+            url: '/pages/work/index'
+          });
         }
       }
-    });
+    })
   },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let that = this;
+    let item = JSON.parse(options.item);
+    that.setData({
+      listItem: item
+    })
+    that.loadDetail(item);
+
     wx.getStorage({
       key: 'user',
       success: function (res) {
         that.setData({
           user: res.data
         })
-        that.loadOrder()
       },
+    });
+  },
+
+
+  loadDetail: function (item) {
+    let self = this;
+    api.fetch({
+      url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
+      callback: (err, result) => {
+        if (result.success) {
+          self.setData({
+            orderDetail: result,
+          })
+        }
+      }
     });
   },
 
@@ -226,5 +235,43 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  toCommit: function (options) {
+    this.setData({
+      showPopup: true
+    })
+  },
+  textAreaChange: function (e) {
+    this.setData({
+      commentVal: e.detail.value
+    })
+  },
+  pathTo(e) {
+    let that = this;
+    let flieUploadResult = JSON.parse(e.detail);
+    let commentFilePaths = that.data.commentFilePaths
+    commentFilePaths.push(flieUploadResult.url);
+    that.setData({
+      commentFilePaths: commentFilePaths
+    })
+  },
+  subComment(e) {
+    let that = this;
+    const { commentFilePaths, commentVal, user } = this.data
+    api._submitComment(
+      commentVal,
+      user.userId,
+      that.data.orderDetail.travel.pWrok.id,
+      that.data.orderDetail.travel.links.id, that.commentSuccess, commentFilePaths)
+  },
+  commentSuccess() {
+    this.loadDetail(this.data.listItem)
+  },
+  delCommentImage(e) {
+    let { commentFilePaths } = this.data
+    commentFilePaths.splice(e.detail, 1);
+    this.setData({
+      commentFilePaths: commentFilePaths
+    })
   }
 })

@@ -1,0 +1,34 @@
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-1 middle-all'>出差工单</view>
+
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.patch.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+    <view class='flex-row box-all border-bottom-gainsboro'>
+      <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+      <block wx:if="{{item.name == '注意事项:'}}">
+        <view class='content-style padding-5' style='color:red'>{{item.value!=null?item.value:'-'}}</view>
+      </block>
+      <block wx:else>
+        <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+      </block>
+    </view>
+  </block>
+</view>
+
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+<block wx:if="{{user.type == 2}}">
+  <view class='bottom-btn-view flex-row'>
+      <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+      <button class='flex-1 bottom-btn' bindtap='lastSubmit'>同意</button>
+      <button class='flex-1 bottom-btn' bindtap='lastSubmit_no'>不同意</button>
+  </view>
+</block>
+<!-- <button class='bottom-btn' bindtap='toCommit'>评论</button> -->
+
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

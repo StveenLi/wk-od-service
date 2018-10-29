@@ -26,7 +26,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    // wx.setStorageSync('user', { "userId": 129, "name": "李鑫", "phone": "18616236045", "role": 12, "type": 1 })
+    // wx.setStorageSync('user', { "userId": 129, "name": "李鑫", "phone": "18616236045", "role": 12, "type": 1})
 
     wx.getSystemInfo({
       success: function(res) {wx.setStorageSync('systemInfo', res)},
@@ -42,7 +42,6 @@ App({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          
         }
       }
     })

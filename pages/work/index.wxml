@@ -94,6 +94,9 @@
                   <block wx:elif='{{item.workType == "DWipe"}}'>
                 <view class='order-type-wpout'>销</view>
               </block>
+              <block wx:elif='{{item.workType == "Travel"}}'>
+          <view class='order-type-travel'>差</view>
+        </block>
                 </view>
               </view>
               <view>
@@ -174,6 +177,9 @@
                     <block wx:elif='{{item.workType == "DWipe"}}'>
                 <view class='order-type-wpout'>销</view>
               </block>
+              <block wx:elif='{{item.workType == "Travel"}}'>
+          <view class='order-type-travel'>差</view>
+        </block>
                   </view>
                 </view>
                 <view>

@@ -13,8 +13,13 @@ Page({
       // { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
       { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
       { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
-      { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
       
+      
+    ],
+    _second_orderItems: [{ name: '出差单', icon: '../../images/icon/cc.png', navigateUrl: '../launchPages/travel/index' },
+      { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
+      { name: '销售项目详细', icon: '../../images/icon/qj.png', navigateUrl: '' },
+
     ],
           user: {},
     myOrderList:[]
@@ -94,6 +99,8 @@ Page({
       navigateUrl = '/pages/launchDetail/xsbf/index?item=' + JSON.stringify(item);
     }else if(item.workType == "Change"){
       navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
+    } else if (item.workType == "Travel") {
+      navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
     }
     wx.navigateTo({
       url: navigateUrl,

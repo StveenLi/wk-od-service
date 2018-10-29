@@ -9,7 +9,20 @@
         <view class='padding-5'>{{item.name}}</view>
       </view>
     </block>
+    
   </view>
+  <view class='flex-row middle-all'>
+
+  <block wx:for="{{_second_orderItems}}" wx:key="index">
+      <view class='flex-1 padding-5' hover-class='sign-button-active' data-item='{{item}}' bindtap='toTravel'>
+        <view>
+          <image src='{{item.icon}}' style='width:45px;height:45px;'></image>
+        </view>
+        <view class='padding-5'>{{item.name}}</view>
+      </view>
+    </block>
+      </view>
+
 </view>
 <view class='my-workorder'>
   <view bindtap='getMyselfInfo'>我发起的</view>
@@ -55,6 +68,9 @@
         </block>
         <block wx:elif='{{item.workType == "Patch"}}'>
           <view class='order-type-parts'>补</view>
+        </block>
+        <block wx:elif='{{item.workType == "Travel"}}'>
+          <view class='order-type-travel'>差</view>
         </block>
       </view>
     </view>

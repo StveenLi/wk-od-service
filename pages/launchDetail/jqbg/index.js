@@ -178,7 +178,7 @@ Page({
       that.data.orderDetail.change.links.id, that.commentSuccess, commentFilePaths)
   },
   commentSuccess() {
-    this.loadDetail(this.data.oitem)
+    this.loadDetail(this.data.listItem)
   },
   delCommentImage(e) {
     let { commentFilePaths } = this.data

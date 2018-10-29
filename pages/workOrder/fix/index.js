@@ -205,7 +205,6 @@ Page({
   },
 
   bindFaultColumnChange: function(e) {
-    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     const { faultList, faultIndex, faultResult} = this.data;
     if (e.detail.column == 0 && e.detail.value != 0) {
       // let allList = this.data.faultList;
@@ -232,7 +231,6 @@ Page({
   },
 
   bindFaultPickerChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       faultIndex: e.detail.value
     })
@@ -277,7 +275,6 @@ Page({
               stype: 'Repair',
             },
             callback: (err, result) => {
-              console.log(result);
               if (result.success) {
                 wx.navigateBack({})
               }
@@ -602,14 +599,15 @@ Page({
         })
         return;
       }
-      if (faultIndex[0] == 0 && faultIndex[1] == 0) {
-        wx.showToast({
-          title: '请选择故障类型再提交！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
+      
+    }
+    if (faultIndex[0] == 0 && faultIndex[1] == 0) {
+      wx.showToast({
+        title: '请选择故障类型再提交！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
     }
     //isPhoneFix 不用确认机器编号了
     if (that.data.isPhoneFix) {
@@ -660,7 +658,6 @@ Page({
       url: 'rest/work/doDeletePatch?id='+item[0].wId,
       callback: (err, result) => {
         if (result.success) {
-          // console.log(result)
           that.setPatch();
         }else{
           wx.showToast({

@@ -46,6 +46,8 @@
     "pages/launchDetail/patch/index",
     "pages/launchDetail/xsbf/index",
     "pages/launchDetail/jqbg/index",
+    "pages/launchDetail/travel/index",
+        
     "pages/workOrder/logisticsApply/index"
   ],
   "window": {
