@@ -128,6 +128,8 @@ Page({
         navigateUrl = '/pages/orderDetail/wipeOut/index?item=' + JSON.stringify(item);
       } else if (item.workType == "Travel") {
         navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
+      } else if (item.workType == "Change") {
+        navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
       }
     }
 

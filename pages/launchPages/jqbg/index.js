@@ -14,7 +14,8 @@ Page({
     inputVal: "",
     inputSearch: true,
     newMachineCode:'',currentItem:{},
-    user:{}
+    user:{},
+    remarks:''
   },
   toRequestPage: function () {
     let that = this;
@@ -89,6 +90,12 @@ Page({
   newMachineChange:function(e){
     this.setData({
       newMachineCode:e.detail.value
+    })
+  },
+
+  remarkChange:function(e){
+    this.setData({
+      remarks:e.detail.value
     })
   },
   showInput: function () {

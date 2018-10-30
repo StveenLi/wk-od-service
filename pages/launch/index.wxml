@@ -79,7 +79,7 @@
         <view class='middle-all' style='margin-top:3px'>
           <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
         </view>
-        <view class='content-style'>{{item.address}}</view>
+        <view class='content-style'>{{item.address == null?'-':item.address}}</view>
       </view>
     </view>
   </view>

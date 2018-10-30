@@ -53,7 +53,7 @@
                     <view class='middle-all' style='margin-top:3px'>
                       <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
                     </view>
-                    <view class='content-style'>{{item.customer}}</view>
+                    <view class='content-style'>{{item.customer== null?'-':item.customer}}</view>
 
                   </view>
                   <view class='flex-row box-all'>
@@ -97,6 +97,9 @@
               <block wx:elif='{{item.workType == "Travel"}}'>
           <view class='order-type-travel'>差</view>
         </block>
+        <block wx:elif='{{item.workType == "Change"}}'>
+          <view class='order-type-change'>变</view>
+        </block>
                 </view>
               </view>
               <view>
@@ -104,7 +107,7 @@
                   <view class='middle-all' style='margin-top:3px'>
                     <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
                   </view>
-                  <view class='content-style'>{{item.address}}</view>
+                  <view class='content-style'>{{item.address== null?'-':item.address}}</view>
                 </view>
               </view>
             </view>
@@ -137,13 +140,13 @@
                       <view class='middle-all' style='margin-top:3px'>
                         <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
                       </view>
-                      <view class='content-style'>{{item.customer}}</view>
+                      <view class='content-style'>{{item.customer == null?'-':item.customer}}</view>
                     </view>
                     <view class='flex-row box-all'>
                       <view class='middle-all' style='margin-top:3px'>
                         <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
                       </view>
-                      <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+                      <view class='content-style'>{{item.contacts == null?'-':item.contacts}}：{{item.mobilePhone}}</view>
                     </view>
                   </view>
                   <view>
@@ -187,7 +190,7 @@
                     <view class='middle-all' style='margin-top:3px'>
                       <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
                     </view>
-                    <view class='content-style'>{{item.address}}</view>
+                    <view class='content-style'>{{item.address == null?'-':item.address}}</view>
                   </view>
                 </view>
               </view>

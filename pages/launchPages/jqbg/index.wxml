@@ -93,7 +93,7 @@
       <view class="weui-label">备注</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" bindinput='placeChange' placeholder="请输入备注" />
+      <input class="weui-input" bindinput='remarkChange' placeholder="请输入备注" />
     </view>
   </view>
 </view>
