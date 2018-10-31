@@ -41,6 +41,14 @@ Page({
     })
   },
 
+  toChange:function(){
+    let that = this;
+    let navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(that.data.orderDetail.workDto);
+    wx.navigateTo({
+      url: navigateUrl,
+    })
+  },
+
   loadDetail: function (item) {
     let self = this;
     api.fetch({

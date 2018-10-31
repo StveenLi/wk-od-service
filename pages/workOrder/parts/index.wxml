@@ -16,7 +16,13 @@
   </block>
 </view>
 <block wx:if="{{orderDetail.workDto}}">
-<view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toFix'>查看关联的维修工单 ></view>
+  <block wx:if="{{orderDetail.workDto.workType == 'Repair'}}">
+    <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toFix'>查看关联的维修工单 ></view>
+</block>
+
+<block wx:if="{{orderDetail.workDto.workType == 'Change'}}">
+    <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toChange'>查看关联的机器变更单 ></view>
+</block>
 </block>
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 
