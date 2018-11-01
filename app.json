@@ -1,5 +1,6 @@
 {
   "pages": [
+    
     "pages/login/index",
     "pages/launchPages/saledetail/saledetail",
     "pages/orderDetail/searched/index",
@@ -12,6 +13,7 @@
     "pages/workNode/workNode",
     "pages/locationSign/index",
     "pages/workCo/workCo",
+    "pages/workOrder/leave/index",
     "pages/workOrder/inStorage/index",
     "pages/workOrder/outStorage/index",
     "pages/workOrder/logistics/index",
@@ -35,7 +37,7 @@
     "pages/orderDetail/logistics/index",
     "pages/orderDetail/moneyAsk/index",
     "pages/orderDetail/parts/index",
-    
+    "pages/orderDetail/leave/index",
         
     "pages/teach/index",
     "pages/launchPages/bj/index",
@@ -44,6 +46,7 @@
     "pages/launchPages/xsbf/index",
     "pages/workOrder/parts/index",
     "pages/my/index",
+    "pages/launchDetail/qjd/qjd",
     "pages/launchDetail/patch/index",
     "pages/launchDetail/xsbf/index",
     "pages/launchDetail/jqbg/index",

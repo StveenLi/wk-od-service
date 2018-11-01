@@ -16,6 +16,10 @@ input{
   border:none;
   line-height:50px;
 }
+picker{
+  display:inline-block;
+  margin-left:5px;
+}
 picker text{
   color:gray;
 }
@@ -80,14 +84,11 @@ button{
   background-color:white;
   line-height:40px;
 }
-.weui-uploader__hd,.weui-uploader__file{
-  padding:0 13px;
-}
-.weui-uploader__input-box{
+
+/* .weui-uploader__input-box{
   margin:0 13px;
-}
+} */
 .weui-uploader__bd{
   padding-bottom:50px;
   background-color:white;
 }
-

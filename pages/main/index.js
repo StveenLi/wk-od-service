@@ -74,6 +74,8 @@ Page({
         navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'DWipe'){
         navigateUrl = '/pages/workOrder/wipeOut/index?item='+JSON.stringify(item);
+      } else if (item.workType == 'Leave') {
+        navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
       }
     }
     
@@ -191,6 +193,7 @@ Page({
     api.fetch({
       url: 'rest/work/findUserIdAndSatus?userId=' + self.data.user.userId,
       callback: (err, result) => {
+        console.log(result)
         if (result.success) {
           this.setData({
             listdata: result.one.notDO

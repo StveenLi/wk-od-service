@@ -43,7 +43,7 @@ Page({
     wx.getStorage({
       key: 'user',
       success: function (res) {
-        console.log(res.data)
+        
         that.setData({
           user: res.data
         })
@@ -64,7 +64,7 @@ Page({
           url: 'rest/work/myWorkList?userId=' + res.data.userId,
           callback: (err, result) => {
             if (result.success) {
-              //console.log(result)
+              
               that.setData({
                 myOrderList: result.list
               })
@@ -86,13 +86,15 @@ Page({
   toDetailPage:function(e){
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
-    console.log(item)
+    
     if (item.workType == "Patch"){
       navigateUrl = '/pages/launchDetail/patch/index?item=' + JSON.stringify(item);
     } else if (item.workType == "Visit"){
       navigateUrl = '/pages/launchDetail/xsbf/index?item=' + JSON.stringify(item);
     }else if(item.workType == "Change"){
       navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
+    } else if (item.workType == "Leave"){
+      navigateUrl = '/pages/launchDetail/qjd/qjd?item=' + JSON.stringify(item);
     }
     wx.navigateTo({
       url: navigateUrl,

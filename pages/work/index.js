@@ -74,9 +74,7 @@ Page({
   toFlowPage: function(e) {
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
-
-
-    if (item.workStatus == 20){
+    if (item.workStatus == 20) {
       return;
     }
     if (this.data.activeIndex == 0) {
@@ -101,6 +99,8 @@ Page({
           navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'DWipe') {
           navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
+        } else if (item.workType == 'Leave') {
+          navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
@@ -124,6 +124,8 @@ Page({
         navigateUrl = '/pages/orderDetail/parts/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'DWipe') {
         navigateUrl = '/pages/orderDetail/wipeOut/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Leave') {
+        navigateUrl = '/pages/orderDetail/leave/index?item=' + JSON.stringify(item);
       }
 
     }
@@ -136,6 +138,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
     let self = this;
 
     wx.getSystemInfo({
@@ -174,8 +177,8 @@ Page({
   },
   loadListData: function(wrCode) {
     let self = this;
-    if(!wrCode){
-      wrCode=''
+    if (!wrCode) {
+      wrCode = ''
     }
     wx.getStorage({
       key: 'user',
@@ -184,8 +187,9 @@ Page({
           userId: res.data.userId
         })
         api.fetch({
-          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId+'&wrCode='+wrCode,
+          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode,
           callback: (err, result) => {
+            console.log(result)
             if (result.success) {
               self.getDataSuccess(result);
             }
@@ -197,6 +201,7 @@ Page({
   },
 
   getDataSuccess: function(data) {
+    console.log(data)
     let that = this;
     if (that.data.listType == 'audit') {
       this.setData({
@@ -263,23 +268,23 @@ Page({
   onShareAppMessage: function() {
 
   },
-  showInput: function () {
+  showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
-  hideInput: function () {
+  hideInput: function() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
-  clearInput: function () {
+  clearInput: function() {
     this.setData({
       inputVal: ""
     });
   },
-  inputTyping: function (e) {
+  inputTyping: function(e) {
     this.setData({
       inputVal: e.detail.value
     });

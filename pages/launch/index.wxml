@@ -56,6 +56,9 @@
         <block wx:elif='{{item.workType == "Patch"}}'>
           <view class='order-type-parts'>补</view>
         </block>
+        <block wx:elif='{{item.workType == "Leave"}}'>
+          <view class='order-type-Travel'>假</view>
+        </block>
       </view>
     </view>
     <view>
