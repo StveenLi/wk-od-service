@@ -53,6 +53,7 @@ Page({
   toFlowPage: function (e) {
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
+    console.log(item);
     if (item.canDO == 'Y') {
       if (item.workType == 'Repair') {
         navigateUrl = '/pages/workOrder/fix/index?item=' + JSON.stringify(item);
