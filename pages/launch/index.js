@@ -9,19 +9,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderItems: [{ name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' }, 
-      // { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
-      { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
-      { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
-      
-      
-    ],
-    _second_orderItems: [{ name: '出差单', icon: '../../images/icon/cc.png', navigateUrl: '../launchPages/travel/index' },
-      { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
-      { name: '销售项目详细', icon: '../../images/icon/qj.png', navigateUrl: '' },
-
-    ],
-          user: {},
+    // orderItems: [{ name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' }, 
+    //   // { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
+    //   { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
+    //   { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' }],
+    // _second_orderItems: [{ name: '出差单', icon: '../../images/icon/cc.png', navigateUrl: '../launchPages/travel/index' },
+    //   { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
+    //   { name: '销售项目详细', icon: '../../images/icon/qj.png', navigateUrl: '' },
+    // ],
+    orderItems:[],
+    user: {},
     myOrderList:[]
 
   },
@@ -30,9 +27,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setStorageSync('visitInAddr','' )
-    wx.setStorageSync('visitOutAddr', '')
-
+    wx.setStorageSync('visitInAddr','' );
+    wx.setStorageSync('visitOutAddr', '');
   },
 
   getMyselfInfo:function(){
@@ -66,14 +62,21 @@ Page({
     wx.getStorage({
       key: 'user',
       success: function (res) {
+        that.setData({
+          user:res.data
+        })
+
+        that.setLaunchSend();
+
+
         api.fetch({
           url: 'rest/work/myWorkList?userId=' + res.data.userId,
           callback: (err, result) => {
             if (result.success) {
-              console.log(result)
               that.setData({
                 myOrderList: result.list
               })
+
             }
           }
         });
@@ -81,6 +84,29 @@ Page({
       },
     });
     
+  },
+
+
+  setLaunchSend:function(){
+    let { user, orderItems} = this.data;
+    if (user.role > 8 && user.role <14){
+      orderItems.push(api.bj);
+      orderItems.push(api.xsbf);
+      orderItems.push(api.travel);
+      orderItems.push(api.qj);
+    } else if (user.role == 15 || user.role == 17){
+      orderItems.push(api.qj);
+    }else if(user.role == 18){
+      orderItems.push(api.bj);
+      orderItems.push(api.jqbg);
+      orderItems.push(api.qj);
+
+    }
+
+
+    this.setData({
+      orderItems: orderItems
+    })
   },
 
   toTravel: function(e){

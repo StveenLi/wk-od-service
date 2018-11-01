@@ -34,6 +34,14 @@ const Util={
     userPhone:null,
     userId:null,
     role:null,
+  bj: { name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' },
+  jqbg: { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
+  xsbf: { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
+  travel: { name: '出差单', icon: '../../images/icon/cc.png', navigateUrl: '../launchPages/travel/index' },
+  qj: { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
+  xxxm:{ name: '销售项目详细', icon: '../../images/icon/qj.png', navigateUrl: '' },
+  wxby: { name: '维修保养单', icon: '../../images/icon/by.png', navigateUrl: '../launchPages/wxby/index' },
+
     fetch:function (config) {
         var loadTitle=config.loadTitle||'加载中';
         var operType=config.operType||'query';
