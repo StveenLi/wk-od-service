@@ -1,0 +1,25 @@
+/* pages/orderDetail/Leave/index.wxss */
+.pad{
+  margin:0 20rpx;
+  border-radius:5px;
+}
+.color_w{
+  background-color:white;
+}
+.num_style{
+  margin:0 10px;
+}
+.weui-uploader{
+  margin:0 10px 10px 10px;
+  
+}
+.weui-uploader__hd{
+  padding-bottom:0;
+  border-bottom:1px solid #F4F4F4;
+}
+.weui-uploader__bd{
+  margin-top:10px;
+}
+.weui-uploader__img{
+  margin:0 2px;
+}

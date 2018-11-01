@@ -101,6 +101,8 @@ Page({
       navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
     } else if (item.workType == "Travel") {
       navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
+    } else if (item.workType == "Leave") {
+      navigateUrl = '/pages/launchDetail/qjd/qjd?item=' + JSON.stringify(item);
     }
     wx.navigateTo({
       url: navigateUrl,

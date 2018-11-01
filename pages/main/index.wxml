@@ -96,6 +96,9 @@
               </view>
             </view>
             <view>
+            <block wx:if='{{item.workType == "Leave"}}'>
+                <view class='order-type-leave'>假</view>
+              </block>
               <block wx:if='{{item.workType == "Repair"}}'>
                 <view class='order-type-repair'>维</view>
               </block>

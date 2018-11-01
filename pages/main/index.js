@@ -74,6 +74,8 @@ Page({
         navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'DWipe'){
         navigateUrl = '/pages/workOrder/wipeOut/index?item='+JSON.stringify(item);
+      } else if (item.workType == 'Leave') {
+        navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
       }
     }
     

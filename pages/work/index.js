@@ -103,6 +103,8 @@ Page({
           navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
         } else if (item.workType == "Travel") {
           navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
+        } else if (item.workType == 'Leave') {
+          navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
@@ -130,6 +132,8 @@ Page({
         navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
       } else if (item.workType == "Change") {
         navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Leave') {
+        navigateUrl = '/pages/orderDetail/leave/index?item=' + JSON.stringify(item);
       }
     }
 
