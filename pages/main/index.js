@@ -5,6 +5,12 @@ const api = App.api;
 
 Page({
   data: {
+    bar1: {
+      text: '11维修工单正在整改中，请注意            世界进口博览会来了，请大家注意上班时间            双11来袭，请大家准备好自己的钱包   ',
+      scrollable: true,
+      delay: 1000
+    },
+    showImportantMsg:true,
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -30,6 +36,34 @@ Page({
     wx.reLaunch({
       url: '/pages/login/index',
     })
+  },
+
+  getImportantMsg(){
+    let that = this;
+    api.fetch({
+      url: 'rest/comment/importantRemindQuery',
+      callback: (err, result) => {
+        if (result.success) {
+          if(result.list.length>0){
+            let msg = '                ';
+            for(let msgItem of result.list){
+              msg += msgItem.content + '            ';
+            }
+            that.setData({
+              bar1: {
+                text: msg,
+                scrollable: true,
+                delay: 1000
+              },
+            })
+          }else{
+            that.setData({
+              showImportantMsg:false
+            })
+          }
+        }
+      }
+    });
   },
 
   calling:function(){
@@ -155,9 +189,7 @@ Page({
     })
   },
   onLoad: function () {
-    
-
-
+    this.getImportantMsg()
   },
 
   getMainIndex:function(){

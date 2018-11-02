@@ -1,5 +1,10 @@
 <view scroll-y style='width:100%'>
   <view class='header_bd'>
+      <block wx:if="{{showImportantMsg}}">
+        <noticeBar text="{{ bar1.text }}"
+          scrollable="{{ bar1.scrollable }}"></noticeBar>
+      </block>
+
     <view class='title'>
       <text style='color:#fff;font-size:18px'></text>
     </view>
@@ -12,7 +17,6 @@
       <!-- <image class='r-lunbo' src='/images/logout.png'></image> -->
     </view>
   </view>
-
   <view class='panel'>
     <view class='panel-title'>你好！{{user.name}}</view>
     <view class='panel-box'>

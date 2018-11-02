@@ -89,23 +89,30 @@ Page({
 
   setLaunchSend:function(){
     let { user, orderItems} = this.data;
-    if (user.role > 8 && user.role <14){
-      orderItems.push(api.bj);
-      orderItems.push(api.xsbf);
-      orderItems.push(api.travel);
-      orderItems.push(api.qj);
-    } else if (user.role == 15 || user.role == 17){
-      orderItems.push(api.qj);
-    }else if(user.role == 18){
-      orderItems.push(api.bj);
-      orderItems.push(api.jqbg);
-      orderItems.push(api.qj);
+    let newItems = [];
 
+    if (user.role > 8 && user.role <14){
+      newItems.push(api.bj);
+      newItems.push(api.xsbf);
+      newItems.push(api.travel);
+      newItems.push(api.qj);
+    } else if (user.role == 15 || user.role == 17){
+      newItems.push(api.qj);
+    }else if(user.role == 18){
+      newItems.push(api.bj);
+      newItems.push(api.jqbg);
+      newItems.push(api.qj);
+
+    }else if(user.role == 20){
+      newItems.push(api.bj);
+      newItems.push(api.xsbf);
+      newItems.push(api.travel);
+      newItems.push(api.qj);
     }
 
 
     this.setData({
-      orderItems: orderItems
+      orderItems: newItems
     })
   },
 

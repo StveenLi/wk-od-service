@@ -20,7 +20,9 @@ Page({
     reason:'',
     user:{},
     myOrderList:[],
-    myOrderListIndex:0
+    myOrderListIndex:0,
+    commentFilePaths: [],
+    commentVal: ''
   },
 
   lastSubmit_no: function () {

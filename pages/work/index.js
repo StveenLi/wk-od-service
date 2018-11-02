@@ -102,7 +102,7 @@ Page({
         } else if (item.workType == 'DWipe') {
           navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
         } else if (item.workType == "Travel") {
-          navigateUrl = '/pages/launchDetail/travel/index?item=' + JSON.stringify(item);
+          navigateUrl = '/pages/workOrder/travel/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'Leave') {
           navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
         }
