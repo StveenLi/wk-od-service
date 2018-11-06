@@ -20,7 +20,10 @@ Page({
     reason:'',
     user:{},
     myOrderList:[],
-    myOrderListIndex:0
+    myOrderListIndex:0,
+    showPopup: false,
+    commentVal: '',
+    commentFilePaths: [],
   },
 
   

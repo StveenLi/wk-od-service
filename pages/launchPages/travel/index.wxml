@@ -33,7 +33,7 @@
   </view>
   <view class="weui-cell__bd">
       <picker bindchange="bindOrderChange" value="{{myOrderListIndex}}" range="{{myOrderList}}" range-key="{{'address'}}">
-        <view class="weui-select weui-select_in-select-after" style='font-size:10px'>{{myOrderList[myOrderListIndex].address}}</view>
+        <view class="weui-select_re weui-select_in-select-after" style='font-size:10px'>{{myOrderList[myOrderListIndex].address}}</view>
       </picker>
     </view>
 <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toOrderDetail'>查看此工单详情 ></view>

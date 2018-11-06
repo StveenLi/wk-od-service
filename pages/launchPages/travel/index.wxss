@@ -3,3 +3,13 @@
 view{
     font-size: 12px;
 }
+
+.weui-select_re {
+  position:relative;
+  padding-left:15px;
+  padding-right:30px;
+  min-height:2.58823529em;
+  line-height:2.58823529em;
+  border-right:1rpx solid #F4F4F4;
+
+}
