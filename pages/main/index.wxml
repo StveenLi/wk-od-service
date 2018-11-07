@@ -77,7 +77,7 @@
       </block>
       <block class="item-{{index}}" wx:for="{{listdata}}" wx:key="index">
         <view style='margin-bottom:10px'></view>
-        <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1':'background:#fff'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+        <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1':'background:#fff;border:2px dashed #9A32CD;'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
           <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
             <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
             <view class='flex-1 date-style'>{{item.assignDate}}</view>

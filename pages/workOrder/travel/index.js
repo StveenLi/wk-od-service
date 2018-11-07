@@ -34,7 +34,7 @@ Page({
     if (status_no == 12) {
       status = 12;
     } else {
-      status = 8;
+      status = 10;
     }
     api.fetch({
       url: 'rest/work/doSubmit',
