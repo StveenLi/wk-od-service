@@ -37,9 +37,12 @@ Page({
     if(signInfo.stype == 'Visit'){
       if(signInfo.inOrOut == 'in'){
         wx.setStorageSync('visitInAddr', currentAddr)
+        wx.setStorageSync('signInTime', new Date().format("yyyy-MM-dd hh:mm:ss"))
       }
       if (signInfo.inOrOut == 'out'){
         wx.setStorageSync('visitOutAddr', currentAddr)
+        wx.setStorageSync('signOutTime', new Date().format("yyyy-MM-dd hh:mm:ss"))
+
       }
     }
 

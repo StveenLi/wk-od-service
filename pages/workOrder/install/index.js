@@ -30,6 +30,8 @@ wx.getSystemInfo({
       inSign: {},
       nowAddress: '',
       outAddress: '',
+      signOutTime: '',
+      signInTime: '',
       listItem: {},
       remarks: '',
       orderDetail: {},
@@ -137,30 +139,74 @@ wx.getSystemInfo({
     },
 
 
-    locationSignIn: function() {
-      let that = this;
-      let signInfo = {
-        inOrOut: 'in',
-        stype: 'Install',
-        workId: that.data.listItem.id,
-        userId: that.data.user.userId
-      }
-      wx.navigateTo({
-        url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
-      })
-    },
-    loactionSignOut: function() {
-      let that = this;
-      let signInfo = {
-        inOrOut: 'out',
-        stype: 'Install',
-        workId: that.data.listItem.id,
-        userId: that.data.user.userId
-      }
-      wx.navigateTo({
-        url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
-      })
-    },
+    
+
+  toSignInMap: function () {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Install',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
+  },
+  locationSignIn: function () {
+    let that = this;
+    api.getNowLocation(that.getSignInSuccessFunc);
+  },
+
+  getSignInSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Install',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('安装单签入成功')
+    });
+    that.setData({
+      signInTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      nowAddress: addrRes.result.address
+    })
+  },
+
+  loactionSignOut: function () {
+    let that = this;
+    api.getNowLocation(that.getSignOutSuccessFunc);
+  },
+  getSignOutSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Install',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('安装单签出成功')
+    });
+    that.setData({
+      signOutTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      outAddress: addrRes.result.address
+    })
+  },
+  toSignOutMap: function () {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Install',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    wx.navigateTo({
+      url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
+  },
     
     chooseImage: function(e) {
       var that = this;
@@ -336,6 +382,8 @@ wx.getSystemInfo({
           self.setData({
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
+            signInTime: result.signInTime,
+            signOutTime: result.signOutTime,
           })
         }
       }

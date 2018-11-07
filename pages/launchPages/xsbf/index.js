@@ -1,5 +1,4 @@
 // pages/launchPages/xsbf/index.js
-
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
 const App = getApp();
@@ -13,11 +12,16 @@ Page({
     files: [],
     photoFiles: [],
     nowAddress:'',
+    signInTime:'',
     outAddress:'',
+    signOutTime:'',
     user:{},
     customer:'',
     remarks:''
   },
+
+
+  
 
   finalSub:function(){
     let that = this;
@@ -71,7 +75,9 @@ Page({
     })
   },
 
-  locationSignIn: function () {
+
+  
+  toSignInMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'in',
@@ -83,7 +89,35 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
+
+
+  locationSignIn: function () {
+    let that = this;
+    api.getNowLocation(that.getSignInSuccessFunc);
+  },
+  getSignInSuccessFunc:function(addrRes){
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Visit',
+      workId: '',
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function(){
+      wx.setStorageSync('visitInAddr', addrRes.result.address)
+      wx.setStorageSync('signInTime', new Date().format("yyyy-MM-dd hh:mm:ss"))
+    });
+    that.setData({
+      signInTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      nowAddress:addrRes.result.address
+    })
+  },
   loactionSignOut: function () {
+    let that = this;
+    api.getNowLocation(that.getSignOutSuccessFunc);
+  },
+
+  toSignOutMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'out',
@@ -93,6 +127,24 @@ Page({
     }
     wx.navigateTo({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
+  },
+
+  getSignOutSuccessFunc: function (addrRes){
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Visit',
+      workId: '',
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      wx.setStorageSync('visitOutAddr', addrRes.result.address)
+      wx.setStorageSync('signOutTime', new Date().format("yyyy-MM-dd hh:mm:ss"))
+    });
+    that.setData({
+      signOutTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      outAddress: addrRes.result.address
     })
   },
 
@@ -135,6 +187,22 @@ Page({
       success: function (res) {
         that.setData({
           nowAddress: res.data
+        })
+      },
+    });
+    wx.getStorage({
+      key: 'signInTime',
+      success: function (res) {
+        that.setData({
+          signInTime: res.data
+        })
+      },
+    });
+    wx.getStorage({
+      key: 'signOutTime',
+      success: function (res) {
+        that.setData({
+          signOutTime: res.data
         })
       },
     });

@@ -14,7 +14,9 @@ Page({
     date: new Date().format("yyyy-MM-dd hh:mm:ss"),
     isPhoneFix: false,
     outAddress: '',
+    signOutTime: '',
     nowAddress: '',
+    signInTime: '',
     remarks: '',
     photoFiles: [],
     user: {},
@@ -63,6 +65,8 @@ Page({
           self.setData({
             orderDetail: result,
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
+            signInTime:result.signInTime,
+            signOutTime:result.signOutTime,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
             files: fis,
             photoFiles: fis
@@ -254,6 +258,8 @@ Page({
         if (result.success) {
           self.setData({
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
+            signInTime: result.signInTime,
+            signOutTime: result.signOutTime,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
           })
         }
@@ -295,7 +301,8 @@ Page({
   onShareAppMessage: function() {
 
   },
-  locationSignIn: function() {
+
+  toSignInMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'in',
@@ -307,7 +314,48 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
+  locationSignIn: function() {
+    let that = this;
+    api.getNowLocation(that.getSignInSuccessFunc);
+  },
+  getSignInSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Dell',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+    console.log('拆机单签入成功')
+    });
+    that.setData({
+      signInTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      nowAddress: addrRes.result.address
+    })
+  },
+  
   loactionSignOut: function() {
+    let that = this;
+    api.getNowLocation(that.getSignOutSuccessFunc);
+  },
+  getSignOutSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Dell',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('拆机单签出成功')
+    });
+    that.setData({
+      signOutTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      outAddress: addrRes.result.address
+    })
+  },
+  toSignOutMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'out',
@@ -319,58 +367,7 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
-  loactionSign: function(inOrOut) {
-    let that = this;
-    qqmapsdk = new QQMapWX({
-      key: 'O2ABZ-GXFCP-YY5D3-VOVIV-PWJ2Q-D7BKJ' // 必填
-    });
-    wx.getLocation({
-      type: 'wgs84',
-      success: function(res) {
-        //2、根据坐标获取当前位置名称，显示在顶部:腾讯地图逆地址解析
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude
-          },
-          success: function(addressRes) {
-            console.log(addressRes);
-            var address = addressRes.result.formatted_addresses.recommend;
-            var inSign = {};
-            inSign.signAddress = address;
-            inSign.signTime = new Date().format("yyyy-MM-dd hh:mm:ss");
 
-            inSign.signType = inOrOut == 'in' ? 1 : 2; //1签入2签出
-            inSign.signX = res.latitude;
-            inSign.signY = res.longitude;
-            inSign.stype = 'Dell';
-            inSign.workId = that.data.listItem.id;
-            wx.getStorage({
-              key: 'systemInfo',
-              success: function(res) {
-                inSign.phone = res.data.model
-              },
-            });
-            inSign.userId = that.data.user.userId
-            inSign.signArddessDetail = addressRes.result.address;
-            inOrOut == 'in' ? that.setData({
-              nowAddress: address
-            }) : that.setData({
-              outAddress: address
-            });
-
-            api.fetch({
-              url: 'rest/work/sign',
-              data: inSign,
-              callback: (err, result) => {
-                console.log(result);
-              }
-            })
-          }
-        })
-      }
-    })
-  },
   //评论组件
   toCommit: function(options) {
     this.setData({

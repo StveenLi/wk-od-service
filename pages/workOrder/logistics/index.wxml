@@ -44,14 +44,22 @@
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>出发签到</view>
-      <view class='padding-5 work-order-content' bindtap='locationSignGo'>去签到 ></view>
+      <view class='padding-5 work-order-content' >
+          <block wx:if='{{goSignAddress==""}}'>
+            <text bindtap='locationSignGo'>去签到 ></text>
+          </block>
+          <block wx:else>
+            <text bindtap='toSignGoMap'>地址微调 ></text>
+          </block>
+        </view>
+      <!-- <view class='padding-5 work-order-content' bindtap='locationSignGo'>去签到 ></view> -->
     </view>
   </view>
 
   <block wx:if="{{goSignAddress!=''}}">
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
-        <view class='flex-1 padding-5'>当前位置</view>
+        <view class='flex-1 padding-5'>{{signGoTime}}</view>
         <view class='padding-5 work-order-content'>{{goSignAddress}}</view>
       </view>
     </view>
@@ -60,14 +68,22 @@
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>到达签到</view>
-      <view class='padding-5 work-order-content' bindtap='locationSignArrive'>去签到 ></view>
+      <view class='padding-5 work-order-content' >
+          <block wx:if='{{arriveSignAddress==""}}'>
+            <text bindtap='locationSignArrive'>去签到 ></text>
+          </block>
+          <block wx:else>
+            <text bindtap='toSignArriveMap'>地址微调 ></text>
+          </block>
+        </view>
+      <!-- <view class='padding-5 work-order-content' bindtap='locationSignArrive'>去签到 ></view> -->
     </view>
   </view>
 
   <block wx:if="{{arriveSignAddress!=''}}">
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
-        <view class='flex-1 padding-5'>当前位置</view>
+        <view class='flex-1 padding-5'>{{signArriveTime}}</view>
         <view class='padding-5 work-order-content'>{{arriveSignAddress}}</view>
       </view>
     </view>
@@ -77,14 +93,23 @@
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>回归签到</view>
-      <view class='padding-5 work-order-content' bindtap='loactionReturnArrive'>去签到 ></view>
+
+      <view class='padding-5 work-order-content' >
+          <block wx:if='{{returnSignAddress==""}}'>
+            <text bindtap='locationSignReturn'>去签到 ></text>
+          </block>
+          <block wx:else>
+            <text bindtap='toSignReturnMap'>地址微调 ></text>
+          </block>
+        </view>
+      <!-- <view class='padding-5 work-order-content' bindtap='loactionReturnArrive'>去签到 ></view> -->
     </view>
   </view>
 
   <block wx:if="{{returnSignAddress!=''}}">
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
-        <view class='flex-1 padding-5'>当前位置</view>
+        <view class='flex-1 padding-5'>{{signReturnTime}}</view>
         <view class='padding-5 work-order-content'>{{returnSignAddress}}</view>
       </view>
     </view>

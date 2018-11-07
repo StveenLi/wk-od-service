@@ -77,7 +77,7 @@ Page({
         inboxType: that.data.inStorageIndex,//['机器','化学品','机器和化学品']
         scgClean:that.data.cgjstepper.stepper,
         sljClean: that.data.ljjstepper.stepper,
-        sqjClean:that.data.qjjstepper.stepper,
+        sqjClean: that.data.qjjstepper.stepper,
         stockId: that.data.orderDetail.inbox.stockId,
         photoFiles: that.data.photoFiles,
         workLinkId: that.data.orderDetail.inbox.links.id,
@@ -201,7 +201,7 @@ Page({
               fis.push(item.url)
             }
           }
-          let hxps = result.fromData[3].value;
+          let hxps = result.fromData[4].value;
           hxps = hxps.substr(1, hxps.length - 2);
           let hxpsArray = hxps.split('+');
           self.setData({

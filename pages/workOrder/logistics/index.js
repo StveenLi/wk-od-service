@@ -52,12 +52,16 @@ Page({
     goSignAddress:'',
     arriveSignAddress:'',
     returnSignAddress:'',
+    signGoTime:'',
+    signArriveTime: '',
+    signReturnTime: '',
     showPopup: false,
     commentVal: '',
     commentFilePaths: [],
   },
 
-  locationSignGo: function () {
+
+  toSignGoMap:function(){
     let that = this;
     let signInfo = {
       inOrOut: 'in',
@@ -69,10 +73,33 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
-  locationSignArrive: function () {
+
+  locationSignGo: function () {
+    let that = this;
+    api.getNowLocation(that.getSignGoSuccessFunc);
+  },
+
+  getSignGoSuccessFunc: function (addrRes) {
     let that = this;
     let signInfo = {
-      inOrOut: 'return',
+      inOrOut: 'in',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('物流单出发签到成功')
+    });
+    that.setData({
+      signGoTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      goSignAddress: addrRes.result.address
+    })
+  },
+
+  toSignArriveMap:function(){
+    let that = this;
+    let signInfo = {
+      inOrOut: 'arrive',
       stype: 'Delivery',
       workId: that.data.listItem.id,
       userId: that.data.user.userId
@@ -81,8 +108,32 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
+  
+  locationSignArrive: function () {
+    let that = this;
+    api.getNowLocation(that.getSignArriveSuccessFunc);
+  },
 
-  loactionReturnArrive: function () {
+  getSignArriveSuccessFunc: function (addrRes){
+    let that = this;
+    let signInfo = {
+      inOrOut: 'arrive',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('物流单到达签到成功')
+    });
+    that.setData({
+      signArriveTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      arriveSignAddress: addrRes.result.address
+    })
+  },
+
+  
+
+  toSignReturnMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'out',
@@ -92,6 +143,28 @@ Page({
     }
     wx.navigateTo({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
+    })
+  },
+
+  locationSignReturn: function () {
+    let that = this;
+    api.getNowLocation(that.getSignReturnSuccessFunc);
+  },
+
+  getSignReturnSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Delivery',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('物流单单签出成功')
+    });
+    that.setData({
+      signReturnTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      returnSignAddress: addrRes.result.address
     })
   },
   
@@ -267,6 +340,9 @@ Page({
             goSignAddress: result.depart == null ? '' : result.depart,
             arriveSignAddress: result.reach == null ? '' : result.reach,
             returnSignAddress: result.back == null ? '' : result.back,
+            signGoTime:result.departTime,
+            signArriveTime:result.reachTime,
+            signReturnTime: result.backTime
           })
         }
       }

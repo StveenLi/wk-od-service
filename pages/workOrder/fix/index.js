@@ -19,6 +19,8 @@ Page({
     remarks: '',
     nowAddress: '',
     outAddress: '',
+    signOutTime: '',
+    signInTime: '',
     photoFiles: [],
     user: {},
     confirmMachineCode: '',
@@ -87,6 +89,8 @@ Page({
           this.setData({
             patch: result.patch,
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
+            signInTime: result.signInTime,
+            signOutTime: result.signOutTime,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
           })
         }
@@ -238,8 +242,17 @@ Page({
 
   lastSubmit: function (undoSuccess) {
     let that = this;
+
+    if(that.data.isPhoneFix == null){
+      wx.showToast({
+        title: '电话确认数据异常，请重新进入页面',
+        icon:'none',
+        duration:2000,
+      })
+      return;
+    }
     //doUpdate
-    let faultChildType = that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
+    let faultChildType =  that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
 
     // console.log(faultChildType)
     api.fetch({
@@ -256,7 +269,7 @@ Page({
         isPhoneFix: that.data.isPhoneFix,
         // actualMachineId: that.data.currentItem.machineId
         machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
-        faultType: that.data.isPhoneFix ? '' : that.data.bjs[that.data.faultIndex[0] - 1].dicCode,
+        faultType: that.data.bjs[that.data.faultIndex[0] - 1].dicCode,
         faultChildType: faultChildType
       },
       callback: (err, result) => {
@@ -428,7 +441,10 @@ Page({
     }
   },
 
-  locationSignIn: function() {
+
+
+
+  toSignInMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'in',
@@ -440,7 +456,49 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
-  loactionSignOut: function() {
+  locationSignIn: function () {
+    let that = this;
+    api.getNowLocation(that.getSignInSuccessFunc);
+  },
+
+  getSignInSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Repair',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('维修单签入成功')
+    });
+    that.setData({
+      signInTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      nowAddress: addrRes.result.address
+    })
+  },
+
+  loactionSignOut: function () {
+    let that = this;
+    api.getNowLocation(that.getSignOutSuccessFunc);
+  },
+  getSignOutSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Repair',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('勘察单签出成功')
+    });
+    that.setData({
+      signOutTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      outAddress: addrRes.result.address
+    })
+  },
+  toSignOutMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'out',
@@ -609,14 +667,14 @@ Page({
       })
       return;
     }
-    //isPhoneFix 不用确认机器编号了
-    if (that.data.isPhoneFix) {
-      that.lastSubmit();
-    } else {
+    // //isPhoneFix 不用确认机器编号了
+    // if (that.data.isPhoneFix) {
+    //   that.lastSubmit();
+    // } else {
       this.setData({
         showModal: true
       })
-    }
+    // }
 
   },
   /**

@@ -29,6 +29,8 @@ Page({
     ],
     nowAddress: '',
     outAddress: '',
+    signOutTime: '',
+    signInTime: '',
     selectIndex: 0,
     typeSelect: ["具备", "不具备"],
     isPhoneConfirm: false,
@@ -99,7 +101,8 @@ Page({
       }
     })
   },
-  locationSignIn: function() {
+
+  toSignInMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'in',
@@ -111,7 +114,49 @@ Page({
       url: '/pages/signMap/index?item=' + JSON.stringify(signInfo),
     })
   },
+  locationSignIn: function() {
+    let that = this;
+    api.getNowLocation(that.getSignInSuccessFunc);
+  },
+
+  getSignInSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'in',
+      stype: 'Found',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('勘察单签入成功')
+    });
+    that.setData({
+      signInTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      nowAddress: addrRes.result.address
+    })
+  },
+  
   loactionSignOut: function() {
+    let that = this;
+    api.getNowLocation(that.getSignOutSuccessFunc);
+  },
+  getSignOutSuccessFunc: function (addrRes) {
+    let that = this;
+    let signInfo = {
+      inOrOut: 'out',
+      stype: 'Found',
+      workId: that.data.listItem.id,
+      userId: that.data.user.userId
+    }
+    api.loactionSign(signInfo.inOrOut, signInfo.stype, signInfo.workId, signInfo.userId, addrRes.result.location.lat, addrRes.result.location.lng, addrRes.result.address, function () {
+      console.log('勘察单签出成功')
+    });
+    that.setData({
+      signOutTime: new Date().format("yyyy-MM-dd hh:mm:ss"),
+      outAddress: addrRes.result.address
+    })
+  },
+  toSignOutMap: function () {
     let that = this;
     let signInfo = {
       inOrOut: 'out',
@@ -245,6 +290,8 @@ Page({
         if (result.success) {
           self.setData({
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
+            signInTime: result.signInTime,
+            signOutTime: result.signOutTime,
             outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
           })
         }
