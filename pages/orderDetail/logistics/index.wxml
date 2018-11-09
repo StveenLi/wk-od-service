@@ -41,20 +41,20 @@
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>出发签到</view>
-      <view class='padding-5 work-order-content' bindtap='locationSignGo'>{{orderDetail.depart}}</view>
+      <view class='padding-5 work-order-content' bindtap='locationSignGo'>{{orderDetail.depart}}-{{orderDetail.departTime}}</view>
     </view>
   </view>
 
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>到达签到</view>
-      <view class='padding-5 work-order-content'>{{orderDetail.reach}}</view>
+      <view class='padding-5 work-order-content'>{{orderDetail.reach}}-{{orderDetail.reachTime}}</view>
     </view>
   </view>
   <view class="weui-cell weui-cell_input">
     <view class='flex-row box-all'>
       <view class='flex-1 padding-5'>回归签到</view>
-      <view class='padding-5 work-order-content'>{{orderDetail.back}}</view>
+      <view class='padding-5 work-order-content'>{{orderDetail.back}}-{{orderDetail.backTime}}</view>
     </view>
   </view>
   <view class='content'>

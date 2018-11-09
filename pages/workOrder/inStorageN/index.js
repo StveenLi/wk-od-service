@@ -202,6 +202,8 @@ Page({
             }
           }
           let hxps = result.fromData[4].value;
+
+          console.log(hxps)
           hxps = hxps.substr(1, hxps.length - 2);
           let hxpsArray = hxps.split('+');
           self.setData({
@@ -209,19 +211,19 @@ Page({
             files: fis,
             photoFiles: fis,
             qjjstepper: {
-              stepper: hxpsArray[0],
+              stepper: result.inbox.newMachine == '0'?0:hxpsArray[0],
               min: 0,
               max: 100,
               size: 'small'
             },
             ljjstepper: {
-              stepper: hxpsArray[1],
+              stepper: result.inbox.newMachine == '0' ? 0 :hxpsArray[1],
               min: 0,
               max: 100,
               size: 'small'
             },
             cgjstepper: {
-              stepper: hxpsArray[2],
+              stepper: result.inbox.newMachine == '0' ? 0 :hxpsArray[2],
               min: 0,
               max: 100,
               size: 'small'

@@ -43,7 +43,7 @@
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签入</view>
-        <view class='padding-5 work-order-content'>{{orderDetail.signInAddress}}</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.signInAddress}}-{{orderDetail.signInTime}}</view>
       </view>
     </view>
     <!--现场检测-->
@@ -115,7 +115,7 @@
     <view class="weui-cell weui-cell_input" style='margin-top:5px'>
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签出</view>
-        <view class='padding-5 work-order-content'>{{orderDetail.signOutAddress}}</view>
+        <view class='padding-5 work-order-content'>{{orderDetail.signOutAddress}}-{{orderDetail.signOutTime}}</view>
       </view>
     </view>
   </block>

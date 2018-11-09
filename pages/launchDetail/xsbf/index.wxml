@@ -24,11 +24,11 @@
   </block>
   <view class='flex-row box-all border-bottom-gainsboro'>
     <view class='content-style flex-1 padding-5'>签入</view>
-    <view class='content-style padding-5' style='color:#4AA3FB'>{{orderDetail.signInAddress}}</view>
+    <view class='content-style padding-5' style='color:#4AA3FB'>{{orderDetail.signInAddress}}-{{orderDetail.signInTime}}</view>
   </view>
   <view class='flex-row box-all border-bottom-gainsboro'>
     <view class='content-style flex-1 padding-5'>签出</view>
-    <view class='content-style padding-5' style='color:#4AA3FB'>{{orderDetail.signOutAddress}}</view>
+    <view class='content-style padding-5' style='color:#4AA3FB'>{{orderDetail.signOutAddress}}-{{orderDetail.signOutTime}}</view>
   </view>
 
     <view class="weui-cell__bd">

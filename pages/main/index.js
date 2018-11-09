@@ -6,7 +6,7 @@ const api = App.api;
 Page({
   data: {
     bar1: {
-      text: '11维修工单正在整改中，请注意            世界进口博览会来了，请大家注意上班时间            双11来袭，请大家准备好自己的钱包   ',
+      text: '1',
       scrollable: true,
       delay: 1000
     },
@@ -243,6 +243,7 @@ Page({
         })
         that.getMainIndex();
         that.loadListData();
+        that.getImportantMsg();
       },
     });
     wx.getStorage({

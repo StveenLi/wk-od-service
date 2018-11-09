@@ -170,14 +170,14 @@ Page({
       })
       return;
     }
-    if (that.data.photoFiles.length < 1) {
-      wx.showToast({
-        title: '机器机身情况照片必须上传！',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
+    // if (that.data.photoFiles.length < 1) {
+    //   wx.showToast({
+    //     title: '机器机身情况照片必须上传！',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return;
+    // }
     api.fetch({
 
       url: 'rest/work/doUpdate',
