@@ -59,14 +59,17 @@ Page({
         })
         return;
       }
-      if (that.data.photoFiles.length<1){
-        wx.showToast({
-          title: '机器机身情况照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
+      if (that.data.orderDetail.inbox.pWrok.name !='拆机工单'){
+        if (that.data.photoFiles.length < 1) {
+          wx.showToast({
+            title: '机器机身情况照片必须上传！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
       }
+      
     } 
     //doUpdate
     api.fetch({
@@ -201,29 +204,27 @@ Page({
               fis.push(item.url)
             }
           }
-          let hxps = result.fromData[4].value;
-
-          console.log(hxps)
-          hxps = hxps.substr(1, hxps.length - 2);
-          let hxpsArray = hxps.split('+');
+          // let hxps = result.fromData[4].value;
+          // hxps = hxps.substr(1, hxps.length - 2);
+          // let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
             files: fis,
             photoFiles: fis,
             qjjstepper: {
-              stepper: result.inbox.newMachine == '0'?0:hxpsArray[0],
+              stepper: result.inbox.qjClean,
               min: 0,
               max: 100,
               size: 'small'
             },
             ljjstepper: {
-              stepper: result.inbox.newMachine == '0' ? 0 :hxpsArray[1],
+              stepper: result.inbox.ljClean,
               min: 0,
               max: 100,
               size: 'small'
             },
             cgjstepper: {
-              stepper: result.inbox.newMachine == '0' ? 0 :hxpsArray[2],
+              stepper: result.inbox.cgClean,
               min: 0,
               max: 100,
               size: 'small'

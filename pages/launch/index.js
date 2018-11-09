@@ -19,7 +19,8 @@ Page({
     // ],
     orderItems:[],
     user: {},
-    myOrderList:[]
+    myOrderList:[],
+    inputVal:''
 
   },
 
@@ -65,10 +66,7 @@ Page({
         that.setData({
           user:res.data
         })
-
         that.setLaunchSend();
-
-
         api.fetch({
           url: 'rest/work/myWorkList?userId=' + res.data.userId,
           callback: (err, result) => {
@@ -76,7 +74,6 @@ Page({
               that.setData({
                 myOrderList: result.list
               })
-
             }
           }
         });
@@ -84,6 +81,20 @@ Page({
       },
     });
     
+  },
+
+  loadListData:function(){
+    let that = this;
+    api.fetch({
+      url: 'rest/work/myWorkList?userId=' + that.data.user.userId+'&wrCode='+that.data.inputVal,
+      callback: (err, result) => {
+        if (result.success) {
+          that.setData({
+            myOrderList: result.list
+          })
+        }
+      }
+    });
   },
 
 
@@ -175,5 +186,10 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
   }
 })

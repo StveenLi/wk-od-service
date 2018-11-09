@@ -181,11 +181,9 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
-  loadListData: function(wrCode) {
+  loadListData: function() {
     let self = this;
-    if(!wrCode){
-      wrCode=''
-    }
+    let wrCode = self.data.inputVal
     wx.getStorage({
       key: 'user',
       success: function(res) {
@@ -292,6 +290,6 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
-    this.loadListData(e.detail.value)
+    // this.loadListData(e.detail.value)
   }
 })

@@ -27,6 +27,10 @@
 <view class='my-workorder'>
   <view bindtap='getMyselfInfo'>我发起的</view>
 </view>
+<view class='flex-row' style='padding:15px;background:#fff'>
+            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:3px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
+            <button class="mini-btn" type="primary" size="mini" bindtap='loadListData'>搜索</button>
+        </view>
 <block wx:for="{{myOrderList}}" wx:key="index">
   <view style='margin-bottom:10px'></view>
   <view class="work-item view-shadow" style='position:relative;' data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toDetailPage">

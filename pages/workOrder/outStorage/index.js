@@ -135,25 +135,25 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
-          let hxps = result.fromData[4].value;
-          hxps = hxps.substr(1, hxps.length - 2);
-          let hxpsArray = hxps.split('+');
+          // let hxps = result.fromData[4].value;
+          // hxps = hxps.substr(1, hxps.length - 2);
+          // let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
             qjjstepper: {
-              stepper: hxpsArray[0],
+              stepper: result.outbox.qjClean,
               min: 0,
               max: 100,
               size: 'small'
             },
             ljjstepper: {
-              stepper: hxpsArray[1],
+              stepper: result.outbox.ljClean,
               min: 0,
               max: 100,
               size: 'small'
             },
             cgjstepper: {
-              stepper: hxpsArray[2],
+              stepper: result.outbox.cgClean,
               min: 0,
               max: 100,
               size: 'small'
