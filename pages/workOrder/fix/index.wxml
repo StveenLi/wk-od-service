@@ -54,6 +54,17 @@
         </picker>
       </view>
     </view>
+    <!-- 备注 -->
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label" style='padding:5px 0'>解决方案</view>
+        </view>
+        <view class="weui-cell__bd">
+          <block wx:if="{{!showPopup}}">
+            <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' value='{{remarks}}'></textarea>
+          </block>
+        </view>
+      </view>
     <block wx:if="{{!isPhoneFix}}">
       <view class="weui-cell weui-cell_input">
         <view class='flex-row box-all'>
@@ -79,17 +90,7 @@
       </block>
 
 
-      <!-- 备注 -->
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label" style='padding:5px 0'>解决方案</view>
-        </view>
-        <view class="weui-cell__bd">
-          <block wx:if="{{!showPopup}}">
-            <textarea style='height:67px;width:176px;border:0px solid #999;text-align:left;border-radius:5px;margin:10px 0;padding:5px' bindinput='remarkChange' placeholder="请描述" placeholder-style='padding:15px;' value='{{remarks}}'></textarea>
-          </block>
-        </view>
-      </view>
+      
 
 
       <!-- <block wx:if="{{errorIndex == 1}}">

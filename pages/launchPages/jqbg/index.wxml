@@ -68,7 +68,7 @@
           <view class="weui-uploader">
             <view class="weui-uploader__hd">
               <view class="weui-uploader__title">图片附件上传</view>
-              <view class="weui-uploader__info">{{files.length}}/6</view>
+              <view class="weui-uploader__info">{{files.length}}</view>
             </view>
             <view class="weui-uploader__bd">
               <view class="weui-uploader__files" id="uploaderFiles">

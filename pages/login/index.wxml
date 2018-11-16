@@ -11,6 +11,7 @@
     {{codeTitle}}
     </view>
   </view>
+  <view style='margin:10px 15px;color:#FF3030'>企业内部使用，暂时仅对内部员工适用！</view>
 
   <view>
     <button class="btn_login" type="primary" style='background:#3c8df9;' open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" bindtap='handleLogin'>登录</button>

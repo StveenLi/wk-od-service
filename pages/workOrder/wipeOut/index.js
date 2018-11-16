@@ -101,9 +101,9 @@ Page({
       data: {
         closeDate: that.data.date,
         roadToll:glgq,
-        postage:qy,
+        // postage:qy,
         parkToll:p,
-        coolieToll:zx,
+        // coolieToll:zx,
         otherToll:other,
         workLinkId: that.data.orderDetail.dWipe.links.id,
         stype: 'DWipe',

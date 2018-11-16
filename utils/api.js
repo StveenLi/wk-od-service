@@ -3,9 +3,9 @@ var QQMapWX = require('qqmap-wx-jssdk.js');
 var qqmapsdk;
 // api 路径
 //测试
-// const HOST = 'https://test.tianchu.linkitchen.com/CServer';
+const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
-const HOST = 'https://www.jiexianchina.com';
+// const HOST = 'https://www.jiexianchina.com';
 
 // const HOST = 'http://192.168.0.120:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
@@ -35,7 +35,7 @@ const Util={
     userId:null,
     role:null,
   bj: { name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' },
-  jqbg: { name: '机器状态变更单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
+  jqbg: { name: '翻修单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
   xsbf: { name: '销售拜访工单', icon: '../../images/icon/bx.png', navigateUrl: '../launchPages/xsbf/index' },
   travel: { name: '出差单', icon: '../../images/icon/cc.png', navigateUrl: '../launchPages/travel/index' },
   qj: { name: '请假单', icon: '../../images/icon/qj.png', navigateUrl: '../launchPages/vacate/vacate' },
