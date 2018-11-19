@@ -44,7 +44,7 @@
           <view class="weui-label">机器编号</view>
         </view>
         <view class="weui-cell__bd">
-          <input class="weui-input" placeholder="{{orderDetail.inbox.machineCode}}" bindinput='machineNumChange' disabled='false' />
+          <input class="weui-input" placeholder="{{orderDetail.inbox.actualMachineCode==null||orderDetail.inbox.actualMachineCode==''?orderDetail.inbox.machineCode:orderDetail.inbox.actualMachineCode}}" bindinput='machineNumChange' disabled='false' />
         </view>
       </view>
       <view class="page__bd">

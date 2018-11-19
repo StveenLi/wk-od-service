@@ -27,14 +27,16 @@
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
           </view>
         </view> -->
-        <view class='flex-row' style='padding:15px;background:#fff'>
-            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:3px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
+        <view class='flex-row' style='padding:8px;background:#fff'>
+            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:0 15px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
             <button class="mini-btn" type="primary" size="mini" bindtap='loadListData'>搜索</button>
         </view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 1}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <block wx:for="{{doneListData}}" wx:for-index="key" wx:for-item="value">
+          <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
 
-          <block class="item-{{index}}" wx:for="{{doneListData}}" wx:key="index">
-            <view style='margin-bottom:10px'></view>
+          <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
+            <view style='margin-top:10px'></view>
             <view class="work-item view-shadow" data-item='{{item}}' style='position:relative;' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
               <block wx:if="{{item.workStatus == 8}}">
                 <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
@@ -118,14 +120,17 @@
               </view>
             </view>
           </block>
+
+        </block>
           <view class="weui-loadmore" hidden="{{hideBottom}}">
             <view class="weui-loading"></view>
             <view class="weui-loadmore__tips">正在加载</view>
           </view>
         </scroll-view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 0}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-
-          <block class="item-{{index}}" wx:for="{{listdata}}" wx:key="index">
+<block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value">
+          <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
+          <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
             <view style='margin-bottom:10px'></view>
 
             <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1;':'background:#fff;border:2px dashed #9A32CD;position:relative'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
@@ -203,6 +208,7 @@
                 </view>
               </view>
             </view>
+          </block>
           </block>
           <view class="weui-loadmore" hidden="{{hideBottom}}">
             <view class="weui-loading"></view>
