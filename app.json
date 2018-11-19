@@ -21,7 +21,6 @@
     "pages/workOrder/install/index",
     "pages/workOrder/fix/index",
     "pages/workOrder/wipeOut/index",
-    "pages/workOrder/repair/index",
     "pages/workOrder/remove/index",
     "pages/workOrder/inStorageN/index",
     "pages/workOrder/fix/request",

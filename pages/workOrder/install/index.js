@@ -46,7 +46,8 @@ wx.getSystemInfo({
       MNTIndex: 0,
       MNT2: '',
       MNT1: '',
-      nowJX: ''
+      nowJX: '',
+      showPopup:false
     },
   bindMNumTypeChange: function (e) {
     this.setData({
@@ -644,6 +645,11 @@ wx.getSystemInfo({
     commentFilePaths.splice(e.detail, 1);
     this.setData({
       commentFilePaths: commentFilePaths
+    })
+  },
+  popStatusChange(e) {
+    this.setData({
+      showPopup: e.detail
     })
   }
   })

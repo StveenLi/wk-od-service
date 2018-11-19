@@ -99,7 +99,7 @@
         </view>
       </view>
     </view>
-
+<block wx:if="{{!showPopup}}">
     <view class='content'>
       <view class="weui-cell__hd">
         <view class="weui-label">签字确认</view>
@@ -118,6 +118,7 @@
         <!-- <image id='signatureImg' src='{{signImage}}'></image> -->
       </view>
     </view>
+</block>
 
     <view class="weui-cell weui-cell_input" style='margin-top:5px'>
       <view class='flex-row box-all'>
@@ -174,4 +175,4 @@
 <block wx:if="{{user.type == 2}}">
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
 </block>
-<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>
