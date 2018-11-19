@@ -190,7 +190,6 @@ Page({
       listItem: item
     })
     this.loadDetail(item);
-    this.getFaultList();
   },
   loadDetail: function (item) {
     let self = this;
@@ -198,6 +197,8 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          this.getFaultList(result.inbox.machineType);
+
           let fis = [];
           if (result.inbox.photoFiles instanceof Array) {
             for (let item of result.inbox.photoFiles) {
@@ -236,17 +237,22 @@ Page({
     });
   },
 
-  getFaultList:function(){
+  getFaultList:function(machineType){
     let that = this;
     api.fetch({
       url: 'rest/comment/findFaultList?code=XWJXH',
       callback: (err, result) => {
         if (result.success) {
           let xwjjxs = []; 
+          let MNTIndex = 0;
           for(let item of result.list[0].nodes){
+            if (machineType == item.dicCode){
+              MNTIndex = result.list[0].nodes.indexOf(item)
+            }
             xwjjxs.push(item.dicCode);
           }
           that.setData({
+            MNTIndex: MNTIndex,
             MNTItems: xwjjxs
           })
         }

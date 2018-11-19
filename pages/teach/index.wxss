@@ -1,18 +1,1 @@
-/* pages/teach/index.wxss */
-
-
-.page-all{
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-}
-
-view{
-  padding:2px;
-}
-
-.valid{
-  display: flex;
-  flex-direction: row;
-}
+/* pages/signMap/index.wxss */

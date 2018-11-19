@@ -46,7 +46,7 @@
     </view>
   </view>
 
-  <view class="weui-cell weui-cell_input">
+  <!-- <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
       <view class="weui-label">汽油费</view>
     </view>
@@ -62,7 +62,7 @@
     <view class="weui-cell__bd">
       <input class="weui-input" bindinput='zxChange' placeholder="装卸费" disabled='true' value='{{orderDetail.dWipe.coolieToll}}' />
     </view>
-  </view>
+  </view> -->
 
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
