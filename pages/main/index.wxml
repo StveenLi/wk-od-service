@@ -81,7 +81,7 @@
         <view style='margin-bottom:10px'></view>
         <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1':'background:#fff;border:2px dashed #9A32CD;'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
           <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
-            <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
+            <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}({{item.workStatus == 0?'未查看':item.workStatus == 5?'已查看':''}})</view>
             <view class='flex-1 date-style'>{{item.assignDate}}</view>
           </view>
 
@@ -102,7 +102,7 @@
               </view>
             </view>
             <view>
-            <block wx:if='{{item.workType == "Leave"}}'>
+              <block wx:if='{{item.workType == "Leave"}}'>
                 <view class='order-type-leave'>假</view>
               </block>
               <block wx:if='{{item.workType == "Repair"}}'>
@@ -137,6 +137,7 @@
               </block>
             </view>
           </view>
+          
           <view>
             <view class='flex-row box-all'>
               <view class='middle-all' style='margin-top:3px'>
@@ -144,6 +145,10 @@
               </view>
               <view class='content-style'>{{item.address}}</view>
             </view>
+          </view>
+          <view class='flex-row box-all' style='padding:5px;border-top:1px solid #F2F2F2'>
+            <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}({{item.workStatus == 0?'未查看':item.workStatus == 5?'已查看':''}})</view>
+            <view class='flex-1 date-style'>{{item.assignDate}}</view>
           </view>
         </view>
       </block>

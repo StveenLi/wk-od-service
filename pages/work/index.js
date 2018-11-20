@@ -22,9 +22,22 @@ Page({
     user: {},
     listType: '',
     inputShowed: false,
-    inputVal: ""
+    inputVal: "",
+    workTypes: [{ 'code': '', 'name': '选择类型' }, { 'code': 'Repair', 'name': '维修工单' }, { 'code': 'Install', 'name': '安装工单' }, { 'code': 'Leave', 'name': '请假工单' }, { 'code': 'Inbox', 'name': '入库工单' }, { 'code': 'Delivery', 'name': '物流工单' }, { 'code': 'MoneyAsk', 'name': '催款工单' }, { 'code': 'Outbox', 'name': '出库工单' }, { 'code': 'Patch', 'name': '补件工单' }, { 'code': 'Dell', 'name': '拆机工单' }, { 'code': 'Found', 'name': '勘察工单' }, { 'code': 'Travel', 'name': '出差工单' }, { 'code': 'DWipe', 'name': '报销工单' }],
+    workStatus: [{ 'code': '', 'name': '选择状态' }, { 'code': 0, 'name': '未查看' }, { 'code': 5, 'name': '已查看' }],
+    workTypeIndex:0,
+    workStatusIndex:0
   },
-
+  bindWorkStatusChange:function(e){
+    this.setData({
+      workStatusIndex:e.detail.value
+    })
+  },
+  bindWorkTypeChange: function (e) {
+    this.setData({
+      workTypeIndex: e.detail.value
+    })
+  },
   tabChangeCallback: function(selectId) {
     console.log(selectId)
   },
@@ -184,6 +197,7 @@ Page({
   loadListData: function() {
     let self = this;
     let wrCode = self.data.inputVal
+    const { workTypes, workStatus, workTypeIndex,workStatusIndex} = self.data
     wx.getStorage({
       key: 'user',
       success: function(res) {
@@ -191,7 +205,7 @@ Page({
           userId: res.data.userId
         })
         api.fetch({
-          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId+'&wrCode='+wrCode,
+          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + workStatus[workStatusIndex].code,
           callback: (err, result) => {
             if (result.success) {
               self.getDataSuccess(result);

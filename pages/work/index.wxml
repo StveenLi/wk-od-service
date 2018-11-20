@@ -28,7 +28,13 @@
           </view>
         </view> -->
         <view class='flex-row' style='padding:8px;background:#fff'>
-            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:0 15px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
+            <input placeholder="搜索" type="text" class='padding-5 flex-1 search-bor' style='height:auto!important;' bindinput='inputTyping'></input>
+            <picker class='flex-1 search-bor' bindchange="bindWorkTypeChange" value="{{workTypeIndex}}" range="{{workTypes}}" range-key="name">
+              <view class="padding-5 ">{{workTypes[workTypeIndex].name}}</view>
+            </picker>
+            <picker class='flex-1 search-bor' bindchange="bindWorkStatusChange" value="{{workStatusIndex}}" range="{{workStatus}}" range-key="name">
+              <view class="padding-5 ">{{workStatus[workStatusIndex].name}}</view>
+            </picker>
             <button class="mini-btn" type="primary" size="mini" bindtap='loadListData'>搜索</button>
         </view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 1}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
@@ -141,7 +147,7 @@
                 <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
               </block>
               <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
-                <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
+                <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}({{item.workStatus == 0?'未查看':item.workStatus == 5?'已查看':''}})</view>
                 <view class='flex-1 date-style'>{{item.assignDate}}</view>
               </view>
 
