@@ -29,7 +29,8 @@
 <block wx:if="{{user.type != 2}}">
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-    <button class='flex-1 bottom-btn' bindtap='lastSubmit'>确认发货</button>
+    <!-- 11.20确认发货 只有后台功能前台不做  待处理工单下的补件工单只能评论 -->
+    <!-- <button class='flex-1 bottom-btn' bindtap='lastSubmit_sure'>确认发货</button> -->
   </view>
 </block>
 <block wx:if="{{user.type == 2}}">

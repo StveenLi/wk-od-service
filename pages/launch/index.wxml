@@ -28,7 +28,7 @@
   <view bindtap='getMyselfInfo'>我发起的</view>
 </view>
 <view class='flex-row' style='padding:15px;background:#fff'>
-            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:3px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
+            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:0 15px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
             <button class="mini-btn" type="primary" size="mini" bindtap='loadListData'>搜索</button>
         </view>
 <block wx:for="{{myOrderList}}" wx:key="index">
@@ -68,7 +68,7 @@
         </block>
 
         <block wx:elif='{{item.workType == "Change"}}'>
-          <view class='order-type-change'>变</view>
+          <view class='order-type-change'>翻</view>
         </block>
         <block wx:elif='{{item.workType == "Patch"}}'>
           <view class='order-type-parts'>补</view>

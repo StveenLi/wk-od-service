@@ -22,6 +22,29 @@
       </block>
     </view>
   </block>
+  <!-- <view class="border-bottom-gainsboro"> -->
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd" style='font-size:14px'>
+              <view class="weui-uploader__title">图片附件</view>
+              <view class="weui-uploader__info">{{files.length}}</view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  <!-- </view> -->
 
   <view class=" weui-cells_after-title border-bottom-gainsboro">
         <view class=" weui-cell_switch">

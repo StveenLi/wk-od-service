@@ -86,6 +86,7 @@
           </view>
         </view>
       </view>
-
-    <button bindtap='finalSub'>提交</button>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='finalSub'>提交</button>
+</view>
   </view>

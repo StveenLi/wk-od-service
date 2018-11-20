@@ -12,6 +12,7 @@ Page({
     commentVal: '',
     commentFilePaths: [],
     user: {},
+    files:[]
   },
 
   unLaunch: function () {
@@ -30,8 +31,13 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          let fis = [];
+          for (let img of result.change.photoFiles) {
+            fis.push(img.url);
+          }
           self.setData({
             orderDetail: result,
+            files: fis
           })
         }
       }

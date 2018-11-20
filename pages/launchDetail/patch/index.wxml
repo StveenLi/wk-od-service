@@ -45,7 +45,8 @@
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <block wx:if="{{!orderDetail.workDto}}">
+  <!-- 审核过后不能撤回 只有状态6能撤回 -->
+  <block wx:if="{{!orderDetail.workDto&&orderDetail.patch.links.subStatus==6}}">
     <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
   </block>
 </view>

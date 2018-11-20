@@ -24,7 +24,7 @@
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <block wx:if="{{orderDetail.travel.links.subStatus!=8&&orderDetail.travel.links.subStatus!=12}}">
+  <block wx:if="{{orderDetail.travel.links.subStatus==6}}">
       <block wx:if="{{user.type == 1}}">
         <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
       </block>
