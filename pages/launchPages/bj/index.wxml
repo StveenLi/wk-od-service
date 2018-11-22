@@ -16,7 +16,16 @@
       <view class="weui-label">Wr</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" bindinput='placeChange' placeholder="请输入Wr编码(选填)" />
+      <input class="weui-input" bindinput='wrChange' placeholder="请输入Wr编码(选填)" />
+    </view>
+  </view>
+<!-- 机器编码 选填 自由输入 不搜索不限制格式 11/22 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">机器编码</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='MNChange' placeholder="请输入机器编码" />
     </view>
   </view>
 
@@ -72,7 +81,7 @@
 
       <block wx:for="{{partsList}}" wx:key="*this" wx:for-item="citem">
         <view class="weui-cell weui-cell__bd" hover-class="weui-cell_active" bindtap="itemOptionClick" data-item='{{item}}' data-citem='{{citem}}'>
-          <view>{{citem.name}}</view>
+          <view>{{citem.value}} | {{citem.name}}</view>
         </view>
       </block>
     </view>

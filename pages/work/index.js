@@ -191,7 +191,9 @@ Page({
   tabClick: function(e) {
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
+      activeIndex: e.currentTarget.id,
+      workTypeIndex: 0,
+      workStatusIndex: 0
     });
   },
   loadListData: function() {

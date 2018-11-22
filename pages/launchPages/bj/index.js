@@ -19,10 +19,22 @@ Page({
     date: new Date().format("yyyy-MM-dd"),
     user: {},
     remarks:'',
-    finalValNum:[]
-
+    finalValNum:[],
+    MNValue:'',
+    wrValue:''
   },
 
+  wrChange:function(e){
+    this.setData({
+      wrValue: e.detail.value
+    })
+  },
+
+  MNChange:function(e){
+    this.setData({
+      MNValue:e.detail.value
+    })
+  },
   remarkChange: function (e) {
     this.setData({
       remarks: e.detail.value
@@ -86,12 +98,19 @@ Page({
         etcTime:that.data.date,
         remarks:that.data.remarks,
         pids: pids,
-        vs:nums
+        vs:nums,
+        wrCode:that.data.wrValue,
+        machineCode: that.data.MNValue
       },
       callback: (err, result) => {
         if (result.success) {
-        //  console.log(result)
           wx.navigateBack({
+          })
+        }else{
+          wx.showToast({
+            title: result.msg,
+            icon:'none',
+            duration:2000
           })
         }
       }

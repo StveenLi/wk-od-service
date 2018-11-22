@@ -15,6 +15,8 @@ Page({
       { name: '空开容量满足全部电器负荷', value: '1' },
       { name: '楼梯电器和门的尺寸能否将机器搬运进现场', value: '2' },
       { name: '空开具备漏电保护功能', value: '3' },
+      { name: '是否有货梯', value: '4' },
+
     ],
     nowAddress: '',
     outAddress: '',

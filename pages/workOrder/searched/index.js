@@ -12,19 +12,28 @@ Page({
     date: new Date().format('yyyy-MM-dd hh:mm:ss'),
     checkboxItems: [{
         name: '水压是否正常',
-        value: '0'
+        value: '0',
+      checked:false
       },
       {
         name: '空开容量满足全部电器负荷',
-        value: '1'
+        value: '1',
+        checked: false
       },
       {
         name: '楼梯电器和门的尺寸能否将机器搬运进现场',
-        value: '2'
+        value: '2',
+        checked: false
       },
       {
         name: '空开具备漏电保护功能',
-        value: '3'
+        value: '3',
+        checked: false
+      },
+      {
+        name: '是否有货梯',
+        value: '4',
+        checked: false
       },
     ],
     nowAddress: '',
@@ -37,7 +46,14 @@ Page({
     remarks: '',
     user: {},
     commentFilePaths:[],
-    commentVal:''
+    commentVal:'',
+    floor:''
+  },
+
+  floorChange:function(e){
+    this.setData({
+      floor:e.detail.value
+    })
   },
   lastSubmit: function(e) {
     let that = this;
@@ -59,6 +75,16 @@ Page({
         return;
       }
     }
+    if (that.data.checkboxItems[4].checked == false){
+      if(that.data.floor==''){
+        wx.showToast({
+          title: '没有货梯必须要填写楼层！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+    }
     //doUpdate
     api.fetch({
 
@@ -70,11 +96,13 @@ Page({
         postions: that.data.checkboxItems[2].checked, //位置情况
         waters: that.data.checkboxItems[0].checked,
         switchs: that.data.checkboxItems[3].checked,
+        ladder: that.data.checkboxItems[4].checked,
         remoteConfirm: that.data.isPhoneConfirm,
         workLinkId: that.data.orderDetail.found.links.id,
         stype: 'Found',
         id: that.data.orderDetail.found.id,
-        remarks: that.data.remarks
+        remarks: that.data.remarks,
+        floor:that.data.floor
       },
       callback: (err, result) => {
         if (result.success) {

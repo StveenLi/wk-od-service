@@ -37,7 +37,7 @@
 
       <block wx:for="{{partsList}}" wx:key="*this" wx:for-item="citem">
         <view class="weui-cell weui-cell__bd" hover-class="weui-cell_active" bindtap="itemOptionClick" data-item='{{item}}' data-citem='{{citem}}'>
-          <view>{{citem.name}}</view>
+          <view>{{citem.value}} | {{citem.name}}</view>
         </view>
       </block>
     </view>

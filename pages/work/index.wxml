@@ -28,7 +28,7 @@
           </view>
         </view> -->
         <view class='flex-row' style='padding:8px;background:#fff'>
-            <input placeholder="搜索" type="text" class='padding-5 flex-1 search-bor' style='height:auto!important;' bindinput='inputTyping'></input>
+            <input placeholder="关键字" type="text" class='padding-5 flex-1 search-bor' style='height:auto!important;' bindinput='inputTyping'></input>
             <picker class='flex-1 search-bor' bindchange="bindWorkTypeChange" value="{{workTypeIndex}}" range="{{workTypes}}" range-key="name">
               <view class="padding-5 ">{{workTypes[workTypeIndex].name}}</view>
             </picker>
