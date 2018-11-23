@@ -68,7 +68,7 @@
             <block wx:if="{{item.value == 4&&orderDetail.found.ladder=='true'}}">
               <image src='../../../images/yes.png' style='width:15px;height:15px'></image>
             </block>
-            <block wx:if="{{item.value == 4&&orderDetail.found.ladder=='false'}}">楼层{{orderDetail.found.floor}}层</block>
+            <block wx:if="{{item.value == 4&&orderDetail.found.ladder=='false'}}"><image src='../../../images/no.png' style='width:15px;height:15px;margin-bottom:-3px;'></image> 楼层{{orderDetail.found.floor}}层</block>
             
           </view>
         </block>
