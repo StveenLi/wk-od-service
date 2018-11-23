@@ -57,8 +57,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "洁先服务",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#F2f2f2",
-    "enablePullDownRefresh": true
+    "backgroundColor": "#F2f2f2"
   },
   "tabBar": {
     "color": "#929292",

@@ -25,7 +25,7 @@
   <!-- <view class="border-bottom-gainsboro"> -->
 
   <!-- </view> -->
-
+<block wx:if="{{orderDetail.change.links.subStatus != 0}}">
   <view class=" weui-cells_after-title border-bottom-gainsboro">
     <view class=" weui-cell_switch">
       <view class="weui-cell__bd"></view>
@@ -79,8 +79,9 @@
       </view>
     </view>
   </block>
-</view>
+  </block>
 
+</view>
 
 
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
