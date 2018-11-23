@@ -20,6 +20,24 @@ Page({
 
   },
 
+  _seeDoneChange: function () {
+    let that = this;
+    if (that.data.user.type == 1 && that.data.orderDetail.change.links.subStatus == 0) {
+      api.fetch({
+        url: 'rest/work/doSubmit',
+        data: {
+          bigWorkOrderId: that.data.orderDetail.change.pWrok.id,
+          workId: that.data.listItem.id,
+          status: 5,
+          stype: 'Change',
+        },
+        callback: (err, result) => {
+          console.log('see done');
+        }
+      })
+    }
+  },
+
   remarkChange:function(e){
     this.setData({
       remarks:e.detail.value
@@ -120,6 +138,8 @@ Page({
             photoFiles: allFis,
             upVideoArr: videoFis
           })
+
+          self._seeDoneChange();
         }
       }
     });
@@ -243,7 +263,7 @@ Page({
     wx.chooseImage({
       sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      count: 6,
+      count: 9,
       success: function (res) {
         for (let tempImg of res.tempFilePaths) {
           wx.uploadFile({

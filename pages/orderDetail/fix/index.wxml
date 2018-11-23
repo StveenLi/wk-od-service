@@ -44,12 +44,21 @@
     </view>
   </view>
 
-<view class="weui-cell weui-cell_input">
-      <view class='flex-row box-all'>
-        <view class='flex-1 padding-5'>故障类型</view>
-        <view class='padding-5 work-order-content'>{{orderDetail.repair.faultTypeName}} {{orderDetail.repair.faultChildTypeName == null?'':orderDetail.repair.faultChildTypeName}}</view>
-      </view>
+  <view class="weui-cell weui-cell_input">
+    <view class='flex-row box-all'>
+      <view class='flex-1 padding-5'>故障类型</view>
+      <view class='padding-5 work-order-content'>{{orderDetail.repair.faultTypeName}} {{orderDetail.repair.faultChildTypeName == null?'':orderDetail.repair.faultChildTypeName}}</view>
     </view>
+  </view>
+  <!-- 备注 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">解决方案</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.repair.links.remarks}}" disabled='false' />
+    </view>
+  </view>
   <block wx:if="{{isPhoneFix=='false'}}">
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
@@ -58,17 +67,9 @@
       </view>
     </view>
 
-    
 
-    <!-- 备注 -->
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">解决方案</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.repair.links.remarks}}" disabled='false' />
-      </view>
-    </view>
+
+
 
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_switch">
@@ -76,17 +77,17 @@
 
       </view>
       <view wx:for="{{du_patchs}}" wx:key="*this">
-          <view style='color:#999;margin:0 15px;'>
-            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+        <view style='color:#999;margin:0 15px;'>
+          <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
             <view class='flex-1'>补件单ID:{{item[0].wId}}</view>
-            </view>
-            <view wx:for="{{item}}" wx:key="*this">
+          </view>
+          <view wx:for="{{item}}" wx:key="*this">
 
-              <view> {{item.groupName}}*{{item.groupValue}} </view>
-              
-            </view>
+            <view> {{item.groupName}}*{{item.groupValue}} </view>
+
           </view>
         </view>
+      </view>
 
     </view>
 
@@ -118,18 +119,18 @@
     <view class="optClass">
       <view class="weui-uploader__title">视频附件</view>
     </view>
-          <block wx:if="{{!showPopup}}">
+    <block wx:if="{{!showPopup}}">
 
-    <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
-      <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
-        <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
-        <cover-view class='progress' wx:if="{{upFilesProgress}}">
-          {{item.progress}}%
-        </cover-view>
-        <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
-        
+      <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+        <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+          <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
+          <cover-view class='progress' wx:if="{{upFilesProgress}}">
+            {{item.progress}}%
+          </cover-view>
+          <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+
+        </view>
       </view>
-    </view>
     </block>
 
     <view class="weui-cell weui-cell_input" style='margin-top:5px'>
@@ -146,10 +147,9 @@
 
 
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
-  <view class='bottom-btn-view flex-row'>
+<view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
 </view>
 
 <!-- 中间弹出框 -->
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>
-
