@@ -313,3 +313,14 @@ right:0px;
 .search-bor{
   border:1px #eee solid;padding:0 15px;border-radius:5px;margin-right:5px;
 }
+
+.order-type-change{
+  font-size: 28px;
+  background: rgb(235, 121, 210);
+  border-radius: 50%; 
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding:6px 3px 0 3px;
+}

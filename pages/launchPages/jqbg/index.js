@@ -50,7 +50,7 @@ Page({
         remarks: that.data.remarks,
         newMachineNr: that.data.newMachineCode,
         macStatus:"MAC_STATUS_TO_RENOVATION",
-        photoFiles: that.data.photoFiles
+        // photoFiles: that.data.photoFiles
 
       },
       callback: (err, result) => {
@@ -59,24 +59,27 @@ Page({
           //   url:'/pages/launch/index'
           // })
 
-          wx.showModal({
-            title: '是否申请补件？',
-            // content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
-            confirmText: "申请",
-            cancelText: "不申请",
-            success: function (res) {
-              console.log(res);
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: 'request?workLinkId=' + result.one
+          // wx.showModal({
+          //   title: '是否申请补件？',
+          //   // content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+          //   confirmText: "申请",
+          //   cancelText: "不申请",
+          //   success: function (res) {
+          //     console.log(res);
+          //     if (res.confirm) {
+          //       wx.navigateTo({
+          //         url: 'request?workLinkId=' + result.one
+          //       })
+          //     } else {
+          //       wx.navigateBack({
+          //         delta: 1
+          //       })
+          //     }
+          //   }
+          // });
+          wx.navigateBack({
+                  delta: 2
                 })
-              } else {
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          });
         }else{
           wx.showToast({
             title: result.msg,

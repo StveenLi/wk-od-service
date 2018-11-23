@@ -32,12 +32,47 @@ Page({
       callback: (err, result) => {
         if (result.success) {
           let fis = [];
-          for (let img of result.change.photoFiles) {
-            fis.push(img.url);
+          let videoFis = [];
+          let allFis = [];
+          if (result.change.photoFiles instanceof Array) {
+            for (let item of result.change.photoFiles) {
+              if (item.fileType == 'IMG') {
+                fis.push(item.url)
+              } else {
+                videoFis.push({ 'tempFilePath': item.url })
+              }
+              allFis.push(item.url)
+            }
           }
+
+          let du_patches = [];
+          let du_id = 0;
+          let du_times = 0;
+          let du_patch_children = [];
+
+          for (let pa of result.patch) {
+            if (result.patch.indexOf(pa) === 0) {
+              du_id = pa.wId;
+            }
+            if (du_id == pa.wId) {
+              du_patch_children.push(pa);
+            }
+            if (du_id != pa.wId) {
+              du_patches.push(du_patch_children);
+              du_patch_children = [];
+              du_patch_children.push(pa);
+              du_times++;
+              du_id = pa.wId;
+            }
+            if (result.patch.indexOf(pa) === result.patch.length - 1) {
+              du_patches.push(du_patch_children);
+            }
+          }
+
           self.setData({
             orderDetail: result,
-            files: fis
+            files: fis,
+            upVideoArr: videoFis,
           })
         }
       }
@@ -191,6 +226,11 @@ Page({
     commentFilePaths.splice(e.detail, 1);
     this.setData({
       commentFilePaths: commentFilePaths
+    })
+  },
+  popStatusChange(e) {
+    this.setData({
+      showPopup: e.detail
     })
   }
 })

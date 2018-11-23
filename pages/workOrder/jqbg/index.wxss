@@ -37,7 +37,6 @@ view {
     display: flex;
     align-items: center;
     flex-wrap:wrap;
-    padding:0 15px;
 }
 .optClass .optName{
     width: 200rpx;

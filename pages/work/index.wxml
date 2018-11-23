@@ -112,7 +112,7 @@
                     <view class='order-type-travel'>差</view>
                   </block>
                   <block wx:elif='{{item.workType == "Change"}}'>
-                    <view class='order-type-change'>变</view>
+                    <view class='order-type-change'>翻</view>
                   </block>
                 </view>
               </view>
@@ -209,6 +209,9 @@
                   </block>
                   <block wx:elif='{{item.workType == "Travel"}}'>
                     <view class='order-type-travel'>差</view>
+                  </block>
+                  <block wx:elif='{{item.workType == "Change"}}'>
+                    <view class='order-type-change'>翻</view>
                   </block>
                 </view>
               </view>

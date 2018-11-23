@@ -46,16 +46,7 @@
   padding:6px 3px 0 3px;
 }
 
-.order-type-change{
-  font-size: 28px;
-  background: rgb(235, 121, 210);
-  border-radius: 50%; 
-  color: #fff;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  padding:6px 3px 0 3px;
-}
+
 .order-type-in{
   font-size: 28px;
   background: #4AA3FB;

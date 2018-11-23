@@ -149,7 +149,6 @@ Page({
       callback: (err, result) => {
         if (result.success) {
           wx.navigateBack({
-            delta: 2
           })
         }
       }

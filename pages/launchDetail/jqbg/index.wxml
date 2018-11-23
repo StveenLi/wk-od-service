@@ -4,7 +4,7 @@
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
-    <view class='flex-1 middle-all'>机器变更单</view>
+  <view class='flex-1 middle-all'>机器变更单</view>
 
   <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
     <view class='flex-1'>{{orderDetail.wrCode}}</view>
@@ -23,52 +23,71 @@
     </view>
   </block>
   <!-- <view class="border-bottom-gainsboro"> -->
-    <view class="weui-cells">
-      <view class="weui-cell">
-        <view class="weui-cell__bd">
-          <view class="weui-uploader">
-            <view class="weui-uploader__hd" style='font-size:14px'>
-              <view class="weui-uploader__title">图片附件</view>
-              <view class="weui-uploader__info">{{files.length}}</view>
-            </view>
-            <view class="weui-uploader__bd">
-              <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{files}}" wx:key="*this">
-                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
-                  </view>
-                </block>
-              </view>
+
+  <!-- </view> -->
+
+  <view class=" weui-cells_after-title border-bottom-gainsboro">
+    <view class=" weui-cell_switch">
+      <view class="weui-cell__bd"></view>
+    </view>
+    <view wx:for="{{du_patchs}}" wx:key="*this" style='margin: 0 15px'>
+      <view style='color:#999;font-size:12px;'>
+        <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+          <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+          <!-- <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view> -->
+        </view>
+        <view wx:for="{{item}}" wx:key="*this">
+          <view> {{item.groupName}}*{{item.groupValue}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__hd" style='font-size:14px'>
+            <view class="weui-uploader__title">图片附件</view>
+            <view class="weui-uploader__info">{{files.length}}</view>
+          </view>
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                </view>
+              </block>
             </view>
           </view>
         </view>
       </view>
     </view>
-  <!-- </view> -->
+  </view>
 
-  <view class=" weui-cells_after-title border-bottom-gainsboro">
-        <view class=" weui-cell_switch">
-          <view class="weui-cell__bd"></view>
-        </view>
-        <view wx:for="{{du_patchs}}" wx:key="*this">
-          <view style='color:#999;font-size:12px;'>
-            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
-              <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
-              <!-- <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view> -->
-            </view>
-            <view wx:for="{{item}}" wx:key="*this">
-              <view> {{item.groupName}}*{{item.groupValue}} </view>
-            </view>
-          </view>
-        </view>
+
+  <view class="optClass">
+    <view class="weui-uploader__title">视频附件</view>
+  </view>
+  <block wx:if="{{!showPopup}}">
+
+    <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+      <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+        <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
+        <cover-view class='progress' wx:if="{{upFilesProgress}}">
+          {{item.progress}}%
+        </cover-view>
       </view>
+    </view>
+  </block>
 </view>
 
+
+
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
-<view class='bottom-btn-view flex-row'>
+<view class='bottom-btn flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
   <!-- <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button> -->
 </view>
 <!-- <button class='bottom-btn' bindtap='toCommit'>评论</button> -->
 
-<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

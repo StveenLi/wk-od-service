@@ -2,7 +2,7 @@
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
-  <view style='text-align:center;padding:10px 0'>发起机器变更单</view>
+  <view style='text-align:center;padding:10px 0'>发起翻修单</view>
 
 
   <view class="weui-cell weui-cell_select">
@@ -61,7 +61,7 @@
     </view>
   </view> -->
 
-  <view class="page__bd">
+  <!-- <view class="page__bd">
     <view class="weui-cells">
       <view class="weui-cell">
         <view class="weui-cell__bd">
@@ -86,19 +86,19 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 
-  <view class="weui-cell weui-cell_input">
+  <!-- <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">
       <view class="weui-label">备注</view>
     </view>
     <view class="weui-cell__bd">
       <input class="weui-input" bindinput='remarkChange' placeholder="请输入备注" />
     </view>
-  </view>
+  </view> -->
 </view>
 
 
 <view class='bottom-btn-view flex-row'>
-  <button class='flex-1 bottom-btn' bindtap='finalSub'>申请补件 ></button>
+  <button class='flex-1 bottom-btn' bindtap='finalSub'>发起</button>
 </view>

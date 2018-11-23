@@ -118,6 +118,8 @@ Page({
           navigateUrl = '/pages/workOrder/travel/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'Leave') {
           navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
+        } else if (item.workType == 'Change') {
+          navigateUrl = '/pages/workOrder/jqbg/index?item=' + JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
