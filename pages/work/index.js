@@ -23,21 +23,62 @@ Page({
     listType: '',
     inputShowed: false,
     inputVal: "",
-    workTypes: [{ 'code': '', 'name': '选择类型' }, { 'code': 'Repair', 'name': '维修工单' }, { 'code': 'Install', 'name': '安装工单' }, { 'code': 'Leave', 'name': '请假工单' }, { 'code': 'Inbox', 'name': '入库工单' }, { 'code': 'Delivery', 'name': '物流工单' }, { 'code': 'MoneyAsk', 'name': '催款工单' }, { 'code': 'Outbox', 'name': '出库工单' }, { 'code': 'Patch', 'name': '补件工单' }, { 'code': 'Dell', 'name': '拆机工单' }, { 'code': 'Found', 'name': '勘察工单' }, { 'code': 'Travel', 'name': '出差工单' }, { 'code': 'DWipe', 'name': '报销工单' }],
-    workStatus: [{ 'code': '', 'name': '选择状态' }, { 'code': 0, 'name': '未查看' }, { 'code': 5, 'name': '已查看' }],
-    workTypeIndex:0,
-    workStatusIndex:0
+    workTypes: [{
+      'code': '',
+      'name': '选择类型'
+    }, {
+      'code': 'Repair',
+      'name': '维修工单'
+    }, {
+      'code': 'Install',
+      'name': '安装工单'
+    }, {
+      'code': 'Leave',
+      'name': '请假工单'
+    }, {
+      'code': 'Inbox',
+      'name': '入库工单'
+    }, {
+      'code': 'Delivery',
+      'name': '物流工单'
+    }, {
+      'code': 'MoneyAsk',
+      'name': '催款工单'
+    }, {
+      'code': 'Outbox',
+      'name': '出库工单'
+    }, {
+      'code': 'Patch',
+      'name': '补件工单'
+    }, {
+      'code': 'Dell',
+      'name': '拆机工单'
+    }, {
+      'code': 'Found',
+      'name': '勘察工单'
+    }, {
+      'code': 'Travel',
+      'name': '出差工单'
+    }, {
+      'code': 'DWipe',
+      'name': '报销工单'
+    }],
+    workStatus: [{
+      'code': '',
+      'name': '选择状态'
+    }, {
+      'code': 0,
+      'name': '未查看'
+    }, {
+      'code': 5,
+      'name': '已查看'
+    }],
+    workTypeIndex: 0,
+    workStatusIndex: 0,
+    workTypeText: '选择类型',
+    _page_start: 0
   },
-  bindWorkStatusChange:function(e){
-    this.setData({
-      workStatusIndex:e.detail.value
-    })
-  },
-  bindWorkTypeChange: function (e) {
-    this.setData({
-      workTypeIndex: e.detail.value
-    })
-  },
+
   tabChangeCallback: function(selectId) {
     console.log(selectId)
   },
@@ -57,7 +98,10 @@ Page({
     // 当前页是最后一页
     setTimeout(function() {
       console.log('上拉加载更多');
-      self.loadListData('')
+      self.setData({
+        _page_start: self.data._page_start + 20
+      })
+      self._page_loadListData(self.data._page_start + 20)
       self.setData({
         hideBottom: false
       })
@@ -69,19 +113,16 @@ Page({
     }, 300);
   },
   tap: function(e) {
-    for (var i = 0; i < order.length; ++i) {
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
+    let that = this;
+    console.log('加载更多')
   },
   tapMove: function(e) {
     this.setData({
       scrollTop: this.data.scrollTop + 10
     })
+  },
+  scroll: function(e) {
+
   },
 
   toFlowPage: function(e) {
@@ -89,7 +130,7 @@ Page({
     let item = e.currentTarget.dataset.item;
 
 
-    if (item.workStatus == 20){
+    if (item.workStatus == 20) {
       return;
     }
     if (this.data.activeIndex == 0) {
@@ -190,26 +231,205 @@ Page({
     });
   },
 
-  tabClick: function(e) {
+  loadListData_search:function(){
     this.setData({
+      _page_start:0
+    })
+    this.loadListData();
+  },
+
+  tabClick: function(e) {
+    let that = this;
+    that.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
       workTypeIndex: 0,
-      workStatusIndex: 0
+      workStatusIndex: 0,
+      _page_start: 0
     });
+
+    that.loadListData();
   },
   loadListData: function() {
     let self = this;
     let wrCode = self.data.inputVal
-    const { workTypes, workStatus, workTypeIndex,workStatusIndex} = self.data
+    let _workStatus = "0";
+    const {
+      workTypes,
+      workStatus,
+      workTypeIndex,
+      workStatusIndex,
+      activeIndex,
+      listType,
+      user
+    } = self.data
+    // let _wstatus = self.getWorkStatus();
+    let _p = new Promise(function (resolve, reject) {
+      wx.getStorage({
+        key: 'user',
+        success: function (res) {
+          // 构建工单状态筛选条件
+          // 如果是员工
+          if (res.data.type == 1) {
+            if (activeIndex == 0) {
+              if (workStatusIndex == 0) {
+                _workStatus = "0,5,8";
+              } else if (workStatusIndex == 1) {
+                _workStatus = "0";
+              } else if (workStatusIndex == 2) {
+                _workStatus = "5";
+              }
+            } else if (activeIndex == 1) {
+              _workStatus = "10,12,20";
+            }
+          } else if (res.data.type == 2) {
+            if (listType == 'audit') {
+              if (activeIndex == 0) {
+                _workStatus = "6";
+              } else if (activeIndex == 1) {
+                _workStatus = "8,12"
+              }
+            } else {
+              if (activeIndex == 0) {
+                if (workStatusIndex == 0) {
+                  _workStatus = "0,5";
+                } else if (workStatusIndex == 1) {
+                  _workStatus = "0";
+                } else if (workStatusIndex == 2) {
+                  _workStatus = "5";
+                }
+              } else if (activeIndex == 1) {
+                //领导已完成
+                _workStatus = "10,20";
+              }
+            }
+          }
+        }
+      })
+      resolve();
+    })
+
+    _p.then(function(){
+      console.log('结束' + _workStatus)
+      wx.getStorage({
+        key: 'user',
+        success: function (res) {
+          self.setData({
+            userId: res.data.userId
+          })
+          api.fetch({
+            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=0&pageSize=20',
+            callback: (err, result) => {
+              if (result.success) {
+                self.getDataSuccess(result);
+              }
+            }
+          });
+        },
+      });
+    })
+
+      
+  },
+
+  _page_loadListData: function (start){
+    let self = this;
+    let wrCode = self.data.inputVal
+    let _workStatus = "0";
+    const {
+      workTypes,
+      workStatus,
+      workTypeIndex,
+      workStatusIndex,
+      activeIndex,
+      listType,
+      user
+    } = self.data
+    // let _wstatus = self.getWorkStatus();
+    let _p = new Promise(function (resolve, reject) {
+      wx.getStorage({
+        key: 'user',
+        success: function (res) {
+          // 构建工单状态筛选条件
+          // 如果是员工
+          if (res.data.type == 1) {
+            if (activeIndex == 0) {
+              if (workStatusIndex == 0) {
+                _workStatus = "0,5,8";
+              } else if (workStatusIndex == 1) {
+                _workStatus = "0";
+              } else if (workStatusIndex == 2) {
+                _workStatus = "5";
+              }
+            } else if (activeIndex == 1) {
+              _workStatus = "10,12,20";
+            }
+          } else if (res.data.type == 2) {
+            if (listType == 'audit') {
+              if (activeIndex == 0) {
+                _workStatus = "6";
+              } else if (activeIndex == 1) {
+                _workStatus = "8,12"
+              }
+            } else {
+              if (activeIndex == 0) {
+                if (workStatusIndex == 0) {
+                  _workStatus = "0,5";
+                } else if (workStatusIndex == 1) {
+                  _workStatus = "0";
+                } else if (workStatusIndex == 2) {
+                  _workStatus = "5";
+                }
+              } else if (activeIndex == 1) {
+                //领导已完成
+                _workStatus = "10,20";
+              }
+            }
+          }
+        }
+      })
+      resolve();
+    })
+
+    _p.then(function(){
+      wx.getStorage({
+        key: 'user',
+        success: function (res) {
+          self.setData({
+            userId: res.data.userId
+          })
+          api.fetch({
+            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=' + start + '&pageSize=20',
+            callback: (err, result) => {
+              if (result.success) {
+                self._page_getDataSuccess(result);
+              }
+            }
+          });
+        },
+      });
+    })
+  },
+  getListDataRequest: function (_workStatus){
+    let self = this;
+    let wrCode = self.data.inputVal
+    const {
+      workTypes,
+      workStatus,
+      workTypeIndex,
+      workStatusIndex,
+      activeIndex,
+      listType,
+      user
+    } = self.data
     wx.getStorage({
       key: 'user',
-      success: function(res) {
+      success: function (res) {
         self.setData({
           userId: res.data.userId
         })
         api.fetch({
-          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + workStatus[workStatusIndex].code,
+          url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=0&pageSize=20',
           callback: (err, result) => {
             if (result.success) {
               self.getDataSuccess(result);
@@ -218,7 +438,101 @@ Page({
         });
       },
     });
+  },
 
+  _promise_getWorkStatus: function(){
+    let self = this;
+    let _p = new Promise(function (resolve, reject){
+    const {
+      workTypes,
+      workStatus,
+      workTypeIndex,
+      workStatusIndex,
+      activeIndex,
+      listType,
+      user
+    } = self.data
+    let _workStatus = "0";
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        // 构建工单状态筛选条件
+        // 如果是员工
+        if (res.data.type == 1) {
+            if (activeIndex == 0) {
+              if (workStatusIndex == 0) {
+                _workStatus = "0,5,8";
+              } else if (workStatusIndex == 1) {
+                _workStatus = "0";
+              } else if (workStatusIndex == 2) {
+                _workStatus = "5";
+              }
+            } else if (activeIndex == 1){
+              _workStatus = "10,12,20";
+            }
+        }else if(res.data.type == 2){
+          if (listType == 'audit') {
+            if (activeIndex == 0) {
+              _workStatus = "6";
+            } else if (activeIndex == 1){
+              _workStatus = "8,12"
+            }
+          } else {
+            if (activeIndex == 0) {
+              if (workStatusIndex == 0) {
+                _workStatus = "0,5";
+              } else if (workStatusIndex == 1) {
+                _workStatus = "0";
+              } else if (workStatusIndex == 2) {
+                _workStatus = "5";
+              }
+            } else if (activeIndex == 1){
+              //领导已完成
+              _workStatus = "10,20";
+            }
+          }
+        }
+      }
+    }) 
+    resolve();
+  })
+  },
+
+
+
+
+  _pageLowLoad: function() {
+    // let that = this;
+    // this.setData({
+    //   _page_start: that.data._page_start
+    // })
+  },
+  _page_getDataSuccess:function(data){
+    let that = this;
+    let { listdata, doneListData, activeIndex} = that.data
+    if (that.data.listType == 'audit') {
+      if(activeIndex == 0){
+        this.setData({
+          listdata: Object.assign(listdata,data.one.noAudite)
+        })
+      } else if (activeIndex == 1){
+        this.setData({
+          doneListData: Object.assign(doneListData, data.one.hasAudite)
+        })
+      }
+      
+    } else {
+      if (activeIndex == 0){
+        console.log()
+        this.setData({
+          listdata: Object.assign(listdata, data.one.notDO)
+        })
+      } else if (activeIndex == 1){
+        this.setData({
+          doneListData: Object.assign(doneListData, data.one.done)
+        })
+      }
+    }
   },
 
   getDataSuccess: function(data) {
@@ -251,7 +565,7 @@ Page({
    */
   onShow: function() {
     let self = this;
-    self.loadListData('');
+    self.loadListData();
   },
 
   /**
@@ -288,26 +602,38 @@ Page({
   onShareAppMessage: function() {
 
   },
-  showInput: function () {
+  showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
-  hideInput: function () {
+  hideInput: function() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
-  clearInput: function () {
+  clearInput: function() {
     this.setData({
       inputVal: ""
     });
   },
-  inputTyping: function (e) {
+  inputTyping: function(e) {
     this.setData({
       inputVal: e.detail.value
     });
     // this.loadListData(e.detail.value)
-  }
+  },
+  bindWorkStatusChange: function(e) {
+    this.setData({
+      workStatusIndex: e.detail.value
+    })
+  },
+  bindWorkTypeChange: function(e) {
+    let that = this;
+
+    this.setData({
+      workTypeIndex: e.detail.value,
+    })
+  },
 })

@@ -75,7 +75,7 @@
     <block wx:if="{{Object.keys(listdata).length === 0}}">
         <view class='middle-all' style='padding:50px;font-size:14px'>暂无工单</view>
       </block>
-    <block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value">
+    <block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value" wx:key="item">
       <view style='text-align:center;font-size:16px;font-weight:bold;'>{{key}}</view>
       <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
         <view style='margin-bottom:10px'></view>

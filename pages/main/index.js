@@ -200,7 +200,6 @@ Page({
       url: 'rest/work/indexData?userId=' +that.data.user.userId,
       callback: (err, result) => {
         if (result.success) {
-          console.log(result)
           let msgList = [];
           if (result.msgList){
             
@@ -225,7 +224,7 @@ Page({
   loadListData:function(){
     let self = this;
     api.fetch({
-      url: 'rest/work/findUserIdAndSatus?userId=' + self.data.user.userId,
+      url: 'rest/work/findUserIdAndSatus?userId=' + self.data.user.userId +'&pageSize=20&start=0&status=0,5',
       callback: (err, result) => {
         if (result.success) {
           this.setData({

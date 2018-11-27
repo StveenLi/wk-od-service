@@ -25,9 +25,7 @@ Page({
     api.fetch({
       url: 'rest/wkuser/login?phone=' + that.data.phone +'&vaildCode='+that.data.validCode,
       callback: (err, result) => {
-        console.log(result);
         if(result.success){
-          console.log(result)
           that.saveUserInfo(result.one);
           // wx.getUserInfo({
           //   success: function (res) {
@@ -49,12 +47,10 @@ Page({
   },
 
   bindGetUserInfo: function (e) {
-    console.log(e.detail.userInfo)
     wx.setStorageSync('wxUser', e.detail.userInfo)
   },
   saveUserInfo: function (userInfo){
     let that = this;
-    // wx.setStorageSync('userInfo', userInfo);
     wx.setStorageSync('user', userInfo)
   },
   getPhone: function(e) {
@@ -116,12 +112,9 @@ onReady: function() {
  * 生命周期函数--监听页面显示
  */
 onShow: function() {
-  console.log(wx.getStorageSync('userInfo'))
-
   wx.getStorage({
     key: 'user',
     success: function (res) {
-      console.log(res.data)
       if(res.data.userId){
         wx.reLaunch({
           url: "../main/index"

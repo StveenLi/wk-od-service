@@ -9,228 +9,212 @@
         </block>
       </view>
       <view class="weui-tab__panel">
-        <!-- <view class="page__bd">
-          <view class="weui-search-bar">
-            <view class="weui-search-bar__form">
-              <view class="weui-search-bar__box">
-                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
-                  <icon type="clear" size="14"></icon>
-                </view>
-              </view>
-              <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
-                <icon class="weui-icon-search" type="search" size="14"></icon>
-                <view class="weui-search-bar__text">WR搜索</view>
-              </label>
-            </view>
-            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
-          </view>
-        </view> -->
         <view class='flex-row' style='padding:8px;background:#fff'>
-            <input placeholder="关键字" type="text" class='padding-5 flex-1 search-bor' style='height:auto!important;' bindinput='inputTyping'></input>
-            <picker class='flex-1 search-bor' bindchange="bindWorkTypeChange" value="{{workTypeIndex}}" range="{{workTypes}}" range-key="name">
-              <view class="padding-5 ">{{workTypes[workTypeIndex].name}}</view>
-            </picker>
-            <picker class='flex-1 search-bor' bindchange="bindWorkStatusChange" value="{{workStatusIndex}}" range="{{workStatus}}" range-key="name">
-              <view class="padding-5 ">{{workStatus[workStatusIndex].name}}</view>
-            </picker>
-            <button class="mini-btn" type="primary" size="mini" bindtap='loadListData'>搜索</button>
+          <input placeholder="关键字" type="text" class='padding-5 flex-1 search-bor' style='height:auto!important;' bindinput='inputTyping'></input>
+          <picker class='flex-1 search-bor' bindchange="bindWorkTypeChange" value="{{workTypeIndex}}" range="{{workTypes}}" range-key="name">
+            <view class="padding-5 ">{{workTypes[workTypeIndex].name}}</view>
+          </picker>
+          <block wx:if="{{activeIndex!=1}}">
+          <picker class='flex-1 search-bor' bindchange="bindWorkStatusChange" value="{{workStatusIndex}}" range="{{workStatus}}" range-key="name">
+            <view class="padding-5 ">{{workStatus[workStatusIndex].name}}</view>
+          </picker>
+          </block>
+          <button class="mini-btn" type="primary" size="mini" bindtap='loadListData_search'>搜索</button>
         </view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 1}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-        <block wx:for="{{doneListData}}" wx:for-index="key" wx:for-item="value">
-          <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
+          <block wx:for="{{doneListData}}" wx:for-index="key" wx:for-item="value" wx:key="item">
+            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
 
-          <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
-            <view style='margin-top:10px'></view>
-            <view class="work-item view-shadow" data-item='{{item}}' style='position:relative;' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
-              <block wx:if="{{item.workStatus == 8}}">
-                <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
-              </block>
-              <block wx:if="{{item.workStatus == 12}}">
-                <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
-              </block>
-              <block wx:if="{{item.workStatus == 20}}">
-                <image src='/images/stop.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
-              </block>
-              <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
-                <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
-                <view class='flex-1 date-style'>{{item.assignDate}}</view>
-              </view>
+            <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
+              <view style='margin-top:10px'></view>
+              <view class="work-item view-shadow" data-item='{{item}}' style='position:relative;' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+                <block wx:if="{{item.workStatus == 8}}">
+                  <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
+                <block wx:if="{{item.workStatus == 12}}">
+                  <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
+                <block wx:if="{{item.workStatus == 20}}">
+                  <image src='/images/stop.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
+                <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+                  <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
+                  <view class='flex-1 date-style'>{{item.assignDate}}</view>
+                </view>
 
-              <view class='flex-row' style='margin-top:15px'>
-                <view class='flex-column box-all'>
-                  <view class='flex-row box-all'>
-                    <view class='middle-all' style='margin-top:3px'>
-                      <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                <view class='flex-row' style='margin-top:15px'>
+                  <view class='flex-column box-all'>
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.customer== null?'-':item.customer}}</view>
+
                     </view>
-                    <view class='content-style'>{{item.customer== null?'-':item.customer}}</view>
-
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+                    </view>
                   </view>
-                  <view class='flex-row box-all'>
-                    <view class='middle-all' style='margin-top:3px'>
-                      <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
-                    </view>
-                    <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
+                  <view>
+                    <block wx:if='{{item.workType == "Leave"}}'>
+                      <view class='order-type-leave'>假</view>
+                    </block>
+                    <block wx:if='{{item.workType == "Repair"}}'>
+                      <view class='order-type-repair'>维</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Inbox"}}'>
+                      <view class='order-type'>入</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Install"}}'>
+                      <view class='order-type-an'>安</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Delivery"}}'>
+                      <view class='order-type-wuliu'>物</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Found"}}'>
+                      <view class='order-type-search'>勘</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Outbox"}}'>
+                      <view class='order-type-out'>出</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "MoneyAsk"}}'>
+                      <view class='order-type-cui'>催</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Dell"}}'>
+                      <view class='order-type-dell'>拆</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Patch"}}'>
+                      <view class='order-type-parts'>补</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "DWipe"}}'>
+                      <view class='order-type-wpout'>销</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Travel"}}'>
+                      <view class='order-type-travel'>差</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Change"}}'>
+                      <view class='order-type-change'>翻</view>
+                    </block>
                   </view>
                 </view>
                 <view>
-                  <block wx:if='{{item.workType == "Leave"}}'>
-                    <view class='order-type-leave'>假</view>
-                  </block>
-                  <block wx:if='{{item.workType == "Repair"}}'>
-                    <view class='order-type-repair'>维</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Inbox"}}'>
-                    <view class='order-type'>入</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Install"}}'>
-                    <view class='order-type-an'>安</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Delivery"}}'>
-                    <view class='order-type-wuliu'>物</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Found"}}'>
-                    <view class='order-type-search'>勘</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Outbox"}}'>
-                    <view class='order-type-out'>出</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "MoneyAsk"}}'>
-                    <view class='order-type-cui'>催</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Dell"}}'>
-                    <view class='order-type-dell'>拆</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Patch"}}'>
-                    <view class='order-type-parts'>补</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "DWipe"}}'>
-                    <view class='order-type-wpout'>销</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Travel"}}'>
-                    <view class='order-type-travel'>差</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Change"}}'>
-                    <view class='order-type-change'>翻</view>
-                  </block>
-                </view>
-              </view>
-              <view>
-                <view class='flex-row box-all'>
-                  <view class='middle-all' style='margin-top:3px'>
-                    <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+                  <view class='flex-row box-all'>
+                    <view class='middle-all' style='margin-top:3px'>
+                      <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+                    </view>
+                    <view class='content-style'>{{item.address== null?'-':item.address}}</view>
                   </view>
-                  <view class='content-style'>{{item.address== null?'-':item.address}}</view>
-                </view>
 
-                <block wx:if='{{user.type == 2}}'>
-                  <view class='flex-row box-all' style='padding:5px;border-top:1px solid #F2F2F2'>
-                    <view class='flex-1'>{{item.dutyName == null?'-':item.dutyName}}</view>
-                    <view class='flex-1 date-style'>{{item.closeDate == null?'-':item.closeDate}}</view>
-                  </view>
-                </block>
+                  <block wx:if='{{user.type == 2}}'>
+                    <view class='flex-row box-all' style='padding:5px;border-top:1px solid #F2F2F2'>
+                      <view class='flex-1'>{{item.dutyName == null?'-':item.dutyName}}</view>
+                      <view class='flex-1 date-style'>{{item.closeDate == null?'-':item.closeDate}}</view>
+                    </view>
+                  </block>
+                </view>
               </view>
-            </view>
+            </block>
+
           </block>
-
-        </block>
           <view class="weui-loadmore" hidden="{{hideBottom}}">
             <view class="weui-loading"></view>
             <view class="weui-loadmore__tips">正在加载</view>
           </view>
         </scroll-view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 0}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-<block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value">
-          <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
-          <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
-            <view style='margin-bottom:10px'></view>
+          <block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value" wx:key="index">
+            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
+            <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
+              <view style='margin-bottom:10px'></view>
 
-            <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1;':'background:#fff;border:2px dashed #9A32CD;position:relative'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
-              <block wx:if="{{item.workStatus == 8}}">
-                <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
-              </block>
-              <block wx:if="{{item.workStatus == 12}}">
-                <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
-              </block>
-              <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
-                <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}({{item.workStatus == 0?'未查看':item.workStatus == 5?'已查看':item.workStatus == 6?'待审核':item.workStatus == 8?'已审核':''}})</view>
-                <view class='flex-1 date-style'>{{item.assignDate}}</view>
-              </view>
+              <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1;':'background:#fff;border:2px dashed #9A32CD;position:relative'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
+                <block wx:if="{{item.workStatus == 8}}">
+                  <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
+                <block wx:if="{{item.workStatus == 12}}">
+                  <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
+                <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+                  <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}({{item.workStatus == 0?'未查看':item.workStatus == 5?'已查看':item.workStatus == 6?'待审核':item.workStatus == 8?'已审核':''}})</view>
+                  <view class='flex-1 date-style'>{{item.assignDate}}</view>
+                </view>
 
-              <view class='flex-row' style='margin-top:15px'>
-                <view class='flex-column box-all'>
-                  <view class='flex-row box-all'>
-                    <view class='middle-all' style='margin-top:3px'>
-                      <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                <view class='flex-row' style='margin-top:15px'>
+                  <view class='flex-column box-all'>
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.customer == null?'-':item.customer}}</view>
                     </view>
-                    <view class='content-style'>{{item.customer == null?'-':item.customer}}</view>
+                    <view class='flex-row box-all'>
+                      <view class='middle-all' style='margin-top:3px'>
+                        <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
+                      </view>
+                      <view class='content-style'>{{item.contacts == null?'-':item.contacts}}：{{item.mobilePhone}}</view>
+                    </view>
                   </view>
-                  <view class='flex-row box-all'>
-                    <view class='middle-all' style='margin-top:3px'>
-                      <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
-                    </view>
-                    <view class='content-style'>{{item.contacts == null?'-':item.contacts}}：{{item.mobilePhone}}</view>
+                  <view>
+                    <block wx:if='{{item.workType == "Leave"}}'>
+                      <view class='order-type-leave'>假</view>
+                    </block>
+                    <block wx:if='{{item.workType == "Repair"}}'>
+                      <view class='order-type-repair'>维</view>
+                    </block>
+                    <block wx:if='{{item.workType == "Install"}}'>
+                      <view class='order-type-an'>安</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Inbox"}}'>
+                      <view class='order-type'>入</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Delivery"}}'>
+                      <view class='order-type-wuliu'>物</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Found"}}'>
+                      <view class='order-type-search'>勘</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Outbox"}}'>
+                      <view class='order-type-out'>出</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Dell"}}'>
+                      <view class='order-type-dell'>拆</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "MoneyAsk"}}'>
+                      <view class='order-type-cui'>催</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Patch"}}'>
+                      <view class='order-type-parts'>补</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "DWipe"}}'>
+                      <view class='order-type-wpout'>销</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Travel"}}'>
+                      <view class='order-type-travel'>差</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Change"}}'>
+                      <view class='order-type-change'>翻</view>
+                    </block>
                   </view>
                 </view>
                 <view>
-                  <block wx:if='{{item.workType == "Leave"}}'>
-                    <view class='order-type-leave'>假</view>
-                  </block>
-                  <block wx:if='{{item.workType == "Repair"}}'>
-                    <view class='order-type-repair'>维</view>
-                  </block>
-                  <block wx:if='{{item.workType == "Install"}}'>
-                    <view class='order-type-an'>安</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Inbox"}}'>
-                    <view class='order-type'>入</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Delivery"}}'>
-                    <view class='order-type-wuliu'>物</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Found"}}'>
-                    <view class='order-type-search'>勘</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Outbox"}}'>
-                    <view class='order-type-out'>出</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Dell"}}'>
-                    <view class='order-type-dell'>拆</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "MoneyAsk"}}'>
-                    <view class='order-type-cui'>催</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Patch"}}'>
-                    <view class='order-type-parts'>补</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "DWipe"}}'>
-                    <view class='order-type-wpout'>销</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Travel"}}'>
-                    <view class='order-type-travel'>差</view>
-                  </block>
-                  <block wx:elif='{{item.workType == "Change"}}'>
-                    <view class='order-type-change'>翻</view>
+                  <view class='flex-row box-all'>
+                    <view class='middle-all' style='margin-top:3px'>
+                      <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
+                    </view>
+                    <view class='content-style'>{{item.address == null?'-':item.address}}</view>
+                  </view>
+                  <block wx:if='{{user.type == 2}}'>
+                    <view class='flex-row box-all' style='padding:5px;border-top:1px solid #F2F2F2'>
+                      <view class='flex-1'>{{item.dutyName == null?'-':item.dutyName}}</view>
+                      <view class='flex-1 date-style'>{{item.closeDate == null?'-':item.closeDate}}</view>
+                    </view>
                   </block>
                 </view>
               </view>
-              <view>
-                <view class='flex-row box-all'>
-                  <view class='middle-all' style='margin-top:3px'>
-                    <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
-                  </view>
-                  <view class='content-style'>{{item.address == null?'-':item.address}}</view>
-                </view>
-                <block wx:if='{{user.type == 2}}'>
-                  <view class='flex-row box-all' style='padding:5px;border-top:1px solid #F2F2F2'>
-                    <view class='flex-1'>{{item.dutyName  == null?'-':item.dutyName}}</view>
-                    <view class='flex-1 date-style'>{{item.closeDate == null?'-':item.closeDate}}</view>
-                  </view>
-                </block>
-              </view>
-            </view>
-          </block>
+            </block>
           </block>
           <view class="weui-loadmore" hidden="{{hideBottom}}">
             <view class="weui-loading"></view>
