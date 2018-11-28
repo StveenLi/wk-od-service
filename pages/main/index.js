@@ -24,7 +24,30 @@ Page({
     wxUser:{},
     mainInfo:{},
     msgList:[],
-    listdata:[]
+    listdata:[],
+    currentHandleCode:'',
+    currentFlowList:''
+  },
+
+  setCurrent:function(e){
+    let that = this;
+    this.setData({
+      currentHandleCode:e.currentTarget.dataset.key
+    })
+
+    api.fetch({
+      url: 'rest/work/findByBigCode?bigOrderNum=' + e.currentTarget.dataset.key,
+      callback: (err, result) => {
+        if (result.success) {
+          that.setData({
+            currentFlowList:result.list
+          })
+        }
+      }
+    });
+
+
+
 
   },
 
@@ -36,6 +59,11 @@ Page({
     wx.reLaunch({
       url: '/pages/login/index',
     })
+  },
+
+
+  _sign_moudle(){
+    
   },
 
   getImportantMsg(){

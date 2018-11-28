@@ -25,7 +25,160 @@
         </view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 1}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
           <block wx:for="{{doneListData}}" wx:for-index="key" wx:for-item="value" wx:key="item">
-            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
+            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px' data-key='{{key}}' bindtap='setCurrent'>{{key}}</view>
+
+            <block wx:if="{{key == currentHandleCode}}">
+          <span class='flex-row middle-all' style='margin:0 20px;text-align:center;'>
+            <block wx:for="{{currentFlowList}}" wx:for-index="i">
+              <span class='flex-row'>
+                <block wx:if="{{item.name == 'Install'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-install' style="margin:0 5px;">安</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">安</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Inbox'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-in' style="margin:0 5px;">入</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">入</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Outbox'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-out' style="margin:0 5px;">出</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">出</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Repair'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-repair' style="margin:0 5px;">维</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">维</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Delivery'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-wuliu' style="margin:0 5px;">物</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">物</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Dell'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-dell' style="margin:0 5px;">拆</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">拆</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'MoneyAsk'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-cui' style="margin:0 5px;">催</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">催</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Patch'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-parts' style="margin:0 5px;">补</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">补</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Found'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-search' style="margin:0 5px;">勘</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">勘</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'DWipe'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-wpout' style="margin:0 5px;">销</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">销</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Change'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-change' style="margin:0 5px;">翻</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">翻</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Leave'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-leave' style="margin:0 5px;">假</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">假</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+              </span>
+            </block>
+          </span>
+        </block>
 
             <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
               <view style='margin-top:10px'></view>
@@ -128,8 +281,162 @@
         </scroll-view>
         <scroll-view class='work-list weui-tab__content' hidden="{{activeIndex != 0}}" scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
           <block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value" wx:key="index">
-            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px'>{{key}}</view>
+            <view style='text-align:center;font-size:16px;font-weight:bold;padding:5px' data-key='{{key}}' bindtap='setCurrent'>{{key}}</view>
+            <block wx:if="{{key == currentHandleCode}}">
+          <span class='flex-row middle-all' style='margin:0 20px;text-align:center;'>
+            <block wx:for="{{currentFlowList}}" wx:for-index="i">
+              <span class='flex-row'>
+                <block wx:if="{{item.name == 'Install'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-install' style="margin:0 5px;">安</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">安</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Inbox'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-in' style="margin:0 5px;">入</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">入</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Outbox'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-out' style="margin:0 5px;">出</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">出</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Repair'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-repair' style="margin:0 5px;">维</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">维</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Delivery'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-wuliu' style="margin:0 5px;">物</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">物</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'Dell'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-dell' style="margin:0 5px;">拆</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">拆</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+                <block wx:if="{{item.name == 'MoneyAsk'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+                    <span class='flow-order-type-cui' style="margin:0 5px;">催</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">催</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Patch'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-parts' style="margin:0 5px;">补</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">补</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Found'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-search' style="margin:0 5px;">勘</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">勘</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'DWipe'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-wpout' style="margin:0 5px;">销</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">销</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Change'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-change' style="margin:0 5px;">翻</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">翻</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+
+                <block wx:if="{{item.name == 'Leave'}}">
+                  <block wx:if="{{item.value == 'Y'}}">
+
+                    <span class='flow-order-type-leave' style="margin:0 5px;">假</span>
+                  </block>
+                  <block wx:if="{{item.value == 'N'}}">
+                    <span class='flow-order-type-nope' style="margin:0 5px;">假</span>
+                  </block>
+                  <block wx:if="{{currentFlowList.length!=i+1}}">
+                    <span class=''> —— </span>
+                  </block>
+                </block>
+              </span>
+            </block>
+          </span>
+        </block>
             <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
+
+
               <view style='margin-bottom:10px'></view>
 
               <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1;':'background:#fff;border:2px dashed #9A32CD;position:relative'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">

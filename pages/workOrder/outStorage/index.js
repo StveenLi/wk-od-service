@@ -306,8 +306,11 @@ Page({
   },
   getMachineOption: function(whId, searchContent) {
     let self = this;
+    //如果是调拨status传空
+    const {orderDetail} = self.data;
+    let status = orderDetail.outbox.pWrok.code == 'Tap' ? '' :'MAC_STATUS_WILL_OUT';
     api.fetch({
-      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent +'&status=MAC_STATUS_WILL_OUT',
+      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status,
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];

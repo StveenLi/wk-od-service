@@ -125,6 +125,24 @@ Page({
 
   },
 
+  setCurrent: function (e) {
+    let that = this;
+    this.setData({
+      currentHandleCode: e.currentTarget.dataset.key
+    })
+
+    api.fetch({
+      url: 'rest/work/findByBigCode?bigOrderNum=' + e.currentTarget.dataset.key,
+      callback: (err, result) => {
+        if (result.success) {
+          that.setData({
+            currentFlowList: result.list
+          })
+        }
+      }
+    });
+  },
+
   toFlowPage: function(e) {
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
@@ -227,6 +245,7 @@ Page({
             })
           }
         }
+        self.loadListData();
       },
     });
   },

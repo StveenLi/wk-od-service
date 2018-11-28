@@ -324,3 +324,156 @@ right:0px;
   text-align: center;
   padding:6px 3px 0 3px;
 }
+
+
+
+
+/* 工单流程 */
+.flow-order-type-install{
+  font-size: 14px;
+  background: #E86A5F;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+
+
+
+
+.flow-order-type-in{
+  font-size: 14px;
+  background: #4AA3FB;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-leave{
+  font-size: 14px;
+  background: rgb(124, 12, 21);
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-travel{
+    font-size: 14px;
+  background: rgb(185, 76, 180);
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-dell{
+  font-size: 14px;
+  background: #8CB4DC;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+.flow-order-type-cui{
+  font-size: 14px;
+  background: rgb(39, 58, 141);
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-wpout{
+  font-size: 14px;
+  background: rgb(240, 44, 181);
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+
+}
+.flow-order-type-wuliu{
+  font-size: 14px;
+  background: #97C64A;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+
+}
+.flow-order-type-search{
+  font-size: 14px;
+  background: #7D88E9;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-repair{
+  font-size: 14px;
+  background: #F09F67;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+.flow-order-type-parts{
+  font-size: 14px;
+  background: #DCD765;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+.flow-order-type-search{
+  font-size: 14px;
+  background: #7D88E9;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+.flow-order-type-out{
+  font-size: 14px;
+  background: #6BCAA9;
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+
+.flow-order-type-change{
+  font-size: 14px;
+  background: rgb(235, 121, 210);
+  border-radius: 50%; 
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+.flow-order-type-nope{
+  font-size: 14px;
+  background: #fff;
+  border:1px solid;
+  border-radius: 50%; 
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
