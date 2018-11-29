@@ -4,7 +4,7 @@
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
-  <view class='flex-1 middle-all'>机器变更单</view>
+  <view class='flex-1 middle-all'>翻修单</view>
 
   <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
     <view class='flex-1'>{{orderDetail.wrCode}}</view>

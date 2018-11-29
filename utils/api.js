@@ -5,9 +5,9 @@ var qqmapsdk;
 //测试
 // const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
-// const HOST = 'https://www.jiexianchina.com';
+const HOST = 'https://www.jiexianchina.com';
 
-const HOST = 'http://192.168.0.120:8080/CServer';
+// const HOST = 'http://192.168.0.120:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={
     HOST:HOST

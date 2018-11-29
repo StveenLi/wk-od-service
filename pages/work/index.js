@@ -62,7 +62,10 @@ Page({
     }, {
       'code': 'DWipe',
       'name': '报销工单'
-    }],
+      }, {
+        'code': 'Change',
+        'name': '翻修工单'
+      }],
     workStatus: [{
       'code': '',
       'name': '选择状态'
