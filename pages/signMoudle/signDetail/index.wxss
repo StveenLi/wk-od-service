@@ -1,0 +1,16 @@
+/* pages/signMoudle/doSign/index.wxss */
+view{
+  font-size: 12px;
+}
+.padding-ty{
+  padding:5px 0 5px 15px;
+}
+
+
+.sign-btn{
+  border-radius:50%;background:#3c8df9;width:200px;height:200px;margin:80px auto;display:flex;color:#fff;font-size:30px;box-shadow: 0 0 10px 0 rgba(0,0,0,0.6); 
+}
+
+.sign-btn-on{
+  background:#275897;
+}

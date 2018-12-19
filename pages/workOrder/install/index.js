@@ -227,7 +227,6 @@ wx.getSystemInfo({
               },
               success: function(result) {
                 var resultData = JSON.parse(result.data)
-                console.log(resultData);
                 let pfs = that.data.photoFiles;
                 if (resultData.success) {
                   pfs.push(resultData.url);
@@ -317,7 +316,6 @@ wx.getSystemInfo({
               }
             }
 
-            console.log(result.fromData[3].value)
             if (result.fromData[3].value != null) {
               jqjxArray = result.fromData[3].value.split('/');
             }

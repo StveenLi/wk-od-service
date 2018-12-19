@@ -57,7 +57,7 @@
           </label>
           <!-- 有货梯楼层不显示 无货梯必填楼层 -->
           <block wx:if='{{checkboxItems[4].checked==false}}'>
-          <view style='padding:5px;display:flex;position:absolute;bottom:0;right:10px'>楼层<input style='border-bottom:1px solid;margin-top:-8px;width:40px;text-align:center;' type="number" bindinput='floorChange'></input>层</view></block>
+          <view style='padding:5px;display:flex;position:absolute;bottom:0;right:10px'>楼层<input style='border-bottom:1px solid;margin-top:-8px;width:40px;text-align:center;' type="text" bindinput='floorChange'></input>层</view></block>
           
         </checkbox-group>
       </view>

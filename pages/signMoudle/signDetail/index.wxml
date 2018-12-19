@@ -1,0 +1,91 @@
+<!--pages/signMoudle/doSign/index.wxml-->
+<!--pages/signMoudle/main/index.wxml-->
+<view style='margin:10px 5px'>
+  <view class="work-item view-shadow">
+    <view class='border-bottom-gainsboro padding-ty'>
+      <image style='width:16px;height:16px;margin:0 5px -2px 0' src='/images/calendar.png'></image>2018.11.20</view>
+
+
+    <view class="weui-cell weui-cell_select border-bottom-gainsboro">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">签到类型</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="signTypeChange" disabled='false' value="{{signTypeIndex}}" range="{{signTypes}}">
+          <view class="weui-select weui-select_in-select-after">{{orderDetail.one.typeName}}</view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class='border-bottom-gainsboro flex-row padding-ty'>
+      <view class='flex-1'>拜访客户</view>
+      <input class='flex-1' style='text-align:right;margin-right:5px;' placeholder='请输入客户名称' bindinput='customerChange' value='{{customer}}' disabled='false'></input>
+    </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签入</view>
+
+          <view class='padding-5 work-order-content'>
+            
+          </view>
+
+        </view>
+
+      </view>
+      <block wx:if="{{nowAddress!=''}}">
+        <view class="weui-cell weui-cell_input">
+          <view class='flex-row box-all'>
+            <view class='flex-1 padding-5'>{{signInTime}}</view>
+            <view class='padding-5 work-order-content' bindtap='locationSignIn'>{{nowAddress}}</view>
+          </view>
+        </view>
+      </block>
+  </view>
+
+    <view class='middle-box'>
+    <block wx:if="{{!showPopup}}">
+      <textarea style='padding:10px;font-size:16px' bindinput='remarkChange' placeholder='请输入备注' disabled='false' value='{{remarks}}'></textarea>
+</block>
+      <view class="weui-uploader__bd">
+        <view class="weui-uploader__files" id="uploaderFiles">
+          <block wx:for="{{files}}" wx:key="*this">
+            <view class="weui-uploader__file" style='position:relative' id="{{item}}">
+              <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
+            </view>
+          </block>
+        </view>
+        
+      </view>
+    </view>
+    <view class='middle-box'>
+      <view class="weui-cell weui-cell_input">
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签出</view>
+          <view class='padding-5 work-order-content'>
+            
+          </view>
+        </view>
+
+        
+      </view>
+      <block wx:if="{{outAddress!=''}}">
+          <view class="weui-cell weui-cell_input">
+            <view class='flex-row box-all'>
+              <view class='flex-1 padding-5'>{{signOutTime}}</view>
+              <view class='padding-5 work-order-content'>{{outAddress}}</view>
+            </view>
+          </view>
+        </block>
+    </view>
+</view>
+
+
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+</view>
+<!-- 中间弹出框 -->
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

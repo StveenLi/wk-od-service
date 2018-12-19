@@ -36,7 +36,8 @@ wx.getSystemInfo({
       signImg:'',
       showPopup:false,
       user:{},
-      commentVal:''
+      commentVal:'',
+      commentFilePaths:[]
     },
   previewImage: function (e) {
     wx.previewImage({

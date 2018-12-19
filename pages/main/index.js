@@ -34,9 +34,10 @@ Page({
     this.setData({
       currentHandleCode:e.currentTarget.dataset.key
     })
-
+    let ck = e.currentTarget.dataset.key;
+    let bon = ck.split('-')[0];
     api.fetch({
-      url: 'rest/work/findByBigCode?bigOrderNum=' + e.currentTarget.dataset.key,
+      url: 'rest/work/findByBigCode?bigOrderNum=' + bon,
       callback: (err, result) => {
         if (result.success) {
           that.setData({
@@ -45,10 +46,6 @@ Page({
         }
       }
     });
-
-
-
-
   },
 
   logout: function () {
@@ -63,7 +60,9 @@ Page({
 
 
   _sign_moudle(){
-    
+    wx.navigateTo({
+      url: '/pages/signMoudle/main/index',
+    })
   },
 
   getImportantMsg(){

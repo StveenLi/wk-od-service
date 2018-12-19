@@ -525,10 +525,10 @@
               </view>
             </block>
           </block>
-          <view class="weui-loadmore" hidden="{{hideBottom}}">
+          <!-- <view class="weui-loadmore" hidden="{{hideBottom}}">
             <view class="weui-loading"></view>
             <view class="weui-loadmore__tips">正在加载</view>
-          </view>
+          </view> -->
         </scroll-view>
 
       </view>

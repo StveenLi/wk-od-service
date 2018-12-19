@@ -3,11 +3,11 @@ var QQMapWX = require('qqmap-wx-jssdk.js');
 var qqmapsdk;
 // api 路径
 //测试
-// const HOST = 'https://test.tianchu.linkitchen.com/CServer';
+const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
-const HOST = 'https://www.jiexianchina.com';
+// const HOST = 'https://www.jiexianchina.com';
 
-// const HOST = 'http://192.168.0.120:8080/CServer';
+// const HOST = 'http://192.168.0.124:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={
     HOST:HOST
@@ -33,6 +33,14 @@ const Util={
     },
     userPhone:null,
     userId:null,
+    user: function () {
+      wx.getStorage({
+        key: 'user',
+        success: function (res) {
+          return res.data
+        },
+      });
+    },
     role:null,
   bj: { name: '补件单', icon: '../../images/icon/bj.png', navigateUrl: '../launchPages/bj/index' },
   jqbg: { name: '翻修单', icon: '../../images/icon/xl.png', navigateUrl: '../launchPages/jqbg/index' },
@@ -313,6 +321,25 @@ const Util={
         }
       })
     },
+  reg__submitComment: function (commentVal, userId, pWrokId, sname,commentSuccess, photos) {
+    let that = this;
+    that.fetch({
+      url: 'rest/work/doAddComment',
+      data: {
+        commentContent: commentVal,
+        userId: userId,
+        workId: pWrokId,
+        stype:'Register',
+        sname: sname,
+        photos: photos
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          commentSuccess(result);
+        }
+      }
+    })
+  },
   _unLaunch: function (workLinkId,unLaunchSuccessFunc){
       let that = this;
       that.fetch({

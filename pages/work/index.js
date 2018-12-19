@@ -100,11 +100,13 @@ Page({
     var self = this;
     // 当前页是最后一页
     setTimeout(function() {
-      console.log('上拉加载更多');
+      let ps = self.data._page_start + 10
+      console.log('上拉加载更多'+ps);
+
       self.setData({
-        _page_start: self.data._page_start + 20
+        _page_start: ps
       })
-      self._page_loadListData(self.data._page_start + 20)
+      self._page_loadListData(ps)
       self.setData({
         hideBottom: false
       })
@@ -133,9 +135,10 @@ Page({
     this.setData({
       currentHandleCode: e.currentTarget.dataset.key
     })
-
+    let ck = e.currentTarget.dataset.key;
+    let bon = ck.split('-')[0];
     api.fetch({
-      url: 'rest/work/findByBigCode?bigOrderNum=' + e.currentTarget.dataset.key,
+      url: 'rest/work/findByBigCode?bigOrderNum=' + bon,
       callback: (err, result) => {
         if (result.success) {
           that.setData({
@@ -149,7 +152,7 @@ Page({
   toFlowPage: function(e) {
     let navigateUrl = '';
     let item = e.currentTarget.dataset.item;
-
+    console.log(item)
 
     if (item.workStatus == 20) {
       return;
@@ -223,7 +226,9 @@ Page({
    */
   onLoad: function(options) {
     let self = this;
-
+    self.setData({
+      listType: options.listType
+    })
     wx.getSystemInfo({
       success: function(res) {
         self.setData({
@@ -244,7 +249,7 @@ Page({
           if (options.listType == 'audit') {
             self.setData({
               tabs: ["待审核", "已审核"],
-              listType: options.listType
+              // listType: options.listType
             })
           }
         }
@@ -340,7 +345,7 @@ Page({
             userId: res.data.userId
           })
           api.fetch({
-            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=0&pageSize=20',
+            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=0&pageSize=10',
             callback: (err, result) => {
               if (result.success) {
                 self.getDataSuccess(result);
@@ -421,7 +426,7 @@ Page({
             userId: res.data.userId
           })
           api.fetch({
-            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=' + start + '&pageSize=20',
+            url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=' + start + '&pageSize=10',
             callback: (err, result) => {
               if (result.success) {
                 self._page_getDataSuccess(result);

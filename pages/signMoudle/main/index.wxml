@@ -1,0 +1,48 @@
+<!--pages/signMoudle/main/index.wxml-->
+<view style='margin:10px 15px'>
+  <button class='flex-1 bottom-btn' style='font-size:16px;' bindtap='addSign'>新增签到</button>
+  <view class='flex-row' style='padding:8px;background:#fff'>
+    <picker class='flex-1 search-bor' bindchange="bindSearchDateChange" mode="date" value="{{searchDate}}">
+      <view class="padding-5" style='font-size:10px'>{{searchDate==''?'时间':searchDate}}</view>
+    </picker>
+    <block wx:if="{{activeIndex!=1}}">
+      <block wx:if="{{listType!='audit'}}">
+        <picker class='flex-1 search-bor' bindchange="bindWorkStatusChange" value="{{workStatusIndex}}" range="{{workStatus}}" range-key="name">
+          <view class="padding-5 " style='font-size:10px'>{{workStatus[workStatusIndex].name}}</view>
+        </picker>
+      </block>
+    </block>
+    <block wx:if="{{user.type==2}}">
+    <picker class='flex-1 search-bor' bindchange="bindUsersChange" value="{{usersIndex}}" range="{{usersList}}" range-key="userName">
+          <view class="padding-5 " style='font-size:10px'>{{curSearchUser==""?'用户':curSearchUser}}</view>
+        </picker>
+        </block>
+    <button class="mini-btn" style='background:#3c8df9' type="primary" size="mini" bindtap='loadListData_search'>搜索</button>
+  </view>
+
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='border-bottom-gainsboro padding-5'><image style='width:16px;height:16px;margin:0 5px -2px 0' src='/images/calendar.png' ></image>{{date}}</view>
+  <scroll-view scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" scroll-y bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <block  wx:for="{{listData}}" wx:key="index" >
+  <view class='flex-row border-bottom-gainsboro' style='padding:5px 0' >
+    <view class='flex-cloumn'>
+      <view class='sign-type'>{{item.name}}</view>
+      <block wx:for="{{item.signList}}" wx:key="childIndex" wx:for-item="cItem">
+        <view style="font-size:12px">{{cItem.signType}} {{cItem.signTime}}</view>
+        <!-- <view style="font-size:12px"></view> -->
+      </block>
+    </view>
+    <view class='flex-cloumn flex-1' style='margin:5px 15px'>
+      <view class='res-name'>{{item.customer}}</view>
+        <block wx:for="{{item.signList}}" wx:key="childIndex" wx:for-item="cItem">
+          <view style="font-size:10px;padding:2px 0">{{cItem.signAddress}}</view>
+      </block>
+    </view>
+    <view class='flex-cloumn'><view class='detail-button' data-item='{{item}}' bindtap='toOrderDetail'>详情</view></view>
+  </view>
+  </block>
+  </scroll-view>
+</view>
+</view>

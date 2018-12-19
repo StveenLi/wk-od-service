@@ -50,7 +50,10 @@
     "pages/launchDetail/jqbg/index",
     "pages/launchDetail/travel/index",
     "pages/workOrder/logisticsApply/index",
-    "pages/workOrder/jqbg/index"
+    "pages/workOrder/jqbg/index",
+    "pages/signMoudle/main/index",
+    "pages/signMoudle/doSign/index",
+        "pages/signMoudle/signDetail/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

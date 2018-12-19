@@ -55,6 +55,8 @@
       </view>
     </view>
     <!-- 备注 -->
+          <block wx:if="{{!showPopup&&!showModal}}">
+
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
           <view class="weui-label" style='padding:5px 0'>解决方案</view>
@@ -65,6 +67,7 @@
           </block>
         </view>
       </view>
+      </block>
     <block wx:if="{{!isPhoneFix}}">
       <view class="weui-cell weui-cell_input">
         <view class='flex-row box-all'>

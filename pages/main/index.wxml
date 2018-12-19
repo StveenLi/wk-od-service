@@ -47,11 +47,11 @@
           <view>发起工单</view>
         </view>
       </block>
-      <!-- <view class='line'></view>
+      <view class='line'></view>
       <view class='panel-box-item' bindtap="_sign_moudle">
           <view style='font-size:30px'><image style='width:25px;height:25px' src='/images/main_loc.png'></image></view>
           <view>签到</view>
-        </view> -->
+        </view>
     </view>
   </view>
 
@@ -132,10 +132,11 @@
                 <block wx:if="{{item.name == 'Delivery'}}">
                   <block wx:if="{{item.value == 'Y'}}">
 
-                    <span class='flow-order-type-wuliu' style="margin:0 5px;">物</span>
+                    <span class='flow-order-type-wuliu' style="margin:0 5px;">
+                    {{item.isNeed==0?'拉':item.isNeed==1?'送':'物'}}</span>
                   </block>
                   <block wx:if="{{item.value == 'N'}}">
-                    <span class='flow-order-type-nope' style="margin:0 5px;">物</span>
+                    <span class='flow-order-type-nope' style="margin:0 5px;">{{item.isNeed==0?'拉':item.isNeed==1?'送':'物'}}</span>
                   </block>
                   <block wx:if="{{currentFlowList.length!=i+1}}">
                     <span class=''> —— </span>
