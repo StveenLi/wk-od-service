@@ -158,6 +158,8 @@ Page({
         url: 'rest/register/findById?id=' + that.data.signId,
         callback: (err, result) => {
           if (result.success) {
+            console.log('onshow load address');
+
             that.setData({
               signInTime: result.signInTime,
               signOutTime: result.signOutTime,
