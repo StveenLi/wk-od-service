@@ -189,7 +189,11 @@ Page({
               }
               that.setData({
                 files: fis,
-                photoFiles: fis
+                photoFiles: fis,
+                signInTime: result.signInTime,
+                signOutTime: result.signOutTime,
+                nowAddress: result.signInAddress,
+                outAddress: result.signOutAddress,
               })
             }
           }
