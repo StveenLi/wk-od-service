@@ -46,7 +46,7 @@ Page({
       data: {
         machineId: that.data.currentItem.machineId,
         userId: that.data.user.userId,
-        oldMachineChange: that.data.inputVal,
+        oldMachineNr: that.data.inputVal,
         remarks: that.data.remarks,
         newMachineNr: that.data.newMachineCode,
         macStatus:"MAC_STATUS_TO_RENOVATION",
