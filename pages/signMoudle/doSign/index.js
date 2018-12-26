@@ -43,7 +43,13 @@ Page({
     }
     let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ?"WXBY":"SFP";
     api.fetch({
-      url: 'rest/register/doAdd?type=' + sign_type + '&typeName=' + signTypes[signTypeIndex] + '&customer=' + customer +'&createUser='+user.userId,
+      url: 'rest/register/doAdd',
+      data: { type: sign_type,
+        typeName: signTypes[signTypeIndex],
+        customer: customer,
+        createUser: user.userId
+      },
+      // type=' + sign_type + '&typeName=' + signTypes[signTypeIndex] + '&customer=' + customer +'&createUser='+user.userId,
       callback: (err, result) => {
         if (result.success) {
           that.setData({
@@ -58,7 +64,24 @@ Page({
 
   lastSubmit:function(){
     let that = this;
-    const { customer, signTypeIndex, signTypes, user, remarks, photoFiles,signId} = that.data;
+    const { customer, signTypeIndex, signTypes, user, remarks, photoFiles, signId, nowAddress,outAddress} = that.data;
+
+    if (nowAddress == ''){
+      wx.showToast({
+        title:'请签入之后再提交！',
+        duration:2000,
+        icon:'none'
+      })
+      return;
+    }
+    if(outAddress == ''){
+      wx.showToast({
+        title: '请签出之后再提交！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ? "WXBY" : "SFP";
     api.fetch({
       url: 'rest/register/doUpdate' ,

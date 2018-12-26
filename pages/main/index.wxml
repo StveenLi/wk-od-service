@@ -76,14 +76,14 @@
       <view>待处理工单</view>
     </view>
     <view class='work-list' scroll-y>
-      <block wx:if="{{Object.keys(listdata).length === 0}}">
+      <block wx:if="{{listdata.length === 0}}">
         <view class='middle-all' style='padding:50px;font-size:14px'>暂无工单</view>
       </block>
-      <block wx:for="{{listdata}}" wx:for-index="key" wx:for-item="value" wx:key="item">
-        <view style='text-align:center;font-size:16px;font-weight:bold;' data-key='{{key}}' bindtap='setCurrent'>{{key}}</view>
-        <block wx:if="{{key == currentHandleCode}}">
+      <block wx:for="{{listdata}}"  wx:key="*this" wx:for-item="item">
+        <view style='text-align:center;font-size:16px;font-weight:bold;' data-key='{{item.code}}' bindtap='setCurrent'>{{item.code}}</view>
+        <block wx:if="{{item.code == currentHandleCode}}">
           <span class='flex-row middle-all' style='margin:0 20px;text-align:center;'>
-            <block wx:for="{{currentFlowList}}" wx:for-index="i">
+            <block wx:for="{{currentFlowList}}" wx:for-index="i" wx:key="*this" wx:for-item="item">
               <span class='flex-row'>
                 <block wx:if="{{item.name == 'Install'}}">
                   <block wx:if="{{item.value == 'Y'}}">
@@ -236,7 +236,7 @@
         </block>
 
 
-        <block class="item-{{index}}" wx:for="{{value}}" wx:key="index">
+        <block class="item-{{index}}" wx:for="{{item.dtos}}" wx:key="index">
           <view style='margin-bottom:10px'></view>
           <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1':'background:#fff;border:2px dashed #9A32CD;'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
             <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>

@@ -55,15 +55,10 @@ Page({
       },
       callback: (err, result) => {
         if (result.success) {
-          if(result.one == 0){
-            wx.showToast({
-              title: '已经派过此机器的翻修单了！',
-            })
-          }else{
-            wx.navigateBack({
-              delta: 2
-            })
-          }
+          
+          wx.navigateBack({
+            delta: 2
+          })
           // wx.navigateBack({
           //   url:'/pages/launch/index'
           // })

@@ -540,11 +540,11 @@ Page({
     if (that.data.listType == 'audit') {
       if(activeIndex == 0){
         this.setData({
-          listdata: Object.assign(listdata,data.one.noAudite)
+          listdata: listdata.concat(data.one.noAudite)
         })
       } else if (activeIndex == 1){
         this.setData({
-          doneListData: Object.assign(doneListData, data.one.hasAudite)
+          doneListData: doneListData.concat(data.one.hasAudite)
         })
       }
       
@@ -552,11 +552,11 @@ Page({
       if (activeIndex == 0){
         console.log()
         this.setData({
-          listdata: Object.assign(listdata, data.one.notDO)
+          listdata: listdata.concat(data.one.notDO)
         })
       } else if (activeIndex == 1){
         this.setData({
-          doneListData: Object.assign(doneListData, data.one.done)
+          doneListData: doneListData.concat(data.one.done)
         })
       }
     }

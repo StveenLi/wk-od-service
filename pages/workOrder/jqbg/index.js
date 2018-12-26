@@ -16,8 +16,14 @@ Page({
     upFilesBtn: true,
     upVideoArr:[],
     commentFilePaths:[],
-    remarks:''
+    remarks:'',
+    newMachineCode:''
 
+  },
+  newMachineChange: function (e) {
+    this.setData({
+      newMachineCode: e.detail.value
+    })
   },
 
   _seeDoneChange: function () {
@@ -46,7 +52,7 @@ Page({
 
   lastSubmit: function () {
     let that = this;
-    const { files,photoFiles, orderDetail, remarks,date} = that.data
+    const { files, photoFiles, orderDetail, remarks, date, newMachineCode} = that.data
     if (files.length == 0) {
       wx.showToast({
         title: '请上传图片后再提交~',
@@ -65,7 +71,7 @@ Page({
         stype: 'Change',
         id: orderDetail.change.id,
         photoFiles: photoFiles,
-        newMachineNr:orderDetail.change.newMachineNr
+        newMachineNr: newMachineCode
       },
       callback: (err, result) => {
         if (result.success) {
@@ -134,6 +140,7 @@ Page({
           }
           self.setData({
             orderDetail: result,
+            newMachineCode: result.change.newMachineNr,
             files: fis,
             photoFiles: allFis,
             upVideoArr: videoFis
