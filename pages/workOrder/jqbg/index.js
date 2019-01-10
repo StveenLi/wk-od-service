@@ -88,8 +88,20 @@ Page({
             callback: (err, result) => {
               if (result.success) {
                 wx.navigateBack({})
+              } else {
+                wx.showToast({
+                  title: result.msg,
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             }
+          })
+        } else {
+          wx.showToast({
+            title: result.msg,
+            icon: 'none',
+            duration: 2000
           })
         }
       }
@@ -333,7 +345,7 @@ Page({
     api._test();
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
-      maxDuration: 30,
+      maxDuration: 20,
       compressed: true,
       camera: 'back',
       success: function (res) {

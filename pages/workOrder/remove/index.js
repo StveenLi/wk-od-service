@@ -178,6 +178,14 @@ Page({
       })
       return;
     }
+    if (that.data.removeRs[that.data.removeRIndex].dicCode == 'buxuanze'){
+      wx.showToast({
+        title: '拆机原因必须选择！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
     api.fetch({
 
       url: 'rest/work/doUpdate',

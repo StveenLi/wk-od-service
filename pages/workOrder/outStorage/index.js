@@ -309,8 +309,12 @@ Page({
     //如果是调拨status传空
     const {orderDetail} = self.data;
     let status = orderDetail.outbox.pWrok.code == 'Tap' ? '' :'MAC_STATUS_WILL_OUT';
+    let macModel = ""
+    if (orderDetail.outbox.pWrok.code == "Exchange"){
+      macModel = orderDetail.outbox.machineType
+    }
     api.fetch({
-      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status,
+      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status + '&macModel=' + macModel,
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];

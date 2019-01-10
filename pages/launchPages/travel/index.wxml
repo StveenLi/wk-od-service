@@ -1,12 +1,5 @@
 <!--pages/launchPages/travel/index.wxml-->
 <view style='margin-bottom:10px'></view>
-
-
-
-  
-
-
-
 <view class="work-item view-shadow">
 
 <view class="weui-cell weui-cell_input">
@@ -27,7 +20,7 @@
   </view>
   <view class="weui-cell weui-cell_select">
     <view class="weui-cell__hd weui-cell__hd_in-select-after">
-      <view class="weui-label" style='padding-top:5px'>工单地址</view>
+      <view style='padding-top:5px'>工单地址(点击地址可更换出差项目)</view>
     </view>
     
   </view>

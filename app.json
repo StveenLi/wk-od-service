@@ -77,5 +77,10 @@
         "text": "我的"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于统计员工位置信息"
+    }
   }
 }

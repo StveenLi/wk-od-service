@@ -87,7 +87,7 @@
     </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-label">零件个数</view>
-      <input class="weui-input padding-5" value='1' placeholder="零件个数" data-item='{{item}}' type='number' bindinput="partsNumChange" />
+      <input class="weui-input padding-5" value='1' placeholder="零件个数" data-item='{{item}}' type='number' bindinput="partsNumChange" disabled='false'/>
     </view>
   </view>
 

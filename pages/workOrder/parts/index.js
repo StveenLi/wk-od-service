@@ -67,6 +67,9 @@ Page({
   },
   lastSubmit:function(status_no){
     let that = this;
+    wx.showLoading({
+      title: '提交中，请稍后！',
+    })
     let status;
     if (status_no==12){
       status = 12;
@@ -87,6 +90,12 @@ Page({
           wx.navigateBack({
             url: '/pages/work/index'
           });
+        }else{
+          wx.showToast({
+            title: result.msg,
+            duration:2000,
+            icon:'none'
+          })
         }
       }
     })

@@ -42,6 +42,14 @@
       </view>
     </view>
   </view>
+  <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">机器新编号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" value='{{orderDetail.change.newMachineNr}}' disabled='false' placeholder="请输入机器新编号" />
+      </view>
+    </view>
   <view class="weui-cells">
     <view class="weui-cell">
       <view class="weui-cell__bd">

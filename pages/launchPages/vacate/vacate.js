@@ -33,6 +33,7 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
+    that.getQJList();
     wx.getStorage({
       key: 'user',
       success: function(res) {
@@ -40,6 +41,24 @@ Page({
           user: res.data
         })
       },
+    })
+  },
+
+  getQJList: function () {
+    let that = this;
+    api.fetch({
+      url: 'rest/comment/findFaultList?code=QJLX',
+      callback: (err, result) => {
+        if(result.success){
+          let typelist = [];
+          for (let item of result.list[0].nodes){
+            typelist.push(item.text)
+          }
+          that.setData({
+            TypeArray: typelist
+          })
+        }
+      }
     })
   },
 
