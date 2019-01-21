@@ -119,13 +119,13 @@ Page({
       url: 'rest/comment/findFaultList?code=XWJXH',
       callback: (err, result) => {
         if (result.success) {
-          let xwjjxs = [];
+          let xwjjxs = ['请选择'];
           for (let item of result.list[0].nodes) {
-            if (that.data.nowJX == item.dicCode) {
-              this.setData({
-                MNTIndex: xwjjxs.length
-              })
-            }
+            // if (that.data.nowJX == item.dicCode) {
+            //   this.setData({
+            //     MNTIndex: xwjjxs.length
+            //   })
+            // }
             xwjjxs.push(item.dicCode);
           }
           that.setData({
@@ -251,6 +251,38 @@ Page({
       })
       return;
     }
+
+    let macCode = ''
+    if (that.data.orderDetail.repair.isAudited == 0) {
+
+      if (that.data.MNT1 == '') {
+        wx.showToast({
+          title: '必须输入机编前缀！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (that.data.MNT2 == '') {
+        wx.showToast({
+          title: '必须输入机编后缀！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (that.data.MNTIndex == 0) {
+        wx.showToast({
+          title: '必须选择机编型号！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      macCode = that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2
+    } else {
+      macCode = that.data.MNT1 + '/' + that.data.nowJX + '/' + that.data.MNT2
+    }
     //doUpdate
     let faultChildType =  that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
 
@@ -268,7 +300,7 @@ Page({
         photoFiles: that.data.photoFiles,
         isPhoneFix: that.data.isPhoneFix,
         // actualMachineId: that.data.currentItem.machineId
-        machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
+        machineCode: macCode,
         faultType: that.data.bjs[that.data.faultIndex[0] - 1].dicCode,
         faultChildType: faultChildType
       },
@@ -621,10 +653,55 @@ Page({
 
 
   unDoSuccess: function(){
-    this.showDialogBtn();
+    let that = this;
+    const {
+      inputVal,
+      confirmMachineCode,
+      nowAddress,
+      outAddress,
+      faultIndex
+    } = that.data
+
     this.setData({
       undoNum: 20
     })
+    if (!that.data.isPhoneFix) {
+
+      if (nowAddress == '') {
+        wx.showToast({
+          title: '您还未签入',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (outAddress == '') {
+        wx.showToast({
+          title: '您还未签出',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+
+    }
+    if (faultIndex[0] == 0 && faultIndex[1] == 0) {
+      wx.showToast({
+        title: '请选择故障类型再提交！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
+    if (that.data.orderDetail.repair.isAudited == 0) {
+      this.showDialogBtn();
+      
+    }else{
+      this.lastSubmit();
+    }
+
+    
   },
   /**
    * 弹窗
@@ -671,9 +748,15 @@ Page({
     // if (that.data.isPhoneFix) {
     //   that.lastSubmit();
     // } else {
-      this.setData({
-        showModal: true
-      })
+
+      if(that.data.orderDetail.repair.isAudited == 0){
+        this.setData({
+          showModal: true
+        })
+      }else{
+        this.lastSubmit();
+      }
+      
     // }
 
   },

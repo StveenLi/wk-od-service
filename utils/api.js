@@ -3,11 +3,11 @@ var QQMapWX = require('qqmap-wx-jssdk.js');
 var qqmapsdk;
 // api 路径
 //测试
-const HOST = 'https://test.tianchu.linkitchen.com/CServer';
+// const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
-// const HOST = 'https://www.jiexianchina.com';
+const HOST = 'https://www.jiexianchina.com';
 
-// const HOST = 'http://192.168.0.104:8080/CServer';
+// const HOST = 'http://192.168.0.178:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={
     HOST:HOST
@@ -55,6 +55,8 @@ const Util={
         var operType=config.operType||'query';
             wx.showLoading({
                 title: loadTitle,
+                mask: true
+
             })
         var header=config.header|| {'content-type': 'application/json;charset=utf-8'};
         var method=config.method||'GET';
@@ -168,6 +170,8 @@ const Util={
     showLoading:function () {
         wx.showLoading({
             title: '加载中',
+            mask: true
+
         })
     },
     hideLoading:function () {

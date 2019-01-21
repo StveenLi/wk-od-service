@@ -49,7 +49,19 @@ Page({
 
   lastSubmit: function (e) {
     let that = this;
-    console.log(that.data.MNT1 + that.data.MNTItems[that.data.MNTIndex] + that.data.MNT2)
+    // console.log(that.data.MNT1 + that.data.MNTItems[that.data.MNTIndex] + that.data.MNT2)
+    let curMC = that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2;
+    if (that.data.orderDetail.inbox.isAudited == 1){
+      if(curMC != that.data.orderDetail.inbox.machineCode){
+        wx.showToast({
+          title: '机编和库中不对应！请仔细核对!',
+          duration:2000,
+          icon:'none'
+        })
+        return;
+      }
+    }
+
     if (that.data.inStorageIndex == 0 || that.data.inStorageIndex == 2){
       if (that.data.MNT1 == '' || that.data.MNT2 == ''){
         wx.showToast({

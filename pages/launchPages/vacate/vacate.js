@@ -55,6 +55,7 @@ Page({
             typelist.push(item.text)
           }
           that.setData({
+            initTypeArray: result.list[0].nodes,
             TypeArray: typelist
           })
         }
@@ -335,14 +336,13 @@ Page({
       data: {
         userId: that.data.user.userId,
         photoFiles: that.data.photoFiles,
-        type: parseInt(index) + 1,
+        type: that.data.initTypeArray[index].dicCode,
         beginLeave: date1 + ' ' + (indextime == 0 ? '上午' : '下午'),
         endLeave: date2 + ' ' + (indexend == 0 ? '上午' : '下午'),
         leaveDays: day,
         leaveReason: reason
       },
       callback: (err, result) => {
-        console.log(result)
         if (result.success) {
           wx.navigateBack({
             url: '/pages/launch/index'

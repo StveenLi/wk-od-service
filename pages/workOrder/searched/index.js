@@ -254,6 +254,7 @@ Page({
         })
       },
     });
+    console.log(options)
     let item = JSON.parse(options.item);
     this.setData({
       listItem: JSON.parse(options.item)

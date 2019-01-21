@@ -150,7 +150,8 @@
     <view class="modal-title">确认机器编号</view>
     <view class="modal-content">
       <view class="modal-input">
-        <input placeholder-class="input-holder" type="text" value='{{MNT1}}' bindinput="MNT1Change" class="input" placeholder=""></input>
+        <!-- <input placeholder-class="input-holder" type="text" value='{{MNT1}}' bindinput="MNT1Change" class="input" placeholder=""></input> -->
+        <input placeholder-class="input-holder" type="text" bindinput="MNT1Change" class="input" placeholder=""></input>
         <view class="weui-cell weui-cell_select" style='margin-left:-20px;'>
           <view class="weui-cell__bd">
             <picker bindchange="bindMNumTypeChange" style='width:110px;' value="{{MNTIndex}}" range="{{MNTItems}}">
@@ -158,7 +159,8 @@
             </picker>
           </view>
         </view>
-        <input placeholder-class="input-holder" type="text" value='{{MNT2}}' bindinput="MNT2Change" class="input" placeholder=""></input>
+        <!-- <input placeholder-class="input-holder" type="text" value='{{MNT2}}' bindinput="MNT2Change" class="input" placeholder=""></input> -->
+        <input placeholder-class="input-holder" type="text" bindinput="MNT2Change" class="input" placeholder=""></input>
       </view>
     </view>
     <view class="modal-footer">

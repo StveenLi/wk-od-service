@@ -70,13 +70,13 @@ wx.getSystemInfo({
       url: 'rest/comment/findFaultList?code=XWJXH',
       callback: (err, result) => {
         if (result.success) {
-          let xwjjxs = [];
+          let xwjjxs = ['请选择'];
           for (let item of result.list[0].nodes) {
-            if (that.data.nowJX == item.dicCode) {
-              this.setData({
-                MNTIndex: xwjjxs.length
-              })
-            }
+            // if (that.data.nowJX == item.dicCode) {
+            //   this.setData({
+            //     MNTIndex: xwjjxs.length+1
+            //   })
+            // }
             xwjjxs.push(item.dicCode);
           }
           that.setData({
@@ -97,6 +97,37 @@ wx.getSystemInfo({
       //   })
       //   return;
       // }
+      let macCode = ''
+      if(that.data.orderDetail.intall.isAudited == 0){
+
+        if (that.data.MNT1 == ''){
+          wx.showToast({
+            title: '必须输入机编前缀！',
+            icon:'none',
+            duration:2000
+          })
+          return;
+        }
+        if (that.data.MNT2 == ''){
+          wx.showToast({
+            title: '必须输入机编后缀！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (that.data.MNTIndex == 0){
+          wx.showToast({
+            title: '必须选择机编型号！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        macCode = that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2
+      }else{
+        macCode = that.data.MNT1 + '/' + that.data.nowJX + '/' + that.data.MNT2
+      }
       api.fetch({
         url: 'rest/work/doUpdate',
         data: {
@@ -107,7 +138,7 @@ wx.getSystemInfo({
           workLinkId: that.data.orderDetail.intall.links.id,
           stype: 'Install',
           id: that.data.orderDetail.intall.id,
-          machineCode: that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2,
+          machineCode: macCode,
         },
         callback: (err, result) => {
           if (result.success) {
@@ -510,6 +541,7 @@ wx.getSystemInfo({
 
         success: function(res) {
           //打印图片路径
+          console.log(res)
           wx.uploadFile({
             url: api.url + '/rest/comment/upload',
             filePath: res.tempFilePath,
@@ -572,9 +604,15 @@ wx.getSystemInfo({
       })
       return;
     }
-    this.setData({
-      showModal: true
-    })
+
+    if(that.data.orderDetail.intall.isAudited == 1){
+      this.lastSubmit();
+    }else{
+      this.setData({
+        showModal: true
+      })
+    }
+    
   },
   /**
    * 弹出框蒙层截断touchmove事件
