@@ -1,20 +1,21 @@
 <!--pages/my/index.wxml-->
 <view>
-  <view class='top-panel'>
+  <view class='top-panel border-bottom-gainsboro'>
     <view class='p-info'>
-      <image class='avatar-s' src='{{wxUser.avatarUrl}}'></image>
+      <image class='avatar-s' src='/images/OldMan.png'></image>
       <view style='color:#fff'>Lee</view>
       <view style='color:#fff'>15618730075</view>
       <view style='color:#fff'>客服代表</view>
     </view>
   </view>
+  <view class='func-item border-bottom-gainsboro' hover-class='click-grey'>回收</view>
 
 
   <!-- <view style='margin-top:10px'>
     <zan-cell title="意见反馈" is-link></zan-cell>
   </view> -->
-        <button class="weui-btn" open-type="contact" style='margin:50px 20px;background:#3c8df9;' type="primary">意见反馈</button>
+        <!-- <button class="weui-btn" open-type="contact" style='margin:20px 20px;background:#3c8df9;' type="primary">意见反馈</button> -->
 
-        <button class="weui-btn" style='margin:50px 20px;background:#3c8df9;' type="primary" bindtap='logout'>退出</button>
+        <button class="weui-btn" style='margin:50px 20px 0 20px;background:#3c8df9;' type="primary" bindtap='logout'>退出</button>
 
 </view>

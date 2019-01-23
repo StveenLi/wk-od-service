@@ -67,6 +67,37 @@
           </block>
         </view>
       </view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_switch ">
+          <view class="weui-cell__bd">申请配件</view>
+          <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
+            去申请 >
+          </view>
+        </view>
+      </view>
+
+      <view class=" weui-cells_after-title border-bottom-gainsboro">
+        <view class=" weui-cell_switch">
+          <view class="weui-cell__bd"></view>
+        </view>
+
+        <view wx:for="{{du_patchs}}" wx:key="*this">
+          <view style='color:#999'>
+            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+              <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+              <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
+            </view>
+            <view wx:for="{{item}}" wx:key="*this">
+              <view> {{item.groupName}}*{{item.groupValue}} </view>
+            </view>
+          </view>
+        </view>
+        <!-- <block wx:for='{{patch}}'>
+          <view class="weui-cell__ft">
+            {{item.groupName}}
+          </view>
+        </block> -->
+      </view>
       </block>
     <block wx:if="{{!isPhoneFix}}">
       <view class="weui-cell weui-cell_input">
@@ -112,44 +143,7 @@
       </block> -->
 
 
-      <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_switch ">
-          <view class="weui-cell__bd">申请配件</view>
-          <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
-            去申请 >
-          </view>
-        </view>
-      </view>
-
-      <view class=" weui-cells_after-title border-bottom-gainsboro">
-        <view class=" weui-cell_switch">
-          <view class="weui-cell__bd"></view>
-        </view>
-
-        <view wx:for="{{du_patchs}}" wx:key="*this">
-          <view style='color:#999'>
-            <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
-              <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
-              <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
-            </view>
-            <view wx:for="{{item}}" wx:key="*this">
-
-              <view> {{item.groupName}}*{{item.groupValue}} </view>
-
-            </view>
-          </view>
-        </view>
-
-
-
-        <!-- <block wx:for='{{patch}}'>
-          
-          <view class="weui-cell__ft">
-            {{item.groupName}}
-          </view>
-        </block> -->
-
-      </view>
+      
 
       <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_switch">

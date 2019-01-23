@@ -1,0 +1,2 @@
+<!--pages/teach/aaa.wxml-->
+<img-uploader wkType="install" ptFiles="{{photoFiles}}" wkId="{{wkId}}"/>

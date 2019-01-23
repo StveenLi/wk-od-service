@@ -11,8 +11,9 @@
       客服
       <!-- <image class='lunbo' src='/images/person.png'></image> -->
     </button>
-    <view class='r-lunbo-view' bindtap='logout'>
-      退出
+    <view class='r-lunbo-view' bindtap='toPersonalPage'>
+      <!-- 退出 -->
+      <image class='lunbo' src='/images/psn.png'></image>
       <!-- <image class='r-lunbo' src='/images/logout.png'></image> -->
     </view>
   </view>

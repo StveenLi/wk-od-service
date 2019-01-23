@@ -67,7 +67,7 @@
     </view>
 
 
-    <view class="border-bottom-gainsboro">
+    <!-- <view class="border-bottom-gainsboro">
       <view class="weui-cells">
         <view class="weui-cell">
           <view class="weui-cell__bd">
@@ -93,7 +93,18 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
+
+<view class='flex-row'>
+    <img-uploader wkType="remove" ptFiles="{{cjfwbb_photoFiles}}" wkId="{{orderDetail.dell.id}}" imgTitle="拆机服务报告" imgCode="cjfwbb" bindcsip="_cjfwbb_setImgPath"/>
+<img-uploader wkType="remove" ptFiles="{{cjjqmp_photoFiles}}" wkId="{{orderDetail.dell.id}}" imgTitle="拆机机器名牌" imgCode="cjjqmp" bindcsip="_cjjqmp_setImgPath"/>
+<img-uploader wkType="remove" ptFiles="{{jqwg_photoFiles}}" wkId="{{orderDetail.dell.id}}" imgTitle="机器外观（副水箱）" imgCode="jqwg" bindcsip="_jqwg_setImgPath"/>
+
+</view>
+<view class='flex-row'>
+
+<img-uploader wkType="remove" ptFiles="{{fenpeqi_photoFiles}}" wkId="{{orderDetail.dell.id}}" imgTitle="分配器" imgCode="fenpeqi" bindcsip="_fenpeqi_setImgPath"/>
+</view>
 
 
     <!-- 备注 -->

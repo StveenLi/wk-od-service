@@ -47,7 +47,22 @@ wx.getSystemInfo({
       MNT2: '',
       MNT1: '',
       nowJX: '',
-      showPopup:false
+      showPopup:false,
+      fqbgaz_photoFiles:[],
+      anzhuangjqmp_photoFiles:[],
+      jqqsz_photoFiles:[],
+      kjssg_photoFiles:[],
+      azqjjt_photoFiles:[],
+      xwjxdgzss_photoFiles:[],
+      xdwbqcdcc_photoFiles:[],
+      fqbgaz_files:[],
+      anzhuangjqmp_files:[], 
+      jqqsz_files:[], 
+      kjssg_files:[], 
+      azqjjt_files:[], 
+      xwjxdgzss_files:[], 
+      xdwbqcdcc_files:[], 
+      other_files:[]
     },
   bindMNumTypeChange: function (e) {
     this.setData({
@@ -128,11 +143,77 @@ wx.getSystemInfo({
       }else{
         macCode = that.data.MNT1 + '/' + that.data.nowJX + '/' + that.data.MNT2
       }
+
+
+      const { fqbgaz_files, anzhuangjqmp_files, jqqsz_files, kjssg_files, azqjjt_files, xwjxdgzss_files, xdwbqcdcc_files, other_files} = this.data
+
+      if (fqbgaz_files.length == 0){
+        wx.showToast({
+          title: '安装服务报告图片必须上传！',
+          icon:'none',
+          duration:2000
+        })
+        return;
+      }
+      if (anzhuangjqmp_files.length == 0) {
+        wx.showToast({
+          title: '安装机器名牌图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (jqqsz_files.length == 0) {
+        wx.showToast({
+          title: '机器全身照图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (kjssg_files.length == 0) {
+        wx.showToast({
+          title: '安装分配器图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (azqjjt_files.length == 0) {
+        wx.showToast({
+          title: '安装清洁剂桶图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+
+      if (xwjxdgzss_files.length == 0) {
+        wx.showToast({
+          title: '洗碗机洗涤工作图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+
+      if (xwjxdgzss_files.length == 0) {
+        wx.showToast({
+          title: '洗涤完毕的餐具全景图片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+
+      let finalFiles = fqbgaz_files;
+      // finalFiles.concat( anzhuangjqmp_files, jqqsz_files, kjssg_files, azqjjt_files, xwjxdgzss_files, xdwbqcdcc_files, other_files);
+      console.log(finalFiles)
       api.fetch({
         url: 'rest/work/doUpdate',
         data: {
           closeDate: that.data.date,
-          photoFiles: that.data.photoFiles,
+          photoFiles: finalFiles.concat(anzhuangjqmp_files, jqqsz_files, kjssg_files, azqjjt_files, xwjxdgzss_files, xdwbqcdcc_files, other_files),
           remarks: that.data.remarks,
           signUrl: that.data.signImg,
           workLinkId: that.data.orderDetail.intall.links.id,
@@ -240,65 +321,125 @@ wx.getSystemInfo({
     })
   },
     
-    chooseImage: function(e) {
-      var that = this;
-      wx.chooseImage({
-        sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        count: 6,
-        success: function(res) {
-          for (let tempImg of res.tempFilePaths) {
-            wx.uploadFile({
-              url: api.url + '/rest/comment/upload',
-              filePath: tempImg,
-              name: 'file',
-              header: {
-                "Content-Type": "multipart/form-data",
-                "chartset": "utf-8"
-              },
-              success: function(result) {
-                var resultData = JSON.parse(result.data)
-                let pfs = that.data.photoFiles;
-                if (resultData.success) {
-                  pfs.push(resultData.url);
-                  that.setData({
-                    photoFiles: pfs
-                  })
-                  api.cacheImg(that.data.orderDetail.intall.id, 'Install', resultData.url);
-                }
-              },
-              fail: function(e) {
-                console.log(e);
-              }
-            })
-          }
-          // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-          that.setData({
-            files: that.data.files.concat(res.tempFilePaths)
-          });
-        }
-      })
-    },
-    previewImage: function(e) {
-      wx.previewImage({
-        current: e.currentTarget.id, // 当前显示图片的http链接
-        urls: this.data.files // 需要预览的图片http链接列表
-      })
-    },
-    delImage: function(e) {
-      let fis = this.data.files;
-      let index = fis.indexOf(e.target.dataset.currentimg)
-      fis.splice(index, 1);
+    // chooseImage: function(e) {
+    //   var that = this;
+    //   wx.chooseImage({
+    //     sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    //     count: 6,
+    //     success: function(res) {
+    //       for (let tempImg of res.tempFilePaths) {
+    //         wx.uploadFile({
+    //           url: api.url + '/rest/comment/upload',
+    //           filePath: tempImg,
+    //           name: 'file',
+    //           header: {
+    //             "Content-Type": "multipart/form-data",
+    //             "chartset": "utf-8"
+    //           },
+    //           success: function(result) {
+    //             var resultData = JSON.parse(result.data)
+    //             let pfs = that.data.photoFiles;
+    //             if (resultData.success) {
+    //               pfs.push(resultData.url);
+    //               that.setData({
+    //                 photoFiles: pfs
+    //               })
+    //               api.cacheImg(that.data.orderDetail.intall.id, 'Install', resultData.url);
+    //             }
+    //           },
+    //           fail: function(e) {
+    //             console.log(e);
+    //           }
+    //         })
+    //       }
+    //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+    //       that.setData({
+    //         files: that.data.files.concat(res.tempFilePaths)
+    //       });
+    //     }
+    //   })
+    // },
+    // previewImage: function(e) {
+    //   wx.previewImage({
+    //     current: e.currentTarget.id, // 当前显示图片的http链接
+    //     urls: this.data.files // 需要预览的图片http链接列表
+    //   })
+    // },
+    // delImage: function(e) {
+    //   let fis = this.data.files;
+    //   let index = fis.indexOf(e.target.dataset.currentimg)
+    //   fis.splice(index, 1);
+    //   this.setData({
+    //     files: fis,
+    //     photoFiles: fis
+    //   })
+    // },
+    _component_setImgPath:function(e){
       this.setData({
-        files: fis,
-        photoFiles: fis
+        files:e.detail
       })
+
+      this.loadDetail(this.data.listItem)
     },
-    bindDateChange: function(e) {
-      this.setData({
-        date: e.detail.value
-      })
-    },
+
+  _fqbgaz_setImgPath:function(e){
+    let that = this;
+    this.setData({
+      fqbgaz_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+  },
+  _anzhuangjqmp_setImgPath:function(e){
+    this.setData({
+      anzhuangjqmp_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+  },
+  _jqqsz_setImgPath:function(e){
+    this.setData({
+      jqqsz_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+  },
+  _kjssg_setImgPath:function(e){
+    this.setData({
+      kjssg_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+  },
+  _azqjjt_setImgPath:function(e){
+    this.setData({
+      azqjjt_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+
+  },
+  _xwjxdgzss_setImgPath:function(e){
+    this.setData({
+      xwjxdgzss_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+
+  },
+  _xdwbqcdcc_setImgPath:function(e){
+    this.setData({
+      xdwbqcdcc_files:e.detail
+    })
+    this.loadDetail(this.data.listItem)
+
+  },
+  _other_setImgPath:function(e){
+    this.setData({
+      other_files:e.detail
+    })
+  },
+
+  bindDateChange: function(e) {
+    this.setData({
+      date: e.detail.value
+    })
+  },
 
     /**
      * 生命周期函数--监听页面加载
@@ -342,8 +483,52 @@ wx.getSystemInfo({
             let jqjxArray = [];
 
             if (result.intall.photoFiles instanceof Array) {
-              for (let item of result.intall.photoFiles) {
-                fis.push(item.url)
+              // fis = result.intall.photoFiles
+
+              for (let item of result.intall.photoFiles){
+                if (item.filePro == 'fqbgaz'){
+                  self.setData({
+                    fqbgaz_photoFiles: self.data.fqbgaz_photoFiles.concat(item),
+                    fqbgaz_files: self.data.fqbgaz_photoFiles.concat(item)
+
+                  })
+                } else if (item.filePro == 'anzhuangjqmp'){
+                  self.setData({
+                    anzhuangjqmp_photoFiles: self.data.anzhuangjqmp_photoFiles.concat(item),
+                    anzhuangjqmp_files: self.data.anzhuangjqmp_photoFiles.concat(item)
+
+                  })
+                } else if (item.filePro == 'jqqsz'){
+                  self.setData({
+                    jqqsz_photoFiles: self.data.jqqsz_photoFiles.concat(item),
+                    jqqsz_files: self.data.jqqsz_photoFiles.concat(item)
+                  })
+                } else if (item.filePro == 'kjssg'){
+                  self.setData({
+                    kjssg_photoFiles: self.data.kjssg_photoFiles.concat(item),
+                    kjssg_files: self.data.kjssg_photoFiles.concat(item)
+                  })
+                } else if (item.filePro == 'azqjjt'){
+                  self.setData({
+                    azqjjt_photoFiles: self.data.azqjjt_photoFiles.concat(item),
+                    azqjjt_files: self.data.azqjjt_photoFiles.concat(item)
+                  })
+                } else if (item.filePro == 'xwjxdgzss'){
+                  self.setData({
+                    xwjxdgzss_photoFiles: self.data.xwjxdgzss_photoFiles.concat(item),
+                    xwjxdgzss_files: self.data.xwjxdgzss_photoFiles.concat(item)
+                  })
+                } else if (item.filePro == 'xdwbqcdcc'){
+                  self.setData({
+                    xdwbqcdcc_photoFiles: self.data.xdwbqcdcc_photoFiles.concat(item),
+                    xdwbqcdcc_files: self.data.xdwbqcdcc_photoFiles.concat(item)
+                  })
+                }else{
+                  self.setData({
+                    photoFiles:self.data.photoFiles.concat(item),
+                    files: self.data.photoFiles.concat(item)
+                  })
+                }
               }
             }
 
@@ -356,7 +541,7 @@ wx.getSystemInfo({
               nowAddress: result.signInAddress == null ? '' : result.signInAddress,
               outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
               files: fis,
-              photoFiles: fis,
+              // photoFiles: fis,
               MNT1: jqjxArray[0],
               MNT2: jqjxArray[2],
               nowJX: jqjxArray[1],
@@ -588,14 +773,14 @@ wx.getSystemInfo({
       })
       return;
     }
-    if (that.data.photoFiles.length < 1) {
-      wx.showToast({
-        title: '机器机身情况照片必须上传！',
-        icon: 'none',
-        duration: 2000
-      })
-      return;
-    }
+    // if (that.data.photoFiles.length < 1) {
+    //   wx.showToast({
+    //     title: '机器机身情况照片必须上传！',
+    //     icon: 'none',
+    //     duration: 2000
+    //   })
+    //   return;
+    // }
     if (that.data.signImg == '') {
       wx.showToast({
         title: '请确认签名后再提交！',

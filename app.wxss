@@ -12,6 +12,11 @@ button{
 .weui-cells{
   margin-top: 0!important;
 }
+
+.img-box{
+    border-bottom: 1px solid #F4F4F4;
+    width: 33%
+}
 .container {
   height: 100%;
   display: flex;
@@ -21,6 +26,10 @@ button{
   box-sizing: border-box;
   width: 100%;
 }
+
+  .line-chao{white-space:nowrap;text-overflow:ellipsis;word-break:break-all;overflow:hidden;width:50px;
+}
+
 
 page {
   background-color: #f3f3f3;

@@ -4,13 +4,23 @@
   height:170px;background:#fff;display:flex
 }
 .p-info{
-  margin:25px;background:#3c8df9;height:120px;flex:1;border-radius: 10px;text-align:center;
+  margin:25px;background:#3c8df9;flex:1;border-radius: 10px;text-align:center;
 
 }
 .avatar-s{
   flex:1;
-  margin:-20px 20px 10px 20px;
+  /* margin:-20px 20px 10px 20px; */
   border-radius:50%;
-  width:60px;
-  height:60px;
+  width:40px;
+  height:40px;
+  padding: 5px
+}
+
+.func-item{
+  padding: 10px 0 10px 20px;
+  background: #fff;
+}
+
+.click-grey{
+  background: gainsboro;
 }

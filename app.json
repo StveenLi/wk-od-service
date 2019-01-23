@@ -53,7 +53,9 @@
     "pages/workOrder/jqbg/index",
     "pages/signMoudle/main/index",
     "pages/signMoudle/doSign/index",
-        "pages/signMoudle/signDetail/index"
+    "pages/signMoudle/signDetail/index",
+    "pages/teach/aaa"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

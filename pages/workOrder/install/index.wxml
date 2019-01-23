@@ -71,7 +71,7 @@
       </view>
     </view>
 
-    <view class="border-bottom-gainsboro">
+    <!-- <view class="border-bottom-gainsboro">
       <view class="weui-cells">
         <view class="weui-cell">
           <view class="weui-cell__bd">
@@ -98,7 +98,29 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
+    <view class='flex-row'>
+
+    <img-uploader wkType="install" ptFiles="{{fqbgaz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装服务报告" imgCode="fqbgaz" bindcsip="_fqbgaz_setImgPath" />
+
+    <img-uploader wkType="install" ptFiles="{{anzhuangjqmp_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装机器名牌" imgCode="anzhuangjqmp" bindcsip="_anzhuangjqmp_setImgPath"/>
+
+    <img-uploader wkType="install" ptFiles="{{jqqsz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="机器全身照" imgCode="jqqsz" bindcsip="_jqqsz_setImgPath"/>
+</view>
+<view class='flex-row'>
+
+    <img-uploader wkType="install" ptFiles="{{kjssg_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装分配器（可见输送管）" imgCode="kjssg" bindcsip="_kjssg_setImgPath"/>
+
+    <img-uploader wkType="install" ptFiles="{{azqjjt_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装清洁剂桶" imgCode="azqjjt" bindcsip="_azqjjt_setImgPath"/>
+
+    <img-uploader wkType="install" ptFiles="{{xwjxdgzss_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗碗机洗涤工作" imgCode="xwjxdgzss" bindcsip="_xwjxdgzss_setImgPath"/>
+</view>
+<view class='flex-row'>
+
+    <img-uploader wkType="install" ptFiles="{{xdwbqcdcc_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗涤完毕的餐具全景" imgCode="xdwbqcdcc" bindcsip="_xdwbqcdcc_setImgPath"/>
+<!-- <img-uploader wkType="install" ptFiles="{{photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="其它照片" imgCode="" bindcsip="_other_setImgPath"/> -->
+</view>
+
 <block wx:if="{{!showPopup}}">
     <view class='content'>
       <view class="weui-cell__hd">

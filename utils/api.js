@@ -5,9 +5,9 @@ var qqmapsdk;
 //测试
 // const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
-const HOST = 'https://www.jiexianchina.com';
+// const HOST = 'https://www.jiexianchina.com';
 
-// const HOST = 'http://192.168.0.178:8080/CServer';
+const HOST = 'http://192.168.0.108:8080/CServer';
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
 const Constant={
     HOST:HOST
@@ -107,9 +107,9 @@ const Util={
       }
     })
   },
-    cacheImg: function (id,stype,url) {
+  cacheImg: function (id, stype, url, filePro, fileName) {
       this.fetch({
-        url: 'rest/comment/cacheImg?id=' + id + '&stype='+stype+'&url=' + url,
+        url: 'rest/comment/cacheImg?id=' + id + '&stype=' + stype + '&url=' + url + '&filePro=' + filePro + '&fileName=' + fileName,
         callback: (err, result) => {
           if (result.success) {
             console.log('Img cache success')
