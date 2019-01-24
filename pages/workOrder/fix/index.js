@@ -329,65 +329,65 @@ Page({
       }
     })
   },
-  chooseImage: function(e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      count: 6,
-      success: function(res) {
-        for (let tempImg of res.tempFilePaths) {
-          wx.uploadFile({
-            url: api.url + '/rest/comment/upload',
-            filePath: tempImg,
-            name: 'file',
-            header: {
-              "Content-Type": "multipart/form-data",
-              "chartset": "utf-8"
-            },
-            success: function(result) {
+  // chooseImage: function(e) {
+  //   var that = this;
+  //   wx.chooseImage({
+  //     sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+  //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+  //     count: 6,
+  //     success: function(res) {
+  //       for (let tempImg of res.tempFilePaths) {
+  //         wx.uploadFile({
+  //           url: api.url + '/rest/comment/upload',
+  //           filePath: tempImg,
+  //           name: 'file',
+  //           header: {
+  //             "Content-Type": "multipart/form-data",
+  //             "chartset": "utf-8"
+  //           },
+  //           success: function(result) {
 
-              let resultData = JSON.parse(result.data)
-              api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
+  //             let resultData = JSON.parse(result.data)
+  //             api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
 
-              // console.log('1' + resultData.url)
+  //             // console.log('1' + resultData.url)
 
-              let pfs = that.data.photoFiles;
-              if (resultData.success) {
-                pfs.push(resultData.url);
-                that.setData({
-                  photoFiles: pfs
-                })
-              }
-            },
-            fail: function(e) {
-              console.log(e);
-            }
-          })
-        }
+  //             let pfs = that.data.photoFiles;
+  //             if (resultData.success) {
+  //               pfs.push(resultData.url);
+  //               that.setData({
+  //                 photoFiles: pfs
+  //               })
+  //             }
+  //           },
+  //           fail: function(e) {
+  //             console.log(e);
+  //           }
+  //         })
+  //       }
 
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
-        });
-      }
-    })
-  },
-  previewImage: function(e) {
-    wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
-    })
-  },
-  delImage: function(e) {
-    let fis = this.data.files;
-    let index = fis.indexOf(e.target.dataset.currentimg)
-    fis.splice(index, 1);
-    this.setData({
-      files: fis,
-      photoFiles: fis
-    })
-  },
+  //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+  //       that.setData({
+  //         files: that.data.files.concat(res.tempFilePaths)
+  //       });
+  //     }
+  //   })
+  // },
+  // previewImage: function(e) {
+  //   wx.previewImage({
+  //     current: e.currentTarget.id, // 当前显示图片的http链接
+  //     urls: this.data.files // 需要预览的图片http链接列表
+  //   })
+  // },
+  // delImage: function(e) {
+  //   let fis = this.data.files;
+  //   let index = fis.indexOf(e.target.dataset.currentimg)
+  //   fis.splice(index, 1);
+  //   this.setData({
+  //     files: fis,
+  //     photoFiles: fis
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -421,14 +421,53 @@ Page({
           let jqjxArray = [];
           if (result.repair.photoFiles instanceof Array) {
             for (let item of result.repair.photoFiles) {
-              if (item.fileType == 'IMG') {
-                fis.push(item.url)
-              } else {
-                videoFis.push({
-                  'tempFilePath': item.url
+              // fis.push(item.url);
+              if (item.filePro == 'fwbg') {
+                self.setData({
+                  fwbg_photoFiles: new Array().concat(item),
+                  fwbg_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'jqmp') {
+                self.setData({
+                  jqmp_photoFiles: new Array().concat(item),
+                  jqmp_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'gzbw') {
+                self.setData({
+                  gzbw_photoFiles: new Array().concat(item),
+                  gzbw_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'jqwgzp') {
+                self.setData({
+                  jqwgzp_photoFiles: new Array().concat(item),
+                  jqwgzp_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'jqzxbzg') {
+                self.setData({
+                  jqzxbzg_photoFiles: new Array().concat(item),
+                  jqzxbzg_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'canjuquanjing') {
+                self.setData({
+                  canjuquanjing_photoFiles: new Array().concat(item),
+                  canjuquanjing_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'fpqkjssg') {
+                self.setData({
+                  fpqkjssg_photoFiles: new Array().concat(item),
+                  fpqkjssg_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'qjjt') {
+                self.setData({
+                  qjjt_photoFiles: new Array().concat(item),
+                  qjjt_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'xwjxdgzs') {
+                self.setData({
+                  xwjxdgzs_photoFiles: new Array().concat(item),
+                  xwjxdgzs_files: new Array().concat(item)
                 })
               }
-              allFis.push(item.url)
             }
           }
           if (result.fromData[3].value != null) {
@@ -474,7 +513,9 @@ Page({
   },
 
 
-
+  setImgPath: function (e) {
+    this.loadDetail(this.data.listItem);
+  },
 
   toSignInMap: function () {
     let that = this;

@@ -485,48 +485,48 @@ wx.getSystemInfo({
             if (result.intall.photoFiles instanceof Array) {
               // fis = result.intall.photoFiles
 
-              for (let item of result.intall.photoFiles){
-                if (item.filePro == 'fqbgaz'){
+              for (let item of result.intall.photoFiles) {
+                if (item.filePro == 'fqbgaz') {
                   self.setData({
-                    fqbgaz_photoFiles: self.data.fqbgaz_photoFiles.concat(item),
-                    fqbgaz_files: self.data.fqbgaz_photoFiles.concat(item)
+                    fqbgaz_photoFiles: new Array().concat(item),
+                    fqbgaz_files: new Array().concat(item)
 
                   })
-                } else if (item.filePro == 'anzhuangjqmp'){
+                } else if (item.filePro == 'anzhuangjqmp') {
                   self.setData({
-                    anzhuangjqmp_photoFiles: self.data.anzhuangjqmp_photoFiles.concat(item),
-                    anzhuangjqmp_files: self.data.anzhuangjqmp_photoFiles.concat(item)
+                    anzhuangjqmp_photoFiles: new Array().concat(item),
+                    anzhuangjqmp_files: new Array().concat(item)
 
                   })
-                } else if (item.filePro == 'jqqsz'){
+                } else if (item.filePro == 'jqqsz') {
                   self.setData({
-                    jqqsz_photoFiles: self.data.jqqsz_photoFiles.concat(item),
-                    jqqsz_files: self.data.jqqsz_photoFiles.concat(item)
+                    jqqsz_photoFiles: new Array().concat(item),
+                    jqqsz_files: new Array().concat(item)
                   })
-                } else if (item.filePro == 'kjssg'){
+                } else if (item.filePro == 'kjssg') {
                   self.setData({
-                    kjssg_photoFiles: self.data.kjssg_photoFiles.concat(item),
-                    kjssg_files: self.data.kjssg_photoFiles.concat(item)
+                    kjssg_photoFiles: new Array().concat(item),
+                    kjssg_files: new Array().concat(item)
                   })
-                } else if (item.filePro == 'azqjjt'){
+                } else if (item.filePro == 'azqjjt') {
                   self.setData({
-                    azqjjt_photoFiles: self.data.azqjjt_photoFiles.concat(item),
-                    azqjjt_files: self.data.azqjjt_photoFiles.concat(item)
+                    azqjjt_photoFiles: new Array().concat(item),
+                    azqjjt_files: new Array().concat(item)
                   })
-                } else if (item.filePro == 'xwjxdgzss'){
+                } else if (item.filePro == 'xwjxdgzss') {
                   self.setData({
-                    xwjxdgzss_photoFiles: self.data.xwjxdgzss_photoFiles.concat(item),
-                    xwjxdgzss_files: self.data.xwjxdgzss_photoFiles.concat(item)
+                    xwjxdgzss_photoFiles: new Array().concat(item),
+                    xwjxdgzss_files: new Array().concat(item)
                   })
-                } else if (item.filePro == 'xdwbqcdcc'){
+                } else if (item.filePro == 'xdwbqcdcc') {
                   self.setData({
-                    xdwbqcdcc_photoFiles: self.data.xdwbqcdcc_photoFiles.concat(item),
-                    xdwbqcdcc_files: self.data.xdwbqcdcc_photoFiles.concat(item)
+                    xdwbqcdcc_photoFiles: new Array().concat(item),
+                    xdwbqcdcc_files: new Array().concat(item)
                   })
-                }else{
+                } else {
                   self.setData({
-                    photoFiles:self.data.photoFiles.concat(item),
-                    files: self.data.photoFiles.concat(item)
+                    photoFiles: new Array().concat(item),
+                    files: new Array().concat(item)
                   })
                 }
               }

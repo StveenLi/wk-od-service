@@ -82,6 +82,10 @@ Component({
         urls: _n_files // 需要预览的图片http链接列表
       })
     },
+    _tarFunc:function(){
+      let that = this;
+      
+    },
     chooseImage: function (e) {
       var that = this;
       let pfs = that.data.ptFiles;
@@ -106,8 +110,9 @@ Component({
                   that.setData({
                     ptFiles: pfs
                   })
-                  that.triggerEvent('csip', pfs);
-                  api.cacheImg(that.data.wkId, that.data.wkType, resultData.url,that.data.imgCode,that.data.imgTitle);
+                  
+                  api.cacheImg(that.data.wkId, that.data.wkType, resultData.url, that.data.imgCode, that.data.imgTitle, function () { that.triggerEvent('csip', pfs); });
+                  
                 }
               },
               fail: function (e) {

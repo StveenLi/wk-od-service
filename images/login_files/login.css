@@ -1,0 +1,210 @@
+@CHARSET "UTF-8";
+
+* {
+	color: #666;
+	font-size: 15px;
+}
+
+body {
+	margin: 0px;
+	height: 100%;
+	background-color: #c6e7fc;
+	background-position: center;
+	background-size: 100%;
+}
+
+img {
+	display: block;
+	border: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+input {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+}
+
+.header {
+	width: 1200px;
+	overflow: hidden;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 60px;
+}
+
+.leftheader {
+	float: left;
+	overflow: hidden;
+}
+
+.leftheader * {
+	float: left;
+}
+
+.rightheader {
+	float: right;
+	overflow: hidden;
+}
+
+.rightheader * {
+	float: left
+}
+
+.leftheader .logo {
+	margin-right: 10px;
+	width:45px;
+	padding-top:5px;
+}
+
+.leftheader .fengexian {
+	margin-top: 15px;
+	margin-right: 18px;
+}
+
+.rightheader img {
+	margin-top: 12px;
+	margin-left: 24px;
+	margin-right: 5px;
+	width:32px;
+}
+
+.main {
+	background: url(../imgs/login.png) no-repeat center top;
+	background-size:100% auto;
+	/*margin: 100px 0 0 0;*/
+	/*height: 700px;*/
+}
+
+.content {
+	/*width: 980px;*/
+	/*margin-left: auto;
+	margin-right: auto;*/
+	overflow: hidden;
+}
+.cr-title {
+    font-size: 24px;
+    color: #30afff;
+    height: 60px;
+    line-height: 60px;
+}
+.content img {
+	margin-top: 50px;
+	float: left;
+}
+
+.content .login {
+	float: right;
+	/*margin-top: 30px;*/
+	overflow: hidden;
+}
+
+.content input {
+	display: block;
+	/*width: 360px;
+	height: 60px;*/
+	
+	margin-top: 60px;
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	padding:20px 20px 20px 60px;
+	background-repeat: no-repeat;
+	background-size:50px;
+	background-position: 5px;
+	font-size:18px;
+}
+
+.login button {
+	display: block;
+	background-color: #30afff;
+	width: 270px;
+	/*line-height: 60px;*/
+	padding: 20px;
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	border-radius:10px;
+}
+
+.login a {
+	line-height: 60px;
+	color: #fe5f28;
+}
+
+.leftlink {
+	float: left;
+}
+
+.rightlink {
+	float: right;
+}
+
+.nav {
+	overflow: hidden;
+	/*width: 980px;*/
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.nav div {
+	float: left;
+}
+
+.nav .more {
+	width: 320px;
+	cursor:pointer;
+	background-color: #ff8e2f;
+	height: 150px;
+	margin-right: 10px;
+}
+
+.nav .quanyi {
+	cursor:pointer;
+	width: 320px;
+	background-color: #6de3c0;
+	height: 150px;
+	margin-right: 10px;
+}
+
+.nav .fukuan {
+	cursor:pointer;
+	width: 320px;
+	background-color: #ffd62e;
+	height: 150px;
+}
+
+.nav img {
+	float: left;
+}
+
+.nav a {
+	float: right;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	color: #ffffff;
+	line-height: 150px;
+	margin-right: 40px;
+	font-weight: bold;
+}
+
+.bottom {
+	width: 980px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.bottom div {
+	margin-top: 20px;
+	margin-left: 335px;
+}
+
+.bottom p {
+	text-align: center;
+	font-size:11px;
+}

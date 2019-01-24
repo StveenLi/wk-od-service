@@ -55,7 +55,7 @@
       </view>
     </view>
     <!-- 备注 -->
-          <block wx:if="{{!showPopup&&!showModal}}">
+    <block wx:if="{{!showPopup&&!showModal}}">
 
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
@@ -98,7 +98,7 @@
           </view>
         </block> -->
       </view>
-      </block>
+    </block>
     <block wx:if="{{!isPhoneFix}}">
       <view class="weui-cell weui-cell_input">
         <view class='flex-row box-all'>
@@ -124,7 +124,7 @@
       </block>
 
 
-      
+
 
 
       <!-- <block wx:if="{{errorIndex == 1}}">
@@ -143,7 +143,7 @@
       </block> -->
 
 
-      
+
 
       <!-- <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_switch">
@@ -154,7 +154,7 @@
         </view>
       </view> -->
 
-      <view class="page__bd">
+      <!-- <view class="page__bd">
         <view class="weui-cell">
           <view class="weui-cell__bd">
             <view class="weui-uploader">
@@ -173,7 +173,7 @@
                   </block>
                 </view>
                 <view class="weui-uploader__input-box">
-                  <!-- <image class='uploadbtn' bindtap='chooseImage' src='./addimgsbtn.png'></image> -->
+                  <!-- <image class='uploadbtn' bindtap='chooseImage' src='./addimgsbtn.png'></image> 
 
                   <view class="weui-uploader__input" bindtap="chooseImage"></view>
                 </view>
@@ -181,6 +181,21 @@
             </view>
           </view>
         </view>
+      </view> -->
+      <view class='flex-row'>
+        <img-uploader wkType="repair" ptFiles="{{fwbg_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="服务报告" imgCode="fwbg" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{jqmp_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="机器名牌" imgCode="jqmp" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{gzbw_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="故障部位" imgCode="gzbw" bindcsip="setImgPath" />
+      </view>
+      <view class='flex-row'>
+        <img-uploader wkType="repair" ptFiles="{{jqwgzp_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="机器外观照片" imgCode="jqwgzp" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{jqzxbzg_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="机器主洗臂+主洗缸" imgCode="jqzxbzg" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{fpqkjssg_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="分配器（可见输送管）" imgCode="fpqkjssg" bindcsip="setImgPath" />
+      </view>
+      <view class='flex-row'>
+        <img-uploader wkType="repair" ptFiles="{{qjjt_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="清洁剂桶" imgCode="qjjt" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{xwjxdgzs_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="洗碗机洗涤工作时" imgCode="xwjxdgzs" bindcsip="setImgPath" />
+        <img-uploader wkType="repair" ptFiles="{{canjuquanjing_photoFiles}}" wkId="{{orderDetail.repair.id}}" imgTitle="洗涤完毕取出的餐具全景" imgCode="canjuquanjing" bindcsip="setImgPath" />
       </view>
 
       <view class="optClass">
@@ -216,13 +231,13 @@
         <view class='flex-row box-all'>
           <view class='flex-1 padding-5'>签出</view>
           <view class='padding-5 work-order-content'>
-          <block wx:if='{{outAddress==""}}'>
-            <text bindtap='loactionSignOut'>去签出 ></text>
-          </block>
-          <block wx:else>
-            <text bindtap='toSignOutMap'>地址微调 ></text>
-          </block>
-        </view>
+            <block wx:if='{{outAddress==""}}'>
+              <text bindtap='loactionSignOut'>去签出 ></text>
+            </block>
+            <block wx:else>
+              <text bindtap='toSignOutMap'>地址微调 ></text>
+            </block>
+          </view>
           <!-- <view class='padding-5 work-order-content' bindtap='loactionSignOut'>去签出 ></view> -->
         </view>
       </view>

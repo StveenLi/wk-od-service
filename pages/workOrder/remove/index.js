@@ -24,7 +24,11 @@ Page({
     commentVal: '',
     commentFilePaths: [],
     removeRs: [],
-    removeRIndex: 0
+    removeRIndex: 0,
+    cjfwbb_photoFiles:[],
+    cjjqmp_photoFiles:[],
+    jqwg_photoFiles:[],
+    fenpeqi_photoFiles:[]
   },
   getRemoveReasonList: function() {
     let that = this;
@@ -59,7 +63,28 @@ Page({
           let fis = [];
           if (result.dell.photoFiles instanceof Array) {
             for (let item of result.dell.photoFiles) {
-              fis.push(item.url);
+              // fis.push(item.url);
+              if (item.filePro == 'cjfwbb') {
+                self.setData({
+                  cjfwbb_photoFiles: new Array().concat(item),
+                  cjfwbb_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'cjjqmp'){
+                self.setData({
+                  cjjqmp_photoFiles: new Array().concat(item),
+                  cjjqmp_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'jqwg'){
+                self.setData({
+                  jqwg_photoFiles: new Array().concat(item),
+                  jqwg_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'fenpeqi'){
+                self.setData({
+                  fenpeqi_photoFiles: new Array().concat(item),
+                  fenpeqi_files: new Array().concat(item)
+                })
+              }
             }
           }
           self.setData({
@@ -96,61 +121,81 @@ Page({
     }
   },
 
-  chooseImage: function(e) {
-    var that = this;
-    wx.chooseImage({
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      count: 6,
-      success: function(res) {
-        for (let tempImg of res.tempFilePaths) {
-          wx.uploadFile({
-            url: api.url + '/rest/comment/upload',
-            filePath: tempImg,
-            name: 'file',
-            header: {
-              "Content-Type": "multipart/form-data"
-            },
-            success: function(result) {
-              var resultData = JSON.parse(result.data)
-              let pfs = that.data.photoFiles;
-              if (resultData.success) {
-                pfs.push(resultData.url);
-                that.setData({
-                  photoFiles: pfs
-                })
-                api.cacheImg(that.data.orderDetail.dell.id, 'Dell', resultData.url);
+  // chooseImage: function(e) {
+  //   var that = this;
+  //   wx.chooseImage({
+  //     sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+  //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+  //     count: 6,
+  //     success: function(res) {
+  //       for (let tempImg of res.tempFilePaths) {
+  //         wx.uploadFile({
+  //           url: api.url + '/rest/comment/upload',
+  //           filePath: tempImg,
+  //           name: 'file',
+  //           header: {
+  //             "Content-Type": "multipart/form-data"
+  //           },
+  //           success: function(result) {
+  //             var resultData = JSON.parse(result.data)
+  //             let pfs = that.data.photoFiles;
+  //             if (resultData.success) {
+  //               pfs.push(resultData.url);
+  //               that.setData({
+  //                 photoFiles: pfs
+  //               })
+  //               api.cacheImg(that.data.orderDetail.dell.id, 'Dell', resultData.url);
 
-              }
-            },
-            fail: function(e) {
-              console.log(e);
-            }
-          })
-        }
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        that.setData({
-          files: that.data.files.concat(res.tempFilePaths)
-        });
-      }
-    })
-  },
-  previewImage: function(e) {
-    wx.previewImage({
-      current: e.currentTarget.id, // 当前显示图片的http链接
-      urls: this.data.files // 需要预览的图片http链接列表
-    })
-  },
-  delImage: function(e) {
-    let fis = this.data.files;
-    let index = fis.indexOf(e.target.dataset.currentimg)
-    fis.splice(index, 1);
-    this.setData({
-      files: fis,
-      photoFiles: fis
-    })
-  },
+  //             }
+  //           },
+  //           fail: function(e) {
+  //             console.log(e);
+  //           }
+  //         })
+  //       }
+  //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+  //       that.setData({
+  //         files: that.data.files.concat(res.tempFilePaths)
+  //       });
+  //     }
+  //   })
+  // },
+  // previewImage: function(e) {
+  //   wx.previewImage({
+  //     current: e.currentTarget.id, // 当前显示图片的http链接
+  //     urls: this.data.files // 需要预览的图片http链接列表
+  //   })
+  // },
+  // delImage: function(e) {
+  //   let fis = this.data.files;
+  //   let index = fis.indexOf(e.target.dataset.currentimg)
+  //   fis.splice(index, 1);
+  //   this.setData({
+  //     files: fis,
+  //     photoFiles: fis
+  //   })
+  // },
 
+  setImgPath:function(e){
+    this.loadDetail(this.data.listItem);
+  },
+  
+  // _cjjqmp_setImgPath:function(e){
+  //   // this.setData({
+  //   //   cjjqmp_files: e.detail
+  //   // })
+  //   this.loadDetail(this.data.listItem);
+  // },
+  // _jqwg_setImgPath:function(e){
+  //   // this.setData({
+  //   //   jqwg_files: e.detail
+  //   // })
+  //   this.loadDetail(this.data.listItem);
+  // },
+  // _fenpeqi_setImgPath:function(e){
+  //   this.loadDetail(this.data.listItem);
+  // },
+  
   lastSubmit: function(e) {
     let that = this;
     //doUpdate
@@ -264,6 +309,32 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          if (result.dell.photoFiles instanceof Array) {
+            for (let item of result.dell.photoFiles) {
+              // fis.push(item.url);
+              if (item.filePro == 'cjfwbb') {
+                self.setData({
+                  cjfwbb_photoFiles: new Array().concat(item),
+                  cjfwbb_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'cjjqmp') {
+                self.setData({
+                  cjjqmp_photoFiles: new Array().concat(item),
+                  cjjqmp_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'jqwg') {
+                self.setData({
+                  jqwg_photoFiles: new Array().concat(item),
+                  jqwg_files: new Array().concat(item)
+                })
+              } else if (item.filePro == 'fenpeqi') {
+                self.setData({
+                  fenpeqi_photoFiles: new Array().concat(item),
+                  fenpeqi_files: new Array().concat(item)
+                })
+              }
+            }
+          }
           self.setData({
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
             signInTime: result.signInTime,

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://192.168.0.104:8020/WebRoot/pages/login.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title></title>
+		<link rel="stylesheet" href="./login_files/login.css">
+	</head>
+	<body>
+		
+		<div class="main">
+			<div class="content">
+				<div class="login">
+					<div class="cr-box cr-title">欢迎登录销售管理系统</div>
+					<input type="text" id="username" autocomplete="off" style="background-image: url(&lt;%=request.getContextPath()%&gt;/common/imgs/login/login-user.svg)" placeholder="登陆账号">
+					<input type="password" style="display:none;" id="password">
+					<input type="password" class="password" autocomplete="new-password" onkeyup="document.getElementById(&#39;password&#39;).value=this.value;" style="background-image: url(&lt;%=request.getContextPath()%&gt;/common/imgs/login/login-pass.svg);background-size:40px;background-position:10px;" placeholder="密码" aria-autocomplete="list">
+					<div style="display:block;height:40px;color:red;font-size:16px;line-height:40px;" class="loginError"></div>
+					<button id="btn_login">登 录</button>
+				</div>
+			</div>
+		</div>
+		
+	
+
+</body></html>
