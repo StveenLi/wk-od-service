@@ -26,6 +26,8 @@
 
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+  <button class='flex-1 bottom-btn' bindtap='sub_back'>退回</button>
+
 </view>
 <!-- 中间弹出框 -->
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage"></comment-component>

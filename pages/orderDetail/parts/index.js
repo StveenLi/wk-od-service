@@ -18,7 +18,6 @@ Page({
   onLoad: function (options) {
     let that = this;
     let item = JSON.parse(options.item);
-    console.log(item);
     this.setData({
       listItem: JSON.parse(options.item)
     })
@@ -62,6 +61,29 @@ Page({
           wx.navigateBack({
             url: '/pages/work/index'
           });
+        }
+      }
+    })
+  },
+
+  sub_back:function(){
+    let that = this;
+    let status;
+    api.fetch({
+      url: 'rest/work/doBackPatch',
+      data: {
+        workLinkId: that.data.orderDetail.patch.links.id
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          wx.navigateBack({
+          });
+        } else {
+          wx.showToast({
+            title: result.msg,
+            duration: 2000,
+            icon: 'none'
+          })
         }
       }
     })

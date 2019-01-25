@@ -65,6 +65,9 @@ Page({
   lastSubmit_no:function(){
     this.lastSubmit(12)
   },
+  sub_back:function(){
+    this.lastSubmit(6)
+  },
   lastSubmit:function(status_no){
     let that = this;
     wx.showLoading({
@@ -73,6 +76,8 @@ Page({
     let status;
     if (status_no==12){
       status = 12;
+    }else if(status_no == 6){
+      status = 6;
     }else{
       status = 8;
     }

@@ -443,6 +443,9 @@
                 <block wx:if="{{item.workStatus == 8}}">
                   <image src='/images/im.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
                 </block>
+                <block wx:if="{{item.isToBack == 1}}">
+                  <image src='/images/tuihui.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+                </block>
                 <block wx:if="{{item.workStatus == 12}}">
                   <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
                 </block>

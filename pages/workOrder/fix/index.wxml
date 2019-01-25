@@ -76,7 +76,7 @@
         </view>
       </view>
 
-      <view class=" weui-cells_after-title border-bottom-gainsboro">
+      <view class=" weui-cells_after-title border-bottom-gainsboro" style='margin:0 15px'>
         <view class=" weui-cell_switch">
           <view class="weui-cell__bd"></view>
         </view>

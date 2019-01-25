@@ -38,6 +38,7 @@
       <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
       <button class='flex-1 bottom-btn' bindtap='lastSubmit'>同意</button>
       <button class='flex-1 bottom-btn' bindtap='lastSubmit_no'>不同意</button>
+
   </view>
 </block>
 

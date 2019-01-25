@@ -1,1 +1,8 @@
 /* pages/launchDetail/patch/index.wxss */
+
+
+.search-display-auto{
+  width:100%;
+  background: #fff;
+  margin-bottom: 60px;
+}

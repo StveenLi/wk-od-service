@@ -12,17 +12,37 @@ Page({
     commentVal: '',
     commentFilePaths: [],
     user: {},
+    moreRepair:[],
+    finalVal:[],
+    finalValNum:[],
+    inputVal: []
   },
 
   loadDetail: function (item) {
     let self = this;
+    let moreRepair = [];
+    let finalVal = [];
+    let finalValNum = [];
+    let inputVal = [];
     api.fetch({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          for(let item of result.parts){
+            moreRepair.push(result.parts.indexOf(item));
+            finalVal.push({ name: item.groupName, value: item.groupType, id: item.groupId, partStatus: item.partStatus,num:1});
+            finalValNum.push(1);
+            inputVal.push(item.groupName)
+          }
+          let formatData = result.fromData.splice(2, result.fromData.length-2);
           self.setData({
+            moreRepair: moreRepair,
+            finalVal: finalVal,
+            finalValNum: finalValNum,
             orderDetail: result,
-            oitem:item
+            oitem:item,
+            inputVal:inputVal,
+            formatData:result.formatData
           })
         }
       }
@@ -40,12 +60,105 @@ Page({
     })
   },
 
+  inputTyping: function (e) {
+    let self = this;
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    console.log(e.currentTarget.dataset)
+    let inputVal = self.data.inputVal
+    inputVal[index] = e.detail.value
+    let inputSearch = [];
+    inputSearch[index] = true;
+    this.setData({
+      inputVal: inputVal,
+      inputSearch: inputSearch
+    });
+    self.loadParts(e.detail.value);
+  },
+  itemOptionClick: function (e) {
+    let self = this;
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    console.log(e.currentTarget)
+    let finalValNum = self.data.finalValNum;
+    let inputVal = self.data.inputVal;
+    let inputSearch = self.data.inputSearch;
+    let citem = e.currentTarget.dataset.citem;
+    inputVal[index] = e.currentTarget.dataset.citem.name
+    inputSearch[index] = false;
+    let finalVal = self.data.finalVal;
+    finalVal[index] = { name: citem.name, value: citem.value, id: citem.id,num:'1' }
+    finalValNum[item] = "1";
+
+    this.setData({
+      inputVal: inputVal,
+      inputSearch: inputSearch,
+      finalVal: finalVal,
+      finalValNum: finalValNum
+    });
+  }, 
+
+
+  moreClick: function () {
+    let moreR = this.data.moreRepair
+    let finalVal = this.data.finalVal
+    moreR.push(moreR.length);
+    finalVal.push({ name: '', value: '', id: '', partStatus:-1,num:'1'})
+    this.setData({
+      moreRepair: moreR,
+      finalVal: finalVal
+    })
+  },
+
+  delPart:function(e){
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    console.log(e.currentTarget.dataset)
+    let {inputVal,finalVal} = this.data;
+    inputVal.splice(index, 1)
+    finalVal.splice(index, 1)
+    this.setData({
+      inputVal: inputVal,
+      finalVal: finalVal
+    })
+  },
+
+  clearInput: function (e) {
+    let self = this;
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    let inputVal = self.data.inputVal
+    let finalVal = self.data.finalVal
+    finalVal[index] = { name: '', value: '', id: '', partStatus: -1,num:'1' }
+    inputVal[index] = ""
+    this.setData({
+      inputVal: inputVal,
+      inputSearch: false,
+      finalVal: finalVal
+    });
+  },
+
+  loadParts: function (partName) {
+    let self = this;
+    api.fetch({
+      url: 'rest/comment/getParts?partName=' + partName,
+      callback: (err, result) => {
+        if (result.success) {
+          self.setData({
+            partsList: result.list
+          })
+        }
+      }
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let that = this;
     let item = JSON.parse(options.item);
+    that.setData({listItem:item})
     that.loadDetail(item);
     wx.getStorage({
       key: 'user',
@@ -54,6 +167,55 @@ Page({
           user: res.data
         })
       },
+    });
+  },
+
+  sureSubmit: function () {
+    let self = this;
+    let submitValues = [];
+    let errmsg = '';
+
+    const { finalVal, inputVal } = this.data;
+    if (finalVal.length === 0) {
+      wx.showToast({
+        title: '请提交零件列表里已有的零件，谢谢！！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
+    for (let i = 0; i < finalVal.length; i++) {
+      if (finalVal[i] == null) {
+        errmsg += inputVal[i] + ',';
+      }
+    }
+
+    if (errmsg != '') {
+      wx.showToast({
+        title: errmsg + ' 请提交零件列表里已有的零件，谢谢！！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
+
+    // for (let item of self.data.finalVal) {
+    //   item.num = self.data.finalValNum[self.data.finalVal.indexOf(item)]
+    //   submitValues.push(item);
+    // }
+    api.fetch({
+      url: 'rest/work/doUpdatePatch',
+      data: {
+        workLinkId: self.data.orderDetail.patch.links.id,
+        parts: finalVal,
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          wx.navigateBack({
+
+          })
+        }
+      }
     });
   },
 
@@ -69,49 +231,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setPatch();
-  },
-
-  setPatch: function () {
-    let self = this;
-    let item = this.data.listItem
-    api.fetch({
-      url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
-      callback: (err, result) => {
-        if (result.success) {
-          let du_patches = [];
-          let du_id = 0;
-          let du_times = 0;
-          let du_patch_children = [];
-
-          for (let pa of result.patch) {
-            if (result.patch.indexOf(pa) === 0) {
-              du_id = pa.wId;
-            }
-            if (du_id == pa.wId) {
-              du_patch_children.push(pa);
-            }
-            if (du_id != pa.wId) {
-              du_patches.push(du_patch_children);
-              du_patch_children = [];
-              du_patch_children.push(pa);
-              du_times++;
-              du_id = pa.wId;
-            }
-            if (result.patch.indexOf(pa) === result.patch.length - 1) {
-              du_patches.push(du_patch_children);
-            }
-          }
-
-          self.setData({
-            du_patchs: du_patches
-          })
-          this.setData({
-            patch: result.patch
-          })
-        }
-      }
-    })
+    // this.setPatch();
   },
 
 

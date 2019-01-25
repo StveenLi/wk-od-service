@@ -23,28 +23,72 @@
     </view>
   </block>
 
-  <view class=" weui-cells_after-title ">
-    <view class=" weui-cell_switch">
-      <view class="weui-cell__bd"></view>
+  <view wx:for="{{finalVal}}" wx:key="index">
+    <view class='flex-row' style='text-align:center;padding:10px 0'>
+    <view class='flex-1'>补件</view>
+    <block wx:if="{{item.partStatus!=2&&item.partStatus!=3&&item.partStatus!=1}}"><button class='mini-btn' bindtap='delPart' data-index="{{index}}" data-item="{{item}}" type="primary" size='mini'>删除</button></block>
     </view>
-    <view wx:for="{{du_patchs}}" wx:key="*this">
-      <view style='color:#999'>
-        <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
-          <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
-          <!-- <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view> -->
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='padding-5' style='margin-top:5px;width:125px;'>零件编号</view>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{item.value}}</view>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">零件名称</view>
         </view>
-        <view wx:for="{{item}}" wx:key="*this">
-          <view> {{item.groupName}}*{{item.groupValue}} </view>
+      </view>
+
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+
+          <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{item.name}}" focus="{{inputShowed}}" data-item='{{item}}' data-index='{{index}}' disabled='{{item.partStatus!=2&&item.partStatus!=3&&item.partStatus!=1?false:true}}'  bindinput="inputTyping" />
+          <block wx:if="{{item.partStatus!=2&&item.partStatus!=3&&item.partStatus!=1}}">
+          <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" data-index='{{index}}' data-item="{{item}}" bindtap="clearInput">
+          
+            <icon type="clear" size="14"></icon>
+          </view>
+          </block>
         </view>
+        <!-- <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+          <icon class="weui-icon-search" type="search" size="14"></icon>
+          <view class="weui-search-bar__text"></view>
+        </label> -->
+      </view>
+
+    </view>
+    <view class="weui-cells-pro searchbar-result search-display-auto" style='marginTop:{{67*index}}px' wx:if="{{inputSearch[index]}}">
+      <block wx:for="{{partsList}}" wx:key="*this" wx:for-index="index2" wx:for-item="citem">
+        <view class="weui-cell weui-cell__bd" hover-class="weui-cell_active" bindtap="itemOptionClick" data-index='{{index}}' data-index2='{{index2}}' data-item='{{item}}' data-citem='{{citem}}'>
+          <view>{{citem.value}} | {{citem.name}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="weui-cell weui-cell_input ">
+      <view class="weui-label" style='width:125px'>零件个数</view>
+      <input class="padding-5" style='text-align:left;' placeholder="零件个数" data-item='{{item}}'  type='number' bindinput="partsNumChange" value='1' disabled='false' />
+    </view>
+    <view class="weui-cell weui-cell_input border-bottom-gainsboro">
+      <view class='flex-row box-all'>
+        <view class='padding-5' style='width:125px;'>状态 </view>
+        <view class='flex-1 padding-5'>{{item.partStatus==1?'已审核':item.partStatus==2?'已发货':item.partStatus==3?'已发货':'未审核'}}</view>
       </view>
     </view>
   </view>
+
+
+  <view bindtap="moreClick" style='margin:15px 15px 50px 0;text-align:right;color:#3c8df9'>增加零件明细 ></view>
 </view>
 
 
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+  <button class='flex-1 bottom-btn' bindtap='sureSubmit'>提交</button>
   <!-- 审核过后不能撤回 只有状态6能撤回 -->
   <block wx:if="{{!orderDetail.workDto&&orderDetail.patch.links.subStatus==6}}">
     <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>
