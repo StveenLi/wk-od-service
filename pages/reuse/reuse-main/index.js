@@ -137,18 +137,18 @@ Page({
     api.fetch({
       url:'rest/wkuser/doSendParts',
       data: { kdCode: expressNum, ids: _ncps.substr(0, _ncps.length - 1)},
-      success:function(err,result){
-        if(result.success){
-          that.setData({ showModal:false})
-          that.getPartsData();
-          that.getDonePartsData();
-        }else{
-          wx.showToast({
-            title: result.msg,
-            duration:2000,
-            icon:'none'
-          })
-        }
+      callback: (err, result) => {
+        if (result.success) {
+            that.setData({ showModal: false })
+            that.getPartsData();
+            that.getDonePartsData();
+          } else {
+            wx.showToast({
+              title: res.msg,
+              duration: 2000,
+              icon: 'none'
+            })
+          }
       }
     })
   },

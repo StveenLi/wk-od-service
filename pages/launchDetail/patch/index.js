@@ -64,7 +64,6 @@ Page({
     let self = this;
     let item = e.currentTarget.dataset.item;
     let index = e.currentTarget.dataset.index;
-    console.log(e.currentTarget.dataset)
     let inputVal = self.data.inputVal
     inputVal[index] = e.detail.value
     let inputSearch = [];
@@ -140,8 +139,10 @@ Page({
 
   loadParts: function (partName) {
     let self = this;
+    // let mt = self.orderDetail.machineType
+    
     api.fetch({
-      url: 'rest/comment/getParts?partName=' + partName + '&machineType=' + self.orderDetail.machineType,
+      url: 'rest/comment/getParts?partName=' + partName + '&machineType=' + self.data.orderDetail.machineType,
       callback: (err, result) => {
         if (result.success) {
           self.setData({
