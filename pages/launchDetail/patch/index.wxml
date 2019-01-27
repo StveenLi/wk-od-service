@@ -5,7 +5,7 @@
 
 <view class="work-item view-shadow">
   <view class='flex-1 middle-all'>补件单</view>
-
+  
   <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
     <view class='flex-1'>{{orderDetail.wrCode}}</view>
     <view class='flex-1 work-order-content'>{{orderDetail.patch.pWrok.name}}</view>

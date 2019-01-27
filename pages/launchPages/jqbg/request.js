@@ -28,8 +28,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     this.setData({
       workLinkId: options.workLinkId
+    })
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data,
+          partsAddress:res.data.address
+        })
+      },
     })
   },
 
@@ -106,6 +116,12 @@ Page({
   onShareAppMessage: function () {
   
   },
+
+  partsAddressChange:function(e){
+    this.setData({
+      partsAddress:e.detail.value
+    })
+  },
   
   sureSubmit: function(){
     let self = this;
@@ -144,7 +160,8 @@ Page({
       url: 'rest/work/doPatch',
       data:{
         workLinkId: self.data.workLinkId,
-        parts: submitValues
+        parts: submitValues,
+        address: self.data.partsAddress
       },
       callback: (err, result) => {
         if (result.success) {

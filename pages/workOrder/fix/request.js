@@ -14,8 +14,15 @@ Page({
     partsList:[],
     finalVal:[],
     finalValNum:[],
-    workLinkId:''
+    workLinkId:'',
+    partsAddress:''
 
+  },
+
+  partsAddressChange:function(e){
+    this.setData({
+      partsAddress:e.detail.value
+    })
   },
   moreClick: function () {
     let moreR = this.data.moreRepair
@@ -28,15 +35,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     this.setData({
-      workLinkId: options.workLinkId
+      workLinkId: options.workLinkId,
+      machineType: options.machineType
+    })
+    wx.getStorage({
+      key: 'user',
+      success: function(res) {
+          that.setData({
+            user:res.data,
+            partsAddress:res.data.address
+          })
+      },
     })
   },
 
   loadParts: function (partName){
     let self = this;
     api.fetch({
-      url: 'rest/comment/getParts?partName='+partName,
+      url: 'rest/comment/getParts?partName=' + partName +'&machineType='+self.data.machineType,
       callback: (err, result) => {
         if (result.success) {
           self.setData({
@@ -144,7 +162,8 @@ Page({
       url: 'rest/work/doPatch',
       data:{
         workLinkId: self.data.workLinkId,
-        parts: submitValues
+        parts: submitValues,
+        address:self.data.partsAddress
       },
       callback: (err, result) => {
         if (result.success) {

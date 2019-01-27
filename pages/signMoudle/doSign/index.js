@@ -181,14 +181,19 @@ Page({
         url: 'rest/register/findById?id=' + that.data.signId,
         callback: (err, result) => {
           if (result.success) {
-            console.log('onshow load address');
-
-            that.setData({
-              signInTime: result.signInTime,
-              signOutTime: result.signOutTime,
-              nowAddress: result.signInAddress,
-              outAddress: result.signOutAddress,
-            })
+            if (result.signInAddress){
+              that.setData({
+                signInTime: result.signInTime,
+                nowAddress: result.signInAddress
+              })
+              if(result.signOutAddress){
+                that.setData({
+                  outAddress: result.signOutAddress,
+                  signOutTime: result.signOutTime
+                })
+              }
+            }
+            
           }
         }
       })
@@ -212,12 +217,20 @@ Page({
               }
               that.setData({
                 files: fis,
-                photoFiles: fis,
-                signInTime: result.signInTime,
-                signOutTime: result.signOutTime,
-                nowAddress: result.signInAddress,
-                outAddress: result.signOutAddress,
+                photoFiles: fis
               })
+              if (result.signInAddress && result.signOutAddress) {
+                that.setData({
+                  signInTime: result.signInTime,
+                  nowAddress: result.signInAddress
+                })
+              }
+              if (result.signOutAddress) {
+                that.setData({
+                  outAddress: result.signOutAddress,
+                  signOutTime: result.signOutTime
+                })
+              }
             }
           }
         })

@@ -1,0 +1,56 @@
+<!--pages/reuse/reuse-main/index.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style='margin:15px;border-radius:5px;background:#fff;'>
+          <checkbox-group bindchange="partsboxChange" class="flex-column padding-5">
+            <label class="checkbox border-bottom-gainsboro" wx:for="{{parts}}" wx:key="*this">
+              <checkbox value="{{item.id}}" checked="{{item.checked}}" /> {{item.partCode}} | {{item.partName}} * {{item.partNum}}
+            </label>
+          </checkbox-group>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}" style='margin:15px;border-radius:5px;background:#fff;'>
+
+
+          <view class='flex-row' style='padding:15px;background:#fff'>
+            <input placeholder="搜索" type="text" class='flex-1' style='border:1px #eee solid;padding:0 15px;border-radius:5px;margin-right:5px;' bindinput='inputTyping'></input>
+            <button class="mini-btn" type="primary" size="mini" bindtap='getDonePartsData'>搜索</button>
+          </view>
+          <view class="checkbox border-bottom-gainsboro" wx:for="{{doneParts}}" wx:key="*this">
+            <view>{{item.partCode}} | {{item.partName}} * {{item.partNum}}</view>
+            <view style='color:#3c8df9'>快递单编号:{{item.kdCode}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title">请输入快递单号</view>
+    <view class="modal-content">
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="text" bindinput="expressChange" class="input" placeholder=""></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+  </view>
+</view>
+<block wx:if="{{activeIndex==0}}">
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>寄回</button>
+  </view>
+</block>

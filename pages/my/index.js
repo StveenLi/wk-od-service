@@ -36,12 +36,18 @@ Page({
   onShow: function () {
     let that = this;
     wx.getStorage({
-      key: 'wxUser',
+      key: 'user',
       success: function(res) {
         that.setData({
-          wxUser:res.data
+          user:res.data
         })
       },
+    })
+  },
+
+  toReuse:function(){
+    wx.navigateTo({
+      url: '../reuse/reuse-main/index',
     })
   },
 

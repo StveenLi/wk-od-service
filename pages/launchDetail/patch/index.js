@@ -34,7 +34,7 @@ Page({
             finalValNum.push(1);
             inputVal.push(item.groupName)
           }
-          let formatData = result.fromData.splice(2, result.fromData.length-2);
+          let formatData = result.fromData.splice(3, result.fromData.length-3);
           self.setData({
             moreRepair: moreRepair,
             finalVal: finalVal,
@@ -141,7 +141,7 @@ Page({
   loadParts: function (partName) {
     let self = this;
     api.fetch({
-      url: 'rest/comment/getParts?partName=' + partName,
+      url: 'rest/comment/getParts?partName=' + partName + '&machineType=' + self.orderDetail.machineType,
       callback: (err, result) => {
         if (result.success) {
           self.setData({

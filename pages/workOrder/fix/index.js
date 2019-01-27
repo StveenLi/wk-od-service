@@ -144,7 +144,7 @@ Page({
   toRequestPage: function() {
     let that = this;
     wx.navigateTo({
-      url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id
+      url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id + '&machineType=' + that.data.orderDetail.repair.actualMachineType
     })
   },
   getPartsChange: function() {

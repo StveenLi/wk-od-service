@@ -3,12 +3,15 @@
   <view class='top-panel border-bottom-gainsboro'>
     <view class='p-info'>
       <image class='avatar-s' src='/images/OldMan.png'></image>
-      <view style='color:#fff'>Lee</view>
-      <view style='color:#fff'>15618730075</view>
-      <view style='color:#fff'>客服代表</view>
+      <view style='color:#fff'>{{user.name}}</view>
+      <view style='color:#fff'>{{user.phone}}</view>
+      <!-- <view style='color:#fff'>客服代表</view> -->
     </view>
   </view>
-  <view class='func-item border-bottom-gainsboro' hover-class='click-grey'>回收</view>
+  <view class='func-item border-bottom-gainsboro' hover-class='click-grey' bindtap='toReuse'>
+  <image src='../../images/reuse.png' style='height:20px;width:20px;margin:-10px 0 -5px 0;'></image>
+  零件回收
+  </view>
 
 
   <!-- <view style='margin-top:10px'>

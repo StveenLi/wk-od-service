@@ -68,6 +68,9 @@ Page({
   sub_back:function(){
     this.lastSubmit(6)
   },
+  partsboxChange:function(e){
+    console.log(e)
+  },
   lastSubmit:function(status_no){
     let that = this;
     wx.showLoading({

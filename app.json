@@ -1,6 +1,8 @@
 {
   "pages": [
+    
     "pages/login/index",
+    "pages/reuse/reuse-main/index",
     "pages/signMap/index",
     "pages/launchPages/saledetail/saledetail",
     "pages/orderDetail/searched/index",
