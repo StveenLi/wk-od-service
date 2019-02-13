@@ -106,19 +106,19 @@ Page({
       // newItems.push(api.bj);
       // newItems.push(api.xsbf);
       newItems.push(api.travel);
-      newItems.push(api.qj);
+      // newItems.push(api.qj);
     } else if (user.role == 15 || user.role == 17){
-      newItems.push(api.qj);
+      // newItems.push(api.qj);
     }else if(user.role == 18){
       // newItems.push(api.bj);
       newItems.push(api.jqbg);
-      newItems.push(api.qj);
+      // newItems.push(api.qj);
 
     }else if(user.role == 20){
       // newItems.push(api.bj);
       // newItems.push(api.xsbf);
       newItems.push(api.travel);
-      newItems.push(api.qj);
+      // newItems.push(api.qj);
     }
 
 

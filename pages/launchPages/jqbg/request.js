@@ -30,7 +30,8 @@ Page({
   onLoad: function (options) {
     let that = this;
     this.setData({
-      workLinkId: options.workLinkId
+      workLinkId: options.workLinkId,
+      machineType: options.machineType
     })
     wx.getStorage({
       key: 'user',
@@ -46,7 +47,7 @@ Page({
   loadParts: function (partName){
     let self = this;
     api.fetch({
-      url: 'rest/comment/getParts?partName='+partName,
+      url: 'rest/comment/getParts?partName=' + partName + '&machineType=' + self.data.machineType,
       callback: (err, result) => {
         if (result.success) {
           self.setData({

@@ -22,7 +22,7 @@
       </block>
     </view>
   </block>
-
+<block wx:if="{{orderDetail.patch.links.subStatus != 12}}">
   <view wx:for="{{finalVal}}" wx:key="index">
     <view class='flex-row' style='text-align:center;padding:10px 0'>
     <view class='flex-1'>补件</view>
@@ -80,15 +80,18 @@
     </view>
   </view>
 
-
-  <view bindtap="moreClick" style='margin:15px 15px 50px 0;text-align:right;color:#3c8df9'>增加零件明细 ></view>
+<block wx:if="{{orderDetail.patch.links.subStatus != 8 }}">
+  <view bindtap="moreClick" style='margin:15px 15px 50px 0;text-align:right;color:#3c8df9'>增加零件明细 ></view></block>
+</block>
 </view>
 
 
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <button class='flex-1 bottom-btn' bindtap='sureSubmit'>提交</button>
+  <block wx:if="{{orderDetail.patch.links.subStatus != 8&& orderDetail.patch.links.subStatus != 10&&orderDetail.patch.links.subStatus != 12}}">
+
+  <button class='flex-1 bottom-btn' bindtap='sureSubmit'>提交</button></block>
   <!-- 审核过后不能撤回 只有状态6能撤回 -->
   <block wx:if="{{!orderDetail.workDto&&orderDetail.patch.links.subStatus==6}}">
     <button class='flex-1 bottom-btn' bindtap='unLaunch'>撤销</button>

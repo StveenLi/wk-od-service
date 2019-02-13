@@ -34,7 +34,9 @@ Page({
             finalValNum.push(1);
             inputVal.push(item.groupName)
           }
-          let formatData = result.fromData.splice(3, result.fromData.length-3);
+          if (result.patch.links.subStatus!=12){
+            let formatData = result.fromData.splice(3, result.fromData.length - 3);
+          }
           self.setData({
             moreRepair: moreRepair,
             finalVal: finalVal,
@@ -185,10 +187,14 @@ Page({
       })
       return;
     }
+    // let fvLength = finalVal.length;
+    
     for (let i = 0; i < finalVal.length; i++) {
       if (finalVal[i] == null) {
         errmsg += inputVal[i] + ',';
       }
+      
+      
     }
 
     if (errmsg != '') {
@@ -199,16 +205,23 @@ Page({
       })
       return;
     }
+    
+    let _newfinalVal = [];
+    for (let item of finalVal) {
+      // item.num = self.data.finalValNum[self.data.finalVal.indexOf(item)]
+      // submitValues.push(item);
+      console.log(_newfinalVal.indexOf(item))
 
-    // for (let item of self.data.finalVal) {
-    //   item.num = self.data.finalValNum[self.data.finalVal.indexOf(item)]
-    //   submitValues.push(item);
-    // }
+      if (item.partStatus != 2 && item.partStatus != 3) {
+        _newfinalVal.push(item)
+      //   _newfinalVal.splice(_newfinalVal.indexOf(item), 1);
+      }
+    }
     api.fetch({
       url: 'rest/work/doUpdatePatch',
       data: {
         workLinkId: self.data.orderDetail.patch.links.id,
-        parts: finalVal,
+        parts: _newfinalVal,
       },
       callback: (err, result) => {
         if (result.success) {

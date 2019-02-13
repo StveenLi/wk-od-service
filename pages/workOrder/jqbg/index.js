@@ -165,8 +165,10 @@ Page({
   },
   toRequestPage: function () {
     let that = this;
+    let oldMachineNr = that.data.orderDetail.change.oldMachineNr
+    let machineType = oldMachineNr.split('/')[1]
     wx.navigateTo({
-      url: '/pages/launchPages/jqbg/request?workLinkId=' + that.data.orderDetail.change.links.id
+      url: '/pages/launchPages/jqbg/request?workLinkId=' + that.data.orderDetail.change.links.id + '&machineType=' + machineType
     })
   },
   /**

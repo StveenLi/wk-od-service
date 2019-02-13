@@ -143,8 +143,14 @@ Page({
   },
   toRequestPage: function() {
     let that = this;
+    let machineType;
+    if (that.data.orderDetail.repair.actualMachineType == null){
+      machineType = that.data.orderDetail.repair.machineType
+    }else{
+      machineType = that.data.orderDetail.repair.actualMachineType
+    }
     wx.navigateTo({
-      url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id + '&machineType=' + that.data.orderDetail.repair.actualMachineType
+      url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id + '&machineType=' + machineType
     })
   },
   getPartsChange: function() {

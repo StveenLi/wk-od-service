@@ -161,7 +161,7 @@ Page({
         })
       }
     }
-    that.loadPhotos();
+    // that.loadPhotos();
   },
 
   /**
@@ -181,6 +181,17 @@ Page({
         url: 'rest/register/findById?id=' + that.data.signId,
         callback: (err, result) => {
           if (result.success) {
+            let fis = [];
+
+            if (result.one.photoFiles instanceof Array) {
+              for (let item of result.one.photoFiles) {
+                fis.push(item.url)
+              }
+            }
+            that.setData({
+              files: fis,
+              photoFiles: fis
+            })
             if (result.signInAddress){
               that.setData({
                 signInTime: result.signInTime,
@@ -193,7 +204,6 @@ Page({
                 })
               }
             }
-            
           }
         }
       })
@@ -359,7 +369,8 @@ Page({
               if (resultData.success) {
                 pfs.push(resultData.url);
                 that.setData({
-                  photoFiles: pfs
+                  photoFiles: pfs,
+                  files:pfs
                 })
                 api.cacheImg(that.data.signId, 'Register', resultData.url);
               }
