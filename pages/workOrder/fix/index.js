@@ -49,7 +49,16 @@ Page({
     patch: [],
     du_patchs:[],
     faultResult:{},
-    undoNum:0
+    undoNum:0,
+    fwbg_files:[],
+    jqmp_files:[],
+    gzbw_files: [],
+    jqwgzp_files: [],
+    jqzxbzg_files: [],
+    canjuquanjing_files: [],
+    fpqkjssg_files: [],
+    qjjt_files: [],
+    xwjxdgzs_files: []
   },
 
   setPatch: function() {
@@ -707,6 +716,7 @@ Page({
       nowAddress,
       outAddress,
       faultIndex
+      
     } = that.data
 
     this.setData({
@@ -761,7 +771,16 @@ Page({
       confirmMachineCode,
       nowAddress,
       outAddress,
-      faultIndex
+      faultIndex,
+      fwbg_files,
+      jqmp_files,
+      gzbw_files,
+      jqwgzp_files,
+      jqzxbzg_files,
+      canjuquanjing_files,
+      fpqkjssg_files,
+      qjjt_files,
+      xwjxdgzs_files
     } = that.data
     if (!that.data.isPhoneFix) {
 
@@ -781,7 +800,79 @@ Page({
         })
         return;
       }
+      if (fwbg_files.length == 0){
+        wx.showToast({
+          title: '服务报告照片必须上传！',
+          icon:'none',
+          duration:2000
+        })
+        return;
+      }
+      if (jqmp_files.length == 0) {
+        wx.showToast({
+          title: '机器名牌照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (gzbw_files.length == 0) {
+        wx.showToast({
+          title: '故障部位照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
       
+      if (jqwgzp_files.length == 0) {
+        wx.showToast({
+          title: '机器外观照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (jqzxbzg_files.length == 0) {
+        wx.showToast({
+          title: '机器主洗臂、主洗缸照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (canjuquanjing_files.length == 0) {
+        wx.showToast({
+          title: '洗涤完毕餐具全景照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (fpqkjssg_files.length == 0) {
+        wx.showToast({
+          title: '分配器照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (qjjt_files.length == 0) {
+        wx.showToast({
+          title: '清洁剂桶照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if (xwjxdgzs_files.length == 0) {
+        wx.showToast({
+          title: '洗碗机洗涤工作照片必须上传！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
     }
     if (faultIndex[0] == 0 && faultIndex[1] == 0) {
       wx.showToast({

@@ -41,6 +41,9 @@
     <block wx:if="{{item.workStatus == 12}}">
       <image src='/images/unim.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
     </block>
+    <block wx:if="{{item.workStatus == 6&&item.isToBack==1}}">
+      <image src='/images/tuihui.png' style='position:absolute;width:80px;height:80px;right:80px;top:30px;'></image>
+    </block>
     <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
       <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
       <view class='flex-1 date-style'>{{item.assignDate}}</view>

@@ -28,7 +28,11 @@ Page({
     cjfwbb_photoFiles:[],
     cjjqmp_photoFiles:[],
     jqwg_photoFiles:[],
-    fenpeqi_photoFiles:[]
+    fenpeqi_photoFiles:[],
+    cjfwbb_files:[],
+    cjjqmp_files:[],
+    jqwg_files:[],
+    fenpeqi_files:[]
   },
   getRemoveReasonList: function() {
     let that = this;
@@ -199,6 +203,10 @@ Page({
   lastSubmit: function(e) {
     let that = this;
     //doUpdate
+    const { cjfwbb_files,
+      cjjqmp_files,
+      jqwg_files,
+      fenpeqi_files} = that.data
     if (that.data.nowAddress == '') {
       wx.showToast({
         title: '您还未签入！',
@@ -223,6 +231,39 @@ Page({
       })
       return;
     }
+    if (cjfwbb_files.length == 0) {
+      wx.showToast({
+        title: '拆机服务报告照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (cjjqmp_files.length == 0) {
+      wx.showToast({
+        title: '拆机机器名牌照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (jqwg_files.length == 0) {
+      wx.showToast({
+        title: '机器外观照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (fenpeqi_files.length == 0) {
+      wx.showToast({
+        title: '分配器照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    
     api.fetch({
 
       url: 'rest/work/doUpdate',
