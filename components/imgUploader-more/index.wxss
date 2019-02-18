@@ -1,0 +1,3 @@
+/* components/imgUploader/index.wxss */
+
+@import '/app.wxss';

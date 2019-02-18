@@ -26,7 +26,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.setStorageSync('user', { "userId": 130, "name": "时雨", "phone": "18616236045", "role": 18, "type": 2,address:'上海徐翔'})
+    wx.setStorageSync('user', { "userId": 131, "name": "时雨", "phone": "18616236045", "role": 18, "type": 1,address:'上海徐翔'})
 
     wx.getSystemInfo({
       success: function(res) {wx.setStorageSync('systemInfo', res)},
@@ -59,6 +59,7 @@ App({
             success: function (res) {
               if (res.confirm) {
                 // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                wx.clearStorageSync();
                 updateManager.applyUpdate()
               }
             }

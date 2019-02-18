@@ -1,0 +1,31 @@
+<!--components/imgUploader/index.wxml-->
+<view class="border-bottom-gainsboro">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title" style='font-size:10px'>{{imgTitle}}</view>
+                <view class="weui-uploader__info">{{ptFiles.length}}</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{ptFiles}}" wx:key="index">
+                    <view class="weui-uploader__file" style='position:relative' id="{{item}}">
+                      <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+
+                      <image class="weui-uploader__img" id="{{index}}" bindtap="previewImage" src="{{item.url}}" mode="aspectFill" />
+                    </view>
+                  </block>
+                </view>
+                <!-- <block wx:if="{{ptFiles.length<1}}"> -->
+                <view class="weui-uploader__input-box">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+                <!-- </block> -->
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>

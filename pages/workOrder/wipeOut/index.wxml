@@ -39,7 +39,7 @@
         <view class="weui-label">过路过桥费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='glgqChange' type='digit' placeholder="过路过桥费" />
+        <input class="weui-input" value='{{glgq}}' bindinput='glgqChange' type='digit' placeholder="过路过桥费" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -47,50 +47,69 @@
         <view class="weui-label">停车费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='PChange' type='digit' placeholder="停车费" />
+        <input class="weui-input" value='{{p}}' bindinput='PChange' type='digit' placeholder="停车费" />
       </view>
     </view>
 
-    <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">汽油费</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='qyChange' type='digit' placeholder="汽油费" />
-      </view>
-    </view> -->
 
-    <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">装卸费</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='zxChange' type='digit' placeholder="装卸费" />
-      </view>
-    </view> -->
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
-        <view class="weui-label">公里数</view>
+        <view class="weui-label">自费油费</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='melisChange' type='digit' placeholder="公里数" />
+        <input class="weui-input" bindinput='zfyfChange' value='{{zfyf}}' type='digit' placeholder="自费油费" />
       </view>
     </view>
+
     <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">来回公里数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" value='{{melis}}' bindinput='melisChange' type='digit' placeholder="公里数" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input border-bottom-gainsboro">
       <view class="weui-cell__hd">
         <view class="weui-label">其它费用</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='otherChange' type='digit' placeholder="其它费用" />
+        <input class="weui-input" value='{{other}}' bindinput='otherChange' type='digit' placeholder="其它费用" />
       </view>
     </view>
+<!-- <view class="page__bd">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+              <view class="weui-uploader__title">上传图片</view>
+              <view class="weui-uploader__info">{{files.length}}</view>
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" style='position:relative' id="{{item}}">
+                    <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
 
+                    <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <imgUploader-more wkType="dWipe" ptFiles="{{photoFiles}}" wkId="{{orderDetail.dWipe.id}}" imgTitle="发票图片" imgCode="xsbfimg" bindcsip="setImgPath" />
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">备注</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" bindinput='remarksChange' placeholder="备注" />
+        <input class="weui-input" bindinput='remarksChange' value='{{orderDetail.dWipe.remarks}}' placeholder="备注" />
       </view>
     </view>
   </view>

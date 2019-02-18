@@ -21,7 +21,10 @@ Page({
     qy: '',
     zx: '',
     other: '',
-    melis:''
+    melis:'',
+    zfyf:'',
+    photoFiles:[],
+    firstToNowPage:true
   },
   remarksChange: function(e) {
     this.setData({
@@ -48,6 +51,11 @@ Page({
       zx: e.detail.value
     })
   },
+  zfyfChange:function(e){
+    this.setData({
+      zfyf:e.detail.value
+    })
+  },
   otherChange: function(e) {
     this.setData({
       other: e.detail.value
@@ -67,7 +75,19 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            photoFiles: result.dWipe.photoFiles
           })
+          if(self.data.firstToNowPage){
+            self.setData({
+              remarks: result.dWipe.remarks,
+              glgq: result.dWipe.roadToll,
+              p: result.dWipe.parkToll,
+              other: result.dWipe.otherToll,
+              melis: result.dWipe.mileNum,
+              zfyf: result.dWipe.coolieToll,
+              firstToNowPage:false
+            })
+          }
         }
         self._seeDoneChange();
       }
@@ -77,15 +97,18 @@ Page({
 
   lastSubmit: function(e) {
     let that = this;
-    const {
+    let {
       glgq,
       p,
       qy,
       zx,
       other,
       melis,
-      remarks
+      zfyf,
+      remarks,
+      photoFiles
     } = that.data;
+    console.log(photoFiles)
     if(glgq =='' && p==''&&qy==''&&zx==''&&other==''){
       wx.showToast({
         title: '不能什么都不填写就提交',
@@ -94,6 +117,23 @@ Page({
       })
       return;
     }
+    if(glgq>0||p>0||other>0){
+      if(photoFiles.length==0){
+        wx.showToast({
+          title: '产生费用必须上传发票图片！',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+
+    }
+    if(zfyf == null){
+      zfyf = ''
+    }
+    if(remarks == null){
+      remarks = ''
+    }
     //doUpdate
     api.fetch({
 
@@ -101,15 +141,17 @@ Page({
       data: {
         closeDate: that.data.date,
         roadToll:glgq,
-        // postage:qy,
+        postage:qy,
         parkToll:p,
-        // coolieToll:zx,
+        //自费油费
+        coolieToll:zfyf,
         otherToll:other,
         workLinkId: that.data.orderDetail.dWipe.links.id,
         stype: 'DWipe',
         remarks: remarks,
         id: that.data.orderDetail.dWipe.id,
-        mileNum: melis
+        mileNum: melis,
+        photoFiles: photoFiles
       },
       callback: (err, result) => {
         if (result.success) {
@@ -123,7 +165,6 @@ Page({
               stype: 'DWipe',
             },
             callback: (err, result) => {
-              console.log(result);
               if (result.success) {
                 wx.navigateBack({
                   url: '/pages/work/index'
@@ -277,6 +318,98 @@ Page({
   onShareAppMessage: function() {
 
   },
+
+
+  setImgPath: function (e) {
+    this.loadDetail(this.data.listItem);
+  },
+//图片模块
+  chooseImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      count: 9,
+      success: function (res) {
+        for (let tempImg of res.tempFilePaths) {
+          wx.uploadFile({
+            url: api.url + '/rest/comment/upload',
+            filePath: tempImg,
+            name: 'file',
+            header: {
+              "Content-Type": "multipart/form-data",
+              "chartset": "utf-8"
+            },
+            success: function (result) {
+
+              let resultData = JSON.parse(result.data)
+              api.cacheImg(that.data.orderDetail.dWipe.id, 'DWipe', resultData.url);
+              let pfs = that.data.photoFiles;
+              if (resultData.success) {
+                pfs.push(resultData.url);
+                that.setData({
+                  photoFiles: pfs
+                })
+              }
+            },
+            fail: function (e) {
+              console.log(e);
+            }
+          })
+        }
+
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+      }
+    })
+  },
+  previewImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.files // 需要预览的图片http链接列表
+    })
+  },
+  delImage: function (e) {
+    let that = this;
+
+    api.fetch({
+      url: 'rest/comment/toDeteleImg',
+      data: {
+        fileId: e.currentTarget.dataset.currentimg.id
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          let fis = that.data.ptFiles;
+          let index = 0
+          for (let i = 0; i < fis.length; i++) {
+            if (e.target.dataset.currentimg.id == fis[i].id) {
+              index = i
+              break;
+            }
+          }
+          fis.splice(index, 1);
+          this.setData({
+            // files: fis,
+            ptFiles: fis
+          })
+          this.triggerEvent('csip', fis);
+        }
+      }
+    })
+
+
+    let fis = this.data.files;
+    let index = fis.indexOf(e.target.dataset.currentimg)
+    fis.splice(index, 1);
+    this.setData({
+      files: fis,
+      photoFiles: fis
+    })
+  },
+
+  //评论模块
   toCommit: function(options) {
     this.setData({
       showPopup: true

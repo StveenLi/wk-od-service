@@ -163,7 +163,7 @@ Page({
       data:{
         workLinkId: self.data.workLinkId,
         parts: submitValues,
-        address:self.data.partsAddress
+        address: self.data.partsAddress == undefined ? '' : self.data.partsAddress
       },
       callback: (err, result) => {
         if (result.success) {
