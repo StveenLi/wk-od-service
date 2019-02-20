@@ -225,28 +225,28 @@ Page({
 
   bindFaultColumnChange: function(e) {
     const { faultList, faultIndex, faultResult} = this.data;
+    let allList = this.data.faultList;
+
     if (e.detail.column == 0 && e.detail.value != 0) {
-      // let allList = this.data.faultList;
-      // allList[1] = [];
-      // this.setData({
-      //   faultList: allList
-      // })
-      let allList = this.data.faultList;
       
       let _A2_list = []
       if (faultResult.list[0].nodes[e.detail.value - 1].nodes){
         for (let item of faultResult.list[0].nodes[e.detail.value-1].nodes){
-          // console.log(item)
-
           _A2_list.push(item.text);
         }
       }
       allList[1] = _A2_list;
-      this.setData({
-        faultList: allList
-      })
+      
+      
         
     }
+    if (e.detail.column == 0 && e.detail.value == 0) {
+      allList[1] = []
+    }
+
+    this.setData({
+      faultList: allList
+    })
   },
 
   bindFaultPickerChange: function(e) {
@@ -742,7 +742,7 @@ Page({
       }
 
     }
-    if (faultIndex[0] == 0 && faultIndex[1] == 0) {
+    if (faultIndex[0] == 0) {
       wx.showToast({
         title: '请选择故障类型再提交！',
         icon: 'none',
@@ -874,7 +874,7 @@ Page({
         return;
       }
     }
-    if (faultIndex[0] == 0 && faultIndex[1] == 0) {
+    if (faultIndex[0] == 0) {
       wx.showToast({
         title: '请选择故障类型再提交！',
         icon: 'none',

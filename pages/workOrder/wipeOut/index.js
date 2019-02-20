@@ -134,6 +134,18 @@ Page({
     if(remarks == null){
       remarks = ''
     }
+    if(glgq==null){
+      glgq = ''
+    }
+    if(qy == null){
+      qy = ''
+    }
+    if(p == null){
+      p = ''
+    }
+    if (other == null){
+      other = ''
+    }
     //doUpdate
     api.fetch({
 

@@ -54,7 +54,7 @@
   <block wx:if="{{pageSwich}}">
     <view class='middle-box'>
       <textarea style='padding:10px;font-size:16px' bindinput='remarkChange' placeholder='请输入备注'></textarea>
-      <view class="weui-uploader__bd">
+      <!-- <view class="weui-uploader__bd">
         <view class="weui-uploader__files" id="uploaderFiles">
           <block wx:for="{{files}}" wx:key="*this">
             <view class="weui-uploader__file" style='position:relative' id="{{item}}">
@@ -67,7 +67,8 @@
         <view class="weui-uploader__input-box">
           <view class="weui-uploader__input" bindtap="chooseImage"></view>
         </view>
-      </view>
+      </view> -->
+      <imgUploader-more wkType="Register" ptFiles="{{photoFiles}}" wkId="{{signId}}" imgTitle="图片" imgCode="nomal" bindcsip="setImgPath" />
     </view>
   </block>
   <block wx:if="{{pageSwich}}">

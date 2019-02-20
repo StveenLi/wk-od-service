@@ -23,7 +23,6 @@ Page({
     date: new Date().format("yyyy-MM-dd")
   },
 
-
   signTypeChange:function(e){
     this.setData({
       signTypeIndex:e.detail.value
@@ -91,7 +90,7 @@ Page({
         customer: customer,
         createUser: user.userId,
         remarks: remarks,
-        photoFiles: photoFiles,
+        // photoFiles: photoFiles,
         id: signId
       },
       callback: (err, result) => {
@@ -190,7 +189,7 @@ Page({
             }
             that.setData({
               files: fis,
-              photoFiles: fis
+              photoFiles: result.one.photoFiles
             })
             if (result.signInAddress){
               that.setData({
@@ -210,6 +209,10 @@ Page({
     }
   },
 
+  setImgPath:function(){
+    this.loadPhotos()
+  },
+
     loadPhotos:function(){
       let that = this;
       if (that.data.signId != 0) {
@@ -227,7 +230,7 @@ Page({
               }
               that.setData({
                 files: fis,
-                photoFiles: fis
+                photoFiles: result.one.photoFiles
               })
               if (result.signInAddress && result.signOutAddress) {
                 that.setData({

@@ -115,7 +115,15 @@ const Util={
       fileName = ''
     }
       this.fetch({
-        url: 'rest/comment/cacheImg?id=' + id + '&stype=' + stype + '&url=' + url + '&filePro=' + filePro + '&fileName=' + fileName,
+        // url: 'rest/comment/cacheImg?id=' + id + '&stype=' + stype + '&url=' + url + '&filePro=' + filePro + '&fileName=' + fileName,
+        url: 'rest/comment/cacheImg',
+        data:{
+          id:id,
+          stype:stype,
+          url:url,
+          filePro: filePro,
+          fileName: fileName
+        },
         callback: (err, result) => {
           if (result.success) {
             if(successFunc){

@@ -154,7 +154,7 @@ Page({
             that.setData({
               orderDetail:result,
               files: fis,
-              photoFiles: fis,
+              photoFiles: result.one.photoFiles,
               customer: result.one.customer,
               remarks: result.one.remarks,
               signInTime: result.signInTime,

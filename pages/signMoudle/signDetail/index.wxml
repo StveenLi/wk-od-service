@@ -50,9 +50,9 @@
 </block>
       <view class="weui-uploader__bd">
         <view class="weui-uploader__files" id="uploaderFiles">
-          <block wx:for="{{files}}" wx:key="*this">
-            <view class="weui-uploader__file" style='position:relative' id="{{item}}">
-              <image class="weui-uploader__img" bindtap="previewImage" id="{{item}}" src="{{item}}" mode="aspectFill" />
+          <block wx:for="{{photoFiles}}" wx:key="*this">
+            <view class="weui-uploader__file" style='position:relative' id="{{item.url}}">
+              <image class="weui-uploader__img" bindtap="previewImage" id="{{item.url}}" src="{{item.url}}" mode="aspectFill" />
             </view>
           </block>
         </view>
