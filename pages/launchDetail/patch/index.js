@@ -30,7 +30,7 @@ Page({
         if (result.success) {
           for(let item of result.parts){
             moreRepair.push(result.parts.indexOf(item));
-            finalVal.push({ name: item.groupName, value: item.groupType, id: item.groupId, partStatus: item.partStatus,num:1});
+            finalVal.push({ name: item.groupName, value: item.groupType, id: item.groupId, partStatus: item.partStatus, num: 1, courierNumber: item.courierNumber});
             finalValNum.push(1);
             inputVal.push(item.groupName)
           }

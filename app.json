@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/login/index",
     "pages/reuse/reuse-main/index",
     "pages/signMap/index",
@@ -56,8 +55,8 @@
     "pages/signMoudle/main/index",
     "pages/signMoudle/doSign/index",
     "pages/signMoudle/signDetail/index",
-    "pages/teach/aaa"
-    
+    "pages/teach/aaa",
+    "pages/feedback/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -70,7 +69,7 @@
     "color": "#929292",
     "backgroundColor": "#ffffff",
     "selectedColor": "#000",
-    "borderStyle": "#000",
+    "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/index/index",

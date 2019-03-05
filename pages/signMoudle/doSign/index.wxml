@@ -1,6 +1,6 @@
 <!--pages/signMoudle/doSign/index.wxml-->
 <!--pages/signMoudle/main/index.wxml-->
-<view style='margin:10px 5px'>
+<view style='margin:10px 5px 10px 5px'>
   <view class="work-item view-shadow">
     <view class='border-bottom-gainsboro padding-ty'>
       <image style='width:16px;height:16px;margin:0 5px -2px 0' src='/images/calendar.png'></image>{{date}}</view>
@@ -54,21 +54,21 @@
   <block wx:if="{{pageSwich}}">
     <view class='middle-box'>
       <textarea style='padding:10px;font-size:16px' bindinput='remarkChange' placeholder='请输入备注'></textarea>
-      <!-- <view class="weui-uploader__bd">
+      <view class="weui-uploader__bd">
         <view class="weui-uploader__files" id="uploaderFiles">
-          <block wx:for="{{files}}" wx:key="*this">
+          <block wx:for="{{photoFiles}}" wx:key="*this">
             <view class="weui-uploader__file" style='position:relative' id="{{item}}">
-              <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+              <image class='del-img' bindtap='delImage' data-currentImg='{{item.url}}' data-imgId='{{item.id}}' src='/images/del.png'></image>
 
-              <image class="weui-uploader__img" bindtap="previewImage" id="{{item}}" src="{{item}}" mode="aspectFill" />
+              <image class="weui-uploader__img" bindtap="previewImage" id="{{item.url}}" src="{{item.url}}" mode="aspectFill" />
             </view>
           </block>
         </view>
         <view class="weui-uploader__input-box">
           <view class="weui-uploader__input" bindtap="chooseImage"></view>
         </view>
-      </view> -->
-      <imgUploader-more wkType="Register" ptFiles="{{photoFiles}}" wkId="{{signId}}" imgTitle="图片" imgCode="nomal" bindcsip="setImgPath" />
+      </view>
+      <!-- <imgUploader-more wkType="Register" ptFiles="{{photoFiles}}" wkId="{{signId}}" imgTitle="图片" imgCode="nomal" bindcsip="setImgPath" /> -->
     </view>
   </block>
   <block wx:if="{{pageSwich}}">
@@ -99,6 +99,7 @@
     </view>
     
   </block>
+  <view style='height:100px;background:rgba(0,0,0,0)'></view>
   <block wx:if="{{pageSwich}}">
 
     <view class='bottom-btn-view flex-row' style='margin-left:-10px'>

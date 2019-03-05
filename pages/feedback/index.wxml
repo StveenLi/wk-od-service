@@ -1,0 +1,66 @@
+<!--pages/feedback/index.wxml-->
+<view class="page__bd">
+  <view class="weui-tab">
+    <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+          <view class="weui-navbar__title">{{item}}</view>
+        </view>
+      </block>
+      <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+
+    </view>
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style='margin:15px;border-radius:5px;background:#fff;'>
+        <textarea placeholder='请输入您的宝贵意见、优化建议等，我们致力于服务一个更好的你' style='padding:15px;font-size:14px' bindinput='areaChange' maxlength='300'>
+        </textarea>
+        <view style='text-align:right;color:#B0B0B0;font-size:12px;padding:15px'>您还能输入
+          <span>{{areaLength}}</span> 字</view>
+        <view class="page__bd">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">上传图片</view>
+                  <view class="weui-uploader__info">{{files.length}}</view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{files}}" wx:key="*this">
+                      <view class="weui-uploader__file" style='position:relative' id="{{item}}">
+                        <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+
+                        <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
+                      </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box">
+                    <!-- <image class='uploadbtn' bindtap='chooseImage' src='./addimgsbtn.png'></image> -->
+
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="weui-tab__content" hidden="{{activeIndex != 1}}" style='margin:15px;border-radius:5px;background:#fff;'>
+
+
+
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+<block wx:if="{{activeIndex==0}}">
+  <view class='bottom-btn-view flex-row'>
+    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
+  </view>
+</block>

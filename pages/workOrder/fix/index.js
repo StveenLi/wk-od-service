@@ -58,7 +58,17 @@ Page({
     canjuquanjing_files: [],
     fpqkjssg_files: [],
     qjjt_files: [],
-    xwjxdgzs_files: []
+    xwjxdgzs_files: [],
+    fwbg_photoFiles:[],
+    jqmp_photoFiles:[],
+    gzbw_photoFiles:[],
+    jqwgzp_photoFiles:[],
+    jqzxbzg_photoFiles:[],
+    fpqkjssg_photoFiles:[],
+    qjjt_photoFiles:[],
+    xwjxdgzs_photoFiles:[],
+    canjuquanjing_photoFiles:[]
+
   },
 
   setPatch: function() {
@@ -289,6 +299,14 @@ Page({
       if (that.data.MNTIndex == 0) {
         wx.showToast({
           title: '必须选择机编型号！',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+      }
+      if(that.data.remarks == ''){
+        wx.showToast({
+          title: '必须填写解决方案！',
           icon: 'none',
           duration: 2000
         })

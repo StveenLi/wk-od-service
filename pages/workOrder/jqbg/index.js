@@ -282,7 +282,8 @@ Page({
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      // sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], 
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: 9,
       success: function (res) {

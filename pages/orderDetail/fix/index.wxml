@@ -59,19 +59,7 @@
       <textarea bindinput='remarkChange' placeholder="{{orderDetail.repair.links.remarks}}" disabled='false' style='padding:5px 15px 5px 0;width:250px;height:50px' />
     </view>
   </view>
-  <block wx:if="{{isPhoneFix=='false'}}">
-    <view class="weui-cell weui-cell_input">
-      <view class='flex-row box-all'>
-        <view class='flex-1 padding-5'>签入</view>
-        <view class='padding-5 work-order-content' bindtap='locationSignIn'>{{orderDetail.signInAddress}}-{{orderDetail.signInTime}}</view>
-      </view>
-    </view>
-
-
-
-
-
-    <view class="weui-cells weui-cells_after-title">
+  <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_switch">
         <view class="weui-cell__bd">申请的配件</view>
 
@@ -90,6 +78,19 @@
       </view>
 
     </view>
+  <block wx:if="{{isPhoneFix=='false'}}">
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>签入</view>
+        <view class='padding-5 work-order-content' bindtap='locationSignIn'>{{orderDetail.signInAddress}}-{{orderDetail.signInTime}}</view>
+      </view>
+    </view>
+
+
+
+
+
+    
 
 
     <view class="page__bd">

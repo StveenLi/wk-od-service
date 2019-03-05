@@ -353,7 +353,8 @@ Page({
   chooseImage: function (e) {
     var that = this;
     wx.chooseImage({
-      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      // sizeType: ['original','compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'], 
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       count: 6,
       success: function (res) {
@@ -375,7 +376,7 @@ Page({
                   photoFiles: pfs,
                   files:pfs
                 })
-                api.cacheImg(that.data.signId, 'Register', resultData.url);
+                api.cacheImg(that.data.signId, 'Register', resultData.url, '','',that.setImgPath);
               }
             },
             fail: function (e) {
@@ -398,13 +399,30 @@ Page({
       urls: this.data.files // 需要预览的图片http链接列表
     })
   },
+
   delImage: function (e) {
-    let fis = this.data.files;
-    let index = fis.indexOf(e.target.dataset.currentimg)
-    fis.splice(index, 1);
-    this.setData({
-      files: fis,
-      photoFiles: fis
+    let that = this;
+    console.log(e)
+    api.fetch({
+      url: 'rest/comment/toDeteleImg',
+      data: {
+        fileId: e.currentTarget.dataset.imgid
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          that.setImgPath();
+        }
+      }
     })
   },
+
+  // delImage: function (e) {
+  //   let fis = this.data.files;
+  //   let index = fis.indexOf(e.target.dataset.currentimg)
+  //   fis.splice(index, 1);
+  //   this.setData({
+  //     files: fis,
+  //     photoFiles: fis
+  //   })
+  // },
 })

@@ -26,7 +26,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    wx.setStorageSync('user', { "userId": 131, "name": "时雨", "phone": "18616236045", "role": 18, "type": 1,address:'上海徐翔'})
+    // wx.setStorageSync('user', { "userId": 34, "name": "时雨", "phone": "18616236045", "role": 18, "type": 1,address:'上海徐翔'})
 
     wx.getSystemInfo({
       success: function(res) {wx.setStorageSync('systemInfo', res)},

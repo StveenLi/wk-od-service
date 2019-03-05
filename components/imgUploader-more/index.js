@@ -121,6 +121,7 @@ Component({
             })
           }
           
+          
           // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
           // that.setData({
           //   ptFiles: that.data.ptFiles.concat(res.tempFilePaths)
