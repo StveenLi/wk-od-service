@@ -45,7 +45,7 @@ Page({
       success: function(res) {
           that.setData({
             user:res.data,
-            partsAddress:res.data.address
+            partsAddress: res.data.address == undefined ? '' : res.data.address
           })
       },
     })

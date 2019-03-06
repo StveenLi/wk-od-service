@@ -75,7 +75,7 @@
     <view class="weui-cell weui-cell_input border-bottom-gainsboro">
       <view class='flex-row box-all'>
         <view class='padding-5' style='width:125px;'>状态 </view>
-        <view class='flex-1 padding-5'>{{item.partStatus==1?'已审核':item.partStatus==2?'已发货':item.partStatus==3?'已发货-':'未审核'}} - {{item.courierNumber}}</view>
+        <view class='flex-1 padding-5'>{{item.partStatus==1?'已审核':item.partStatus==2?'已发货':item.partStatus==3?'已发货-':'未审核'}}  {{item.courierNumber == null?'':('-'+item.courierNumber)}}</view>
       </view>
     </view>
   </view>
