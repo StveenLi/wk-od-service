@@ -1,4 +1,6 @@
 // pages/feedback/index.js
+const App = getApp();
+const api = App.api;
 Page({
 
   /**
@@ -10,7 +12,11 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     areaLength:300,
-    areaVal:''
+    areaVal:'',
+    files:[],
+    photoFiles:[],
+    user:{},
+    resultList:[]
   },
 
   /**
@@ -26,6 +32,44 @@ Page({
         });
       }
     });
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data
+        })
+      },
+    });
+    that.loadFeedbacks();
+  },
+
+  submitFeedback:function(){
+    let that = this;
+    api.fetch({
+      url: '/rest/feedback/doAdd',
+      data:{
+        userId:that.data.user.userId,
+        content: that.data.areaVal,
+        photoFiles: that.data.photoFiles
+      },
+      callback: (err, result) => {
+        if(result.success){
+          wx.showToast({
+            title: '提交成功！',
+          })
+          that.clearAll();
+          that.loadFeedbacks();
+        }
+      }
+    });
+  },
+
+  clearAll:function(){
+    this.setData({
+      areaVal:"",
+      files:[],
+      photoFiles:[]
+    })
   },
   areaChange:function(e){
     let that = this;
@@ -41,6 +85,20 @@ Page({
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
+    });
+  },
+
+  loadFeedbacks:function(){
+    let that = this;
+    api.fetch({
+      url: '/rest/feedback/query',
+      callback: (err, result) => {
+        if (result.success) {
+          that.setData({
+            resultList:result.list
+          })
+        }
+      }
     });
   },
 
@@ -91,5 +149,71 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  chooseImage: function (e) {
+    var that = this;
+    wx.chooseImage({
+      // sizeType: ['original','compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      count: 6,
+      success: function (res) {
+        for (let tempImg of res.tempFilePaths) {
+          wx.uploadFile({
+            url: api.url + '/rest/comment/upload',
+            filePath: tempImg,
+            name: 'file',
+            header: {
+              "Content-Type": "multipart/form-data",
+              "chartset": "utf-8"
+            },
+            success: function (result) {
+              var resultData = JSON.parse(result.data)
+              let pfs = that.data.photoFiles;
+              if (resultData.success) {
+                pfs.push(resultData.url);
+                that.setData({
+                  photoFiles: pfs,
+                  files: pfs
+                })
+              }
+            },
+            fail: function (e) {
+              console.log(e);
+            }
+          })
+        }
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+      }
+    })
+  },
+
+
+  previewListImage: function (e) {
+    let nArr = [];
+    nArr.push(e.currentTarget.id)
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: nArr// 需要预览的图片http链接列表
+    })
+  },
+  previewImage:function(e){
+    wx.previewImage({
+      current: e.currentTarget.id,
+      urls: this.data.files // 需要预览的图片http链接列表
+    })
+  },
+
+   delImage: function (e) {
+    let fis = this.data.files;
+    let index = fis.indexOf(e.target.dataset.currentimg)
+    fis.splice(index, 1);
+    this.setData({
+      files: fis,
+      photoFiles: fis
+    })
+  },
 })

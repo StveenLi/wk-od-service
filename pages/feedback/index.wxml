@@ -12,7 +12,7 @@
     </view>
     <view class="weui-tab__panel">
       <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style='margin:15px;border-radius:5px;background:#fff;'>
-        <textarea placeholder='请输入您的宝贵意见、优化建议等，我们致力于服务一个更好的你' style='padding:15px;font-size:14px' bindinput='areaChange' maxlength='300'>
+        <textarea placeholder='请输入您的宝贵意见、优化建议等，我们致力于服务一个更好的你' style='padding:15px;font-size:14px' value="{{areaVal}}" bindinput='areaChange' maxlength='300'>
         </textarea>
         <view style='text-align:right;color:#B0B0B0;font-size:12px;padding:15px'>您还能输入
           <span>{{areaLength}}</span> 字</view>
@@ -47,20 +47,34 @@
       </view>
 
 
-      <view class="weui-tab__content" hidden="{{activeIndex != 1}}" style='margin:15px;border-radius:5px;background:#fff;'>
+      <view class="weui-tab__content" hidden="{{activeIndex != 1}}" style='border-radius:5px;background:#fff;padding:10px;'>
+        <block wx:for="{{resultList}}" wx:item="item" wx:key="*this">
+          <view class='flex-cloumn border-bottom-gainsboro'>
+            <view class='flex-row padding-5'>
+              <view style='color:#CDC5BF'>{{item.submissionTime}}</view>
+              <view style='color:#1E90FF;margin-left:20px'>{{item.type=="0"?"待回复":"已回复"}}</view>
+            </view>
 
+            <view>{{item.content}}</view>
 
-
+            <view class='flex-row padding-5'>
+              <block wx:for="{{item.attachment}}" wx:item="citem" wx:key="*this">
+                <image style='width:80px;height:80px' src='{{citem.url}}' bindtap='previewListImage' id="citem.url"></image>
+              </block>
+            </view>
+            <block wx:if="{{item.questionType != null&&item.replyContent != null}}">
+              <view style='color:#1E90FF;'>问题类型：{{item.questionType}}</view>
+              <view style='color:#1E90FF;'>{{item.replyContent}}</view> 
+            </block>
+          </view>
+        </block>
+        
       </view>
     </view>
   </view>
 </view>
-
-
-
-
 <block wx:if="{{activeIndex==0}}">
   <view class='bottom-btn-view flex-row'>
-    <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
+    <button class='flex-1 bottom-btn' bindtap='submitFeedback'>提交</button>
   </view>
 </block>

@@ -76,7 +76,7 @@
                   <view class="weui-uploader__file" style='position:relative' id="{{item}}">
                     <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
 
-                    <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
+                    <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" id="{{item}}" />
                   </view>
                 </block>
               </view>

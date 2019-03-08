@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    signTypes:['销售拜访','日常保养','送发票'],
+    signTypes:['销售拜访','日常保养','送发票','出差'],
     signTypeIndex:0,
     pageSwich:false,
     customer:'',
@@ -40,10 +40,11 @@ Page({
       })
       return;
     }
-    let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ?"WXBY":"SFP";
+    let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ? "WXBY" : signTypeIndex == 2?"SFP":"CC";
     api.fetch({
       url: 'rest/register/doAdd',
-      data: { type: sign_type,
+      data: { 
+        type: sign_type,
         typeName: signTypes[signTypeIndex],
         customer: customer,
         createUser: user.userId

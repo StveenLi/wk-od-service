@@ -12,10 +12,10 @@
     <image src='../../images/reuse.png' style='height:20px;width:20px;margin:-10px 0 -5px 0;'></image>
     零件回收
   </view>
-  <!-- <view class='func-item border-bottom-gainsboro' hover-class='click-grey' bindtap='toFeedback'>
+  <view class='func-item border-bottom-gainsboro' hover-class='click-grey' bindtap='toFeedback'>
     <image src='../../images/feedback.png' style='height:20px;width:20px;margin:-10px 0 -5px 0;'></image>
     意见反馈
-  </view> -->
+  </view>
 
 
   <!-- <view style='margin-top:10px'>
@@ -24,5 +24,4 @@
   <!-- <button class="weui-btn" open-type="contact" style='margin:20px 20px;background:#3c8df9;' type="primary">意见反馈</button> -->
 
   <button class="weui-btn" style='margin:50px 20px 0 20px;background:#3c8df9;' type="primary" bindtap='logout'>退出</button>
-
 </view>

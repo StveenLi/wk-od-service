@@ -105,10 +105,9 @@
               <view class="weui-uploader__bd">
                 <view class="weui-uploader__files" id="uploaderFiles">
                   <block wx:for="{{orderDetail.repair.photoFiles}}" wx:key="*this">
-                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item.url}}"> 
                       <image class="weui-uploader__img" src="{{item.url}}" mode="aspectFill" />
-                                          <view style='text-align:center'>{{item.fileName}}</view>
-
+                        <view style='text-align:center'>{{item.fileName == null?'-':item.fileName}}</view>
                     </view>
                   </block>
                 </view>

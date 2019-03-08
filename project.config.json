@@ -14,7 +14,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.2.3",
 	"appid": "wxfce64b4c74738a8d",
-	"projectname": "jx-service-app",
+	"projectname": "wk-od-service",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
