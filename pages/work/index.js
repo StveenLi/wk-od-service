@@ -101,11 +101,7 @@ Page({
     // 当前页是最后一页
     setTimeout(function() {
       let ps = self.data._page_start + 10
-      console.log('上拉加载更多'+ps);
-
-      self.setData({
-        _page_start: ps
-      })
+      
       self._page_loadListData(ps)
       self.setData({
         hideBottom: false
@@ -337,7 +333,6 @@ Page({
     })
 
     _p.then(function(){
-      console.log('结束' + _workStatus)
       wx.getStorage({
         key: 'user',
         success: function (res) {
@@ -429,6 +424,10 @@ Page({
             url: 'rest/work/findUserIdAndSatus?userId=' + self.data.userId + '&wrCode=' + wrCode + '&workType=' + workTypes[workTypeIndex].code + '&status=' + _workStatus + '&start=' + start + '&pageSize=10',
             callback: (err, result) => {
               if (result.success) {
+                // if(result.)
+                self.setData({
+                  _page_start: start
+                })
                 self._page_getDataSuccess(result);
               }
             }
@@ -591,8 +590,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let self = this;
-    self.loadListData();
+    // let self = this;
+    // self.loadListData();
   },
 
   /**

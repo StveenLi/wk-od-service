@@ -29,6 +29,12 @@ Page({
     currentFlowList:''
   },
 
+  toMapPage(){
+    wx.navigateTo({
+      url: '/pages/orderMap/mapIndex/index',
+    })
+  },
+
   setCurrent:function(e){
     let that = this;
     this.setData({

@@ -36,7 +36,6 @@ Page({
     upFilesBtn: true,
     upVideoArr: [],
     faultIndex: [0, 0],
-
     faultList: [],
     MNTItems: [],
     MNTIndex: 0,
@@ -67,7 +66,10 @@ Page({
     fpqkjssg_photoFiles:[],
     qjjt_photoFiles:[],
     xwjxdgzs_photoFiles:[],
-    canjuquanjing_photoFiles:[]
+    canjuquanjing_photoFiles:[],
+    mengbdis:'none',
+    progress:'正在加载……',
+    currentVideo:''
 
   },
 
@@ -186,8 +188,6 @@ Page({
   },
 
   bindErrorChange: function(e) {
-    console.log('picker country 发生选择改变，携带值为', e.detail.value);
-
     this.setData({
       errorIndex: e.detail.value
     })
@@ -236,9 +236,12 @@ Page({
   bindFaultColumnChange: function(e) {
     const { faultList, faultIndex, faultResult} = this.data;
     let allList = this.data.faultList;
-
     if (e.detail.column == 0 && e.detail.value != 0) {
-      
+      let _faultI = this.data.faultIndex;
+      _faultI[0] = e.detail.value;
+      this.setData({
+        faultIndex: _faultI
+      })
       let _A2_list = []
       if (faultResult.list[0].nodes[e.detail.value - 1].nodes){
         for (let item of faultResult.list[0].nodes[e.detail.value-1].nodes){
@@ -246,12 +249,21 @@ Page({
         }
       }
       allList[1] = _A2_list;
-      
-      
-        
     }
     if (e.detail.column == 0 && e.detail.value == 0) {
       allList[1] = []
+      let _faultI = this.data.faultIndex;
+      _faultI[0] = e.detail.value;
+      this.setData({
+        faultIndex: _faultI
+      })
+    }
+    if (e.detail.column == 1){
+      let _faultI = this.data.faultIndex;
+      _faultI[1] = e.detail.value;
+      this.setData({
+        faultIndex: _faultI
+      })
     }
 
     this.setData({
@@ -278,48 +290,51 @@ Page({
     }
 
     let macCode = ''
-    if (that.data.orderDetail.repair.isAudited == 0) {
+    if (!that.data.isPhoneFix){
+      if (that.data.orderDetail.repair.isAudited == 0) {
 
-      if (that.data.MNT1 == '') {
-        wx.showToast({
-          title: '必须输入机编前缀！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
+        if (that.data.MNT1 == '') {
+          wx.showToast({
+            title: '必须输入机编前缀！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (that.data.MNT2 == '') {
+          wx.showToast({
+            title: '必须输入机编后缀！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (that.data.MNTIndex == 0) {
+          wx.showToast({
+            title: '必须选择机编型号！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (that.data.remarks == '') {
+          wx.showToast({
+            title: '必须填写解决方案！',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        macCode = that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2
+      } else {
+        macCode = that.data.MNT1 + '/' + that.data.nowJX + '/' + that.data.MNT2
       }
-      if (that.data.MNT2 == '') {
-        wx.showToast({
-          title: '必须输入机编后缀！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (that.data.MNTIndex == 0) {
-        wx.showToast({
-          title: '必须选择机编型号！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if(that.data.remarks == ''){
-        wx.showToast({
-          title: '必须填写解决方案！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      macCode = that.data.MNT1 + '/' + that.data.MNTItems[that.data.MNTIndex] + '/' + that.data.MNT2
     } else {
       macCode = that.data.MNT1 + '/' + that.data.nowJX + '/' + that.data.MNT2
     }
+    
     //doUpdate
     let faultChildType =  that.data.bjs[that.data.faultIndex[0] - 1].nodes == null ? null : that.data.bjs[that.data.faultIndex[0] - 1].nodes[that.data.faultIndex[1]].dicCode
-
-    // console.log(faultChildType)
     api.fetch({
 
       url: 'rest/work/doUpdate',
@@ -354,7 +369,10 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                wx.navigateBack({})
+                // wx.navigateBack({})
+                wx.redirectTo({
+                  url: '../../work/index?listType=workOrder',
+                })
               }
             }
           })
@@ -453,8 +471,13 @@ Page({
           let allFis = [];
           let jqjxArray = [];
           if (result.repair.photoFiles instanceof Array) {
+            
             for (let item of result.repair.photoFiles) {
               // fis.push(item.url);
+              if(item.fileType == "VIDEO"){
+                videoFis.push({ 'id':item.id,'tempFilePath': item.url })
+              }
+              
               if (item.filePro == 'fwbg') {
                 self.setData({
                   fwbg_photoFiles: new Array().concat(item),
@@ -503,8 +526,8 @@ Page({
               }
             }
           }
-          if (result.fromData[3].value != null) {
-            jqjxArray = result.fromData[3].value.split('/');
+          if (result.repair.machineNr != null) {
+            jqjxArray = result.repair.machineNr.split('/');
           }
           self.setData({
             orderDetail: result,
@@ -586,6 +609,14 @@ Page({
 
   loactionSignOut: function () {
     let that = this;
+    if (that.data.nowAddress == "") {
+      wx.showToast({
+        title: '请签入后再签出！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignOutSuccessFunc);
   },
   getSignOutSuccessFunc: function (addrRes) {
@@ -900,11 +931,10 @@ Page({
       })
       return;
     }
-    // //isPhoneFix 不用确认机器编号了
-    // if (that.data.isPhoneFix) {
-    //   that.lastSubmit();
-    // } else {
-
+    //isPhoneFix 不用确认机器编号了
+    if (that.data.isPhoneFix) {
+      that.lastSubmit();
+    } else {
       if(that.data.orderDetail.repair.isAudited == 0){
         this.setData({
           showModal: true
@@ -913,7 +943,7 @@ Page({
         this.lastSubmit();
       }
       
-    // }
+    }
 
   },
   /**
@@ -969,7 +999,6 @@ Page({
 
   uploadVideo: function() {
     let t = this;
-    api._test();
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
       maxDuration: 30,
@@ -988,57 +1017,134 @@ Page({
         t.setData({
           upVideoArr: videoArr
         })
-        // let upFilesArr = getPathArr(t);
-        // if (upFilesArr.length > count - 1) {
-        //   t.setData({
-        //     upFilesBtn: false,
-        //   })
-        // }
-
-        console.log(res)
-
-
-        api._uploadFile(res.tempFilePath, t.uploadVideoSuccessFunc)
+        // api._uploadFile(res.tempFilePath, t.uploadVideoSuccessFunc)
+        const uploadTask = wx.uploadFile({
+          count: 1,
+          url: api.url + '/rest/comment/upload',
+          filePath: res.tempFilePath,
+          name: 'file',
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          success: function (result) {
+            t.setData({
+              mengbdis: 'none'
+            })
+            t.uploadVideoSuccessFunc(res.tempFilePath, result);
+          },
+          fail: function (e) {
+            console.log(e);
+          }
+        });
+        uploadTask.onProgressUpdate((res) => {
+          t.setData({
+            mengbdis: '',
+            progress: '已上传：' + res.progress + '%',
+          })
+        })
+      },
+      complete: function (res) {
+        t.setData({
+          mengbdis: 'none'
+        })
       }
     })
   },
-  uploadVideoSuccessFunc: function(resultData) {
+  uploadVideoSuccessFunc: function (tempFile,resultData) {
     let that = this;
     let pfs = that.data.photoFiles;
     resultData = JSON.parse(resultData.data)
-    console.log(resultData);
-
     if (resultData.success) {
       pfs.push(resultData.url);
       that.setData({
         photoFiles: pfs
       })
-      api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url);
+      api.cacheImg(that.data.orderDetail.repair.id, 'Repair', resultData.url, '', '', that.cacheVideo_after, tempFile);
     }
   },
+
+  cacheVideo_after: function (cacheResult, tempFile) {
+    let that = this;
+    let videoFis = [];
+    videoFis.push({
+      'id': cacheResult.one,
+      'tempFilePath': tempFile
+    })
+    that.setData({
+      currentVideo: tempFile,
+      upFilesBtn: false,
+      upVideoArr: videoFis
+    })
+  },
+
+  _download: function (url) {
+    let that = this;
+    const downloadTask = wx.downloadFile({
+      url: url, // 仅为示例，并非真实的资源
+      success(res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            mengbdis: 'none',
+            currentVideo: res.tempFilePath
+          })
+        }
+      }
+    })
+    downloadTask.onProgressUpdate((res) => {
+      console.log(res);
+      that.setData({
+        progress: '已加载：' + (res.totalBytesWritten / 1000) + 'kb',
+      })
+    })
+  },
+
+  _downTheVideo: function () {
+    let that = this;
+    that.setData({
+      mengbdis: '',
+    })
+    that._download(that.data.upVideoArr[0].tempFilePath);
+  },
+
   delFile: function(e) {
     let _this = this;
     wx.showModal({
       title: '提示',
       content: '您确认删除嘛？',
       success: function(res) {
+       
         if (res.confirm) {
-          let delNum = e.currentTarget.dataset.index;
-          let delType = e.currentTarget.dataset.type;
-          let upVideoArr = _this.data.upVideoArr;
-          if (delType == 'video') {
-            upVideoArr.splice(delNum, 1)
-            _this.setData({
-              upVideoArr: upVideoArr,
-            })
-          }
-
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          api.fetch({
+            url: 'rest/comment/toDeteleImg',
+            data: {
+              fileId: e.currentTarget.dataset.currentimg.id
+            },
+            callback: (err, result) => {
+              if (result.success) {
+                  let delNum = e.currentTarget.dataset.index;
+                  let delType = e.currentTarget.dataset.type;
+                  let upVideoArr = _this.data.upVideoArr;
+                  if (delType == 'video') {
+                    upVideoArr.splice(delNum, 1)
+                    _this.setData({
+                      upVideoArr: upVideoArr,
+                    })
+                    if (upVideoArr.length == 0) {
+                      _this.setData({
+                        upFilesBtn: true
+                      })
+                    }
+                  }
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+          });
         }
       }
     })
   },
+  
   //评论组件
   toCommit: function(options) {
     this.setData({

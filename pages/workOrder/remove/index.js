@@ -289,7 +289,9 @@ Page({
           callback: (err, result) => {
             console.log(result);
             if (result.success) {
-              wx.navigateBack({})
+              wx.redirectTo({
+                url: '../../work/index?listType=workOrder',
+              })
             }
           }
         })
@@ -449,6 +451,14 @@ Page({
   
   loactionSignOut: function() {
     let that = this;
+    if (that.data.nowAddress == "") {
+      wx.showToast({
+        title: '请签入后再签出！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignOutSuccessFunc);
   },
   getSignOutSuccessFunc: function (addrRes) {

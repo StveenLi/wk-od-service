@@ -26,7 +26,7 @@
   <view class='border-bottom-gainsboro padding-5'><image style='width:16px;height:16px;margin:0 5px -2px 0' src='/images/calendar.png' ></image>{{date}}</view>
   <scroll-view scroll-y style="height:{{listHeight}}px" bindscrolltoupper="upper" bindscrolltolower="lower" scroll-y bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <block  wx:for="{{listData}}" wx:key="index" >
-  <view class='flex-row border-bottom-gainsboro' style='padding:5px 0' >
+  <view class='flex-row' style='padding:5px 0' >
     <view class='flex-cloumn'>
       <view class='sign-type'>{{item.name}}</view>
       <block wx:for="{{item.signList}}" wx:key="childIndex" wx:for-item="cItem">
@@ -40,8 +40,15 @@
           <view style="font-size:10px;padding:2px 0">{{cItem.signAddress}}</view>
       </block>
     </view>
-    <view class='flex-cloumn'><view class='detail-button' data-item='{{item}}' bindtap='toOrderDetail'>详情</view></view>
+    <view class='flex-cloumn' style='position:relative;'>
+      <view class='detail-button' data-item='{{item}}' bindtap='toOrderDetail'>详情</view>
+          <block wx:if='{{user.type == 2}}'>
+              <view style="position:absolute;bottom:0;font-size:12px;padding-bottom:5px">{{item.userName}}</view>
+          </block>
+    </view>
+
   </view>
+
   </block>
   </scroll-view>
 </view>

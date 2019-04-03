@@ -234,9 +234,9 @@ wx.getSystemInfo({
               },
               callback: (err, result) => {
                 if (result.success) {
-                  wx.navigateBack({
-                    url: '/pages/work/index'
-                  });
+                  wx.redirectTo({
+                    url: '../../work/index?listType=workOrder',
+                  })
                 }
               }
             })
@@ -290,6 +290,14 @@ wx.getSystemInfo({
 
   loactionSignOut: function () {
     let that = this;
+    if (that.data.nowAddress == "") {
+      wx.showToast({
+        title: '请签入后再签出！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignOutSuccessFunc);
   },
   getSignOutSuccessFunc: function (addrRes) {

@@ -24,9 +24,45 @@ Page({
     upFilesBtn: true,
     showPopup: false,
     commentFilePaths: [],
-    du_patchs:[]
+    du_patchs:[],
+    currentVideo: '',
+    mengbdis: 'none',
+    progress: '正在下载……'
   },
 
+  _download: function (url) {
+    let that = this;
+    const downloadTask = wx.downloadFile({
+      url: url, // 仅为示例，并非真实的资源
+      success: function (res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            mengbdis: 'none',
+            currentVideo: res.tempFilePath
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        that.setData({
+          progress: JSON.stringify(res)
+        })
+      }
+    })
+    downloadTask.onProgressUpdate((res) => {
+      that.setData({
+        progress: '已加载：' + (res.totalBytesWritten / 1000) + 'kb',
+      })      
+    })
+  },
+
+  _downTheVideo: function () {
+    let that = this;
+    that.setData({
+      mengbdis: '',
+    })
+    that._download(that.data.upVideoArr[0].tempFilePath);
+  },
   
   previewImage: function (e) {
     wx.previewImage({

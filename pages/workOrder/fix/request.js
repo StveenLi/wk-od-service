@@ -43,10 +43,18 @@ Page({
     wx.getStorage({
       key: 'user',
       success: function(res) {
-          that.setData({
-            user:res.data,
-            partsAddress: res.data.address == undefined ? '' : res.data.address
-          })
+        api.fetch({
+          url: 'rest/wkuser/userinfo?userId='+res.data.userId,
+          callback: (err, result) => {
+            if (result.success) {
+              that.setData({
+                user: res.data,
+                partsAddress: result.one.address
+              })
+            }
+          }
+        });
+          
       },
     })
   },

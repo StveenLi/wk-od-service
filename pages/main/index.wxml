@@ -75,6 +75,7 @@
   <view>
     <view class='my-workorder'>
       <view>待处理工单</view>
+      <view class='map-watch' bindtap='toMapPage'><image src='/images/icon_map.png' style='width:15px;height:15px;margin: -5px 2px -2px 0;'></image>地图查看工单</view>
     </view>
     <view class='work-list' scroll-y>
       <block wx:if="{{listdata.length === 0}}">
@@ -319,83 +320,6 @@
         </block>
       </block>
     </view>
-
-
-    <!-- <view class='work-list' scroll-y>
-      <block wx:if="{{!listdata.length>0}}">
-        <view class='middle-all' style='padding:50px;font-size:14px'>暂无工单</view>
-      </block>
-      <block class="item-{{index}}" wx:for="{{listdata}}" wx:key="index">
-        <view style='margin-bottom:10px'></view>
-        <view class="work-item view-shadow" style="{{item.canDO=='N'?'background:#D1D1D1':'background:#fff;border:2px dashed #9A32CD;'}}" data-item='{{item}}' data-navigateUrl='{{item.navigateUrl}}' bindtap="toFlowPage">
-          <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
-            <view class='flex-1'>{{item.wrCode == null?'-':item.wrCode}}</view>
-            <view class='flex-1 date-style'>{{item.assignDate}}</view>
-          </view>
-
-          <view class='flex-row' style='margin-top:15px'>
-            <view class='flex-column box-all'>
-              <view class='flex-row box-all'>
-                <view class='middle-all' style='margin-top:3px'>
-                  <image src='../../images/ic_name.png' style='width:16px;height:15px;'></image>
-                </view>
-                <view class='content-style'>{{item.customer}}</view>
-
-              </view>
-              <view class='flex-row box-all'>
-                <view class='middle-all' style='margin-top:3px'>
-                  <image src='../../images/ic_tele.png' style='width:16px;height:15px;'></image>
-                </view>
-                <view class='content-style'>{{item.contacts}}：{{item.mobilePhone}}</view>
-              </view>
-            </view>
-            <view>
-            <block wx:if='{{item.workType == "Leave"}}'>
-                <view class='order-type-leave'>假</view>
-              </block>
-              <block wx:if='{{item.workType == "Repair"}}'>
-                <view class='order-type-repair'>维</view>
-              </block>
-              <block wx:elif='{{item.workType == "Inbox"}}'>
-                <view class='order-type'>入</view>
-              </block>
-              <block wx:elif='{{item.workType == "Install"}}'>
-                <view class='order-type-an'>安</view>
-              </block>
-              <block wx:elif='{{item.workType == "Delivery"}}'>
-                <view class='order-type-wuliu'>物</view>
-              </block>
-              <block wx:elif='{{item.workType == "Found"}}'>
-                <view class='order-type-search'>勘</view>
-              </block>
-              <block wx:elif='{{item.workType == "Outbox"}}'>
-                <view class='order-type-out'>出</view>
-              </block>
-              <block wx:elif='{{item.workType == "MoneyAsk"}}'>
-                <view class='order-type-cui'>催</view>
-              </block>
-              <block wx:elif='{{item.workType == "Dell"}}'>
-                <view class='order-type-dell'>拆</view>
-              </block>
-              <block wx:elif='{{item.workType == "Patch"}}'>
-                <view class='order-type-parts'>补</view>
-              </block>
-              <block wx:elif='{{item.workType == "DWipe"}}'>
-                <view class='order-type-wpout'>销</view>
-              </block>
-            </view>
-          </view>
-          <view>
-            <view class='flex-row box-all'>
-              <view class='middle-all' style='margin-top:3px'>
-                <image src='../../images/ic_address.png' style='width:14px;height:16px;'></image>
-              </view>
-              <view class='content-style'>{{item.address}}</view>
-            </view>
-          </view>
-        </view>
-      </block>
-    </view> -->
   </view>
 
 </view>

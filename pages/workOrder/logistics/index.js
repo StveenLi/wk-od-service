@@ -111,6 +111,14 @@ Page({
   
   locationSignArrive: function () {
     let that = this;
+    if (that.data.goSignAddress == "") {
+      wx.showToast({
+        title: '务必按流程签到！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignArriveSuccessFunc);
   },
 
@@ -148,6 +156,14 @@ Page({
 
   locationSignReturn: function () {
     let that = this;
+    if (that.data.arriveSignAddress == "") {
+      wx.showToast({
+        title: '务必按流程签到！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignReturnSuccessFunc);
   },
 
@@ -232,9 +248,9 @@ Page({
           callback: (err, result) => {
             console.log(result);
             if (result.success) {
-              wx.navigateBack({
-                url: '/pages/work/index'
-              });
+              wx.redirectTo({
+                url: '../../work/index?listType=workOrder',
+              })
             }
           }
         })

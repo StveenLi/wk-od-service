@@ -16,7 +16,8 @@ Page({
     files:[],
     photoFiles:[],
     user:{},
-    resultList:[]
+    resultList:[],
+    user:{}
   },
 
   /**
@@ -45,6 +46,14 @@ Page({
 
   submitFeedback:function(){
     let that = this;
+    if(that.data.areaVal == ""){
+      wx.showToast({
+        title: '请输入您的意见反馈再提交哦！',
+        duration:2000,
+        icon:'none'
+      })
+      return;
+    }
     api.fetch({
       url: '/rest/feedback/doAdd',
       data:{
@@ -54,11 +63,12 @@ Page({
       },
       callback: (err, result) => {
         if(result.success){
-          wx.showToast({
-            title: '提交成功！',
-          })
           that.clearAll();
           that.loadFeedbacks();
+          wx.showToast({
+            title: '提交成功！',
+            duration: 2000
+          })
         }
       }
     });
@@ -90,16 +100,31 @@ Page({
 
   loadFeedbacks:function(){
     let that = this;
-    api.fetch({
-      url: '/rest/feedback/query',
-      callback: (err, result) => {
-        if (result.success) {
-          that.setData({
-            resultList:result.list
-          })
-        }
-      }
+
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data
+        })
+        api.fetch({
+          url: '/rest/feedback/query?userId=' + res.data.userId,
+          callback: (err, result) => {
+            if (result.success) {
+              // let newArr = [];
+              // for(let item of result.list){
+              //   item.submissionTime = api.formatDateTime(item.submissionTime);
+              //   newArr.push(item);
+              // }
+              that.setData({
+                resultList: result.list
+              })
+            }
+          }
+        });
+      },
     });
+    
   },
 
   /**
@@ -193,6 +218,7 @@ Page({
 
 
   previewListImage: function (e) {
+    console.log(e)
     let nArr = [];
     nArr.push(e.currentTarget.id)
     wx.previewImage({

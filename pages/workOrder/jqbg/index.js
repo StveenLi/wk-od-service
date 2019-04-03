@@ -17,9 +17,58 @@ Page({
     upVideoArr:[],
     commentFilePaths:[],
     remarks:'',
-    newMachineCode:''
-
+    newMachineCode:'',
+    currentVideo:'',
+    progress:'正在加载……',
+    mengbdis:'none'
   },
+
+
+  _download:function(url){
+    let that = this;
+    const downloadTask = wx.downloadFile({
+      url: url, // 仅为示例，并非真实的资源
+      success(res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            mengbdis: 'none',
+            currentVideo: res.tempFilePath
+          })
+        }
+      }
+    })
+    downloadTask.onProgressUpdate((res) => {
+      that.setData({
+        progress: '已加载：' + (res.totalBytesWritten/1000)+'kb',
+      })
+      console.log('下载进度', res.progress)
+      console.log('已经下载的数据长度', res.totalBytesWritten)
+      console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+    })
+  },
+
+  _downTheVideo:function(){
+    let that = this;
+    that.setData({
+      mengbdis: '',
+    })
+    that._download(that.data.upVideoArr[0].tempFilePath);
+  },
+
+  waitVideo:function(e){
+    console.log('wait')
+
+    console.log(e)
+  },
+  progressVideo:function(e){
+    console.log('progress');
+    console.log(e);
+  }, 
+  errorVideo:function(e){
+    console.log('error');
+    console.log(e);
+  },
+
   newMachineChange: function (e) {
     this.setData({
       newMachineCode: e.detail.value
@@ -87,7 +136,9 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                wx.navigateBack({})
+                wx.redirectTo({
+                  url: '../../work/index?listType=workOrder',
+                })
               } else {
                 wx.showToast({
                   title: result.msg,
@@ -133,7 +184,6 @@ Page({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
-
           let fis = [];
           let videoFis = [];
           let allFis = [];
@@ -144,10 +194,18 @@ Page({
                 fis.push(item.url)
               } else {
                 videoFis.push({
+                  'id':item.id,
                   'tempFilePath': item.url
                 })
+                
+                // self._download(item.url)
               }
               allFis.push(item.url)
+            }
+            if(videoFis.length>0){
+              self.setData({
+                upFilesBtn:false
+              })
             }
           }
           self.setData({
@@ -157,7 +215,6 @@ Page({
             photoFiles: allFis,
             upVideoArr: videoFis
           })
-
           self._seeDoneChange();
         }
       }
@@ -297,12 +354,8 @@ Page({
               "chartset": "utf-8"
             },
             success: function (result) {
-
               let resultData = JSON.parse(result.data)
               api.cacheImg(that.data.orderDetail.change.id, 'Change', resultData.url);
-
-              // console.log('1' + resultData.url)
-
               let pfs = that.data.photoFiles;
               if (resultData.success) {
                 pfs.push(resultData.url);
@@ -345,13 +398,15 @@ Page({
 
   uploadVideo: function () {
     let t = this;
-    api._test();
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
-      maxDuration: 20,
+      maxDuration: 60,
       compressed: true,
       camera: 'back',
       success: function (res) {
+        t.setData({
+          mengbdis: '',
+        })
         let videoArr = t.data.upVideoArr || [];
         let videoInfo = {};
         videoInfo['tempFilePath'] = res.tempFilePath;
@@ -364,43 +419,107 @@ Page({
         t.setData({
           upVideoArr: videoArr
         })
-        api._uploadFile(res.tempFilePath, t.uploadVideoSuccessFunc)
+        // api._uploadFile(res.tempFilePath, t.uploadVideoSuccessFunc)
+
+        
+        const uploadTask = wx.uploadFile({
+          count: 1,
+          url: api.url + '/rest/comment/upload',
+          filePath: res.tempFilePath,
+          name: 'file',
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          success: function (result) {
+            t.setData({
+              mengbdis: 'none'
+            })
+            t.uploadVideoSuccessFunc(res.tempFilePath,result);
+          },
+          fail: function (e) {
+            console.log(e);
+          }
+        });
+        uploadTask.onProgressUpdate((res) => {
+          t.setData({
+            mengbdis: '',
+            progress: '已上传：' + res.progress+'%',
+          })
+        })
+      },
+      complete:function(res){
+        console.log(res)
+        t.setData({
+          mengbdis: 'none'
+        })
       }
     })
   },
 
-  uploadVideoSuccessFunc: function (resultData) {
+  uploadVideoSuccessFunc: function (tempFile,resultData) {
     let that = this;
     let pfs = that.data.photoFiles;
-    resultData = JSON.parse(resultData.data)
-
+    resultData = JSON.parse(resultData.data);
     if (resultData.success) {
       pfs.push(resultData.url);
       that.setData({
         photoFiles: pfs
       })
-      api.cacheImg(that.data.orderDetail.change.id, 'Change', resultData.url);
+      api.cacheImg(that.data.orderDetail.change.id, 'Change', resultData.url, '', '', that.cacheVideo_after,tempFile);
     }
   },
+
+  cacheVideo_after: function (cacheResult, tempFile){
+    let that = this;
+    let videoFis = [];
+    videoFis.push({
+      'id': cacheResult.one,
+      'tempFilePath': tempFile
+    })
+    that.setData({
+      currentVideo:tempFile,
+      upFilesBtn: false,
+      upVideoArr: videoFis
+    })
+  },
+
+
   delFile: function (e) {
     let _this = this;
+    console.log(e)
     wx.showModal({
       title: '提示',
       content: '您确认删除嘛？',
       success: function (res) {
-        if (res.confirm) {
-          let delNum = e.currentTarget.dataset.index;
-          let delType = e.currentTarget.dataset.type;
-          let upVideoArr = _this.data.upVideoArr;
-          if (delType == 'video') {
-            upVideoArr.splice(delNum, 1)
-            _this.setData({
-              upVideoArr: upVideoArr,
-            })
-          }
 
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+        if (res.confirm) {
+          api.fetch({
+            url: 'rest/comment/toDeteleImg',
+            data: {
+              fileId: e.currentTarget.dataset.currentimg.id
+            },
+            callback: (err, result) => {
+              if (result.success) {
+                let delNum = e.currentTarget.dataset.index;
+                let delType = e.currentTarget.dataset.type;
+                let upVideoArr = _this.data.upVideoArr;
+                if (delType == 'video') {
+                  upVideoArr.splice(delNum, 1)
+                  _this.setData({
+                    upVideoArr: upVideoArr,
+                  })
+                  if(upVideoArr.length == 0){
+                    _this.setData({
+                      upFilesBtn:true
+                    })
+                  }
+                  
+                }
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          });
         }
       }
     })

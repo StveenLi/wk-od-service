@@ -12,7 +12,48 @@ Page({
     commentVal: '',
     commentFilePaths: [],
     user: {},
-    files:[]
+    files:[],
+    currentVideo:'',
+    mengbdis: 'none',
+    progress:'正在下载……'
+  },
+
+  _download: function (url) {
+    let that = this;
+    const downloadTask = wx.downloadFile({
+      url: url, // 仅为示例，并非真实的资源
+      success:function(res) {
+        if (res.statusCode === 200) {
+          that.setData({
+            mengbdis: 'none',
+            currentVideo: res.tempFilePath
+          })
+        }
+      },
+      fail:function(res){
+        console.log(res);
+        that.setData({
+          progress:JSON.stringify(res)
+        })
+      }
+    })
+    downloadTask.onProgressUpdate((res) => {
+      that.setData({
+        progress: '已加载：' + (res.totalBytesWritten / 1000) + 'kb',
+        // haveDone: res.totalBytesWritten,
+      })
+      console.log('下载进度', res.progress)
+      console.log('已经下载的数据长度', res.totalBytesWritten)
+      console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+    })
+  },
+
+  _downTheVideo: function () {
+    let that = this;
+    that.setData({
+      mengbdis: '',
+    })
+    that._download(that.data.upVideoArr[0].tempFilePath);
   },
 
   unLaunch: function () {

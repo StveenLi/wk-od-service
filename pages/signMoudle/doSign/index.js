@@ -82,7 +82,7 @@ Page({
       })
       return;
     }
-    let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ? "WXBY" : "SFP";
+    let sign_type = signTypeIndex == 0 ? "XSBF" : signTypeIndex == 1 ? "WXBY" : signTypeIndex == 2 ? "SFP" : "CC";
     api.fetch({
       url: 'rest/register/doUpdate' ,
       data:{
@@ -321,6 +321,14 @@ Page({
   },
   loactionSignOut: function () {
     let that = this;
+    if(that.data.nowAddress == ""){
+      wx.showToast({
+        title: '请签入后再签出！',
+        duration: 2000,
+        icon: 'none'
+      })
+      return;
+    }
     api.getNowLocation(that.getSignOutSuccessFunc);
   },
   getSignOutSuccessFunc: function (addrRes) {

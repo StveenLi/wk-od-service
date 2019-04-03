@@ -56,7 +56,8 @@
     "pages/signMoudle/doSign/index",
     "pages/signMoudle/signDetail/index",
     "pages/teach/aaa",
-    "pages/feedback/index"
+    "pages/feedback/index",
+    "pages/workOrder/maintain/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

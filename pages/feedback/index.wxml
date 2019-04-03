@@ -51,15 +51,17 @@
         <block wx:for="{{resultList}}" wx:item="item" wx:key="*this">
           <view class='flex-cloumn border-bottom-gainsboro'>
             <view class='flex-row padding-5'>
+            
               <view style='color:#CDC5BF'>{{item.submissionTime}}</view>
               <view style='color:#1E90FF;margin-left:20px'>{{item.type=="0"?"待回复":"已回复"}}</view>
             </view>
 
             <view>{{item.content}}</view>
 
-            <view class='flex-row padding-5'>
-              <block wx:for="{{item.attachment}}" wx:item="citem" wx:key="*this">
-                <image style='width:80px;height:80px' src='{{citem.url}}' bindtap='previewListImage' id="citem.url"></image>
+            <view class='flex-row padding-5' style='overflow:scroll;'>
+              <block wx:for="{{item.attachment}}" wx:for-item="citem" wx:key="*this">
+              <view bindtap='previewListImage' id="{{citem.url}}">
+                <image style='width:80px;height:80px' src='{{citem.url}}' ></image></view>
               </block>
             </view>
             <block wx:if="{{item.questionType != null&&item.replyContent != null}}">

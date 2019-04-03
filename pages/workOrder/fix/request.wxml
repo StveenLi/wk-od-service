@@ -3,7 +3,7 @@
 
   <view class="weui-cell weui-cell_input">
       <view class="weui-label" style='width:125px'>邮寄地址</view>
-      <input class="weui-input padding-5" style='text-align:left;' placeholder="邮寄地址"  bindinput="partsAddressChange" value='{{user.address}}'/>
+      <input class="weui-input padding-5" style='text-align:left;' placeholder="邮寄地址"  bindinput="partsAddressChange" value='{{partsAddress}}'/>
   </view>
 
   <view wx:for="{{moreRepair}}" wx:key="index">

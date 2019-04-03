@@ -1,5 +1,6 @@
 <!--pages/launchDetail/patch/index.wxml-->
-
+<view class="mengb" style='display:{{mengbdis}}'>
+<view style="margin-top:300px;font-size:26px">{{progress}}</view></view>
 
 <view style='margin-bottom:10px'></view>
 
@@ -80,10 +81,14 @@
 
     <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
       <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
-        <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
-        <cover-view class='progress' wx:if="{{upFilesProgress}}">
-          {{item.progress}}%
-        </cover-view>
+                <block wx:if="{{currentVideo != ''}}">
+                    <video custom-cache='{{false}}' class='uploadimg' style='width:150px;height:150px' src="{{currentVideo}}" controls></video>
+                  </block>
+                  <block wx:else>
+                    <image src='/images/videoPlay.jpg' style='width:150px;height:150px;' bindtap='_downTheVideo'></image>
+                  </block>
+        <!-- <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video> -->
+        
       </view>
     </view>
   </block>

@@ -178,8 +178,8 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                wx.navigateBack({
-                  url: '/pages/work/index'
+                wx.redirectTo({
+                  url: '../../work/index?listType=workOrder',
                 })
               }
             }

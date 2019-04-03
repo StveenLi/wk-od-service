@@ -7,7 +7,7 @@ const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
 // const HOST = 'https://www.jiexianchina.com';
 
-// const HOST = 'http://192.168.0.189:8080/CServer';
+// const HOST = 'http://192.168.0.101:8080/CServer';
 // const HOST = 'http://localhost:8022';
 
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
@@ -23,7 +23,6 @@ const Util={
         },
         SERVICE_PHONE:'4009029021',
         EMPTY_PAGE_CONTENT:{}
-
     },
     url:HOST,
     screenWidth:null,
@@ -58,7 +57,6 @@ const Util={
             wx.showLoading({
                 title: loadTitle,
                 mask: true
-
             })
         var header=config.header|| {'content-type': 'application/json;charset=utf-8'};
         var method=config.method||'GET';
@@ -109,7 +107,7 @@ const Util={
       }
     })
   },
-  cacheImg: function (id, stype, url, filePro, fileName,successFunc) {
+  cacheImg: function (id, stype, url, filePro, fileName,successFunc,tempFile) {
     if (filePro == undefined){
       filePro = ''
     }
@@ -129,7 +127,7 @@ const Util={
         callback: (err, result) => {
           if (result.success) {
             if(successFunc){
-              successFunc();
+              successFunc(result, tempFile);
             }
           }
         }
@@ -306,10 +304,9 @@ const Util={
             wx.setStorageSync(this.key.USER_INFO, userInfo);
         }
     },
-    _test:function(){console.log('api test')},
 
     _uploadFile:function(filePath,uploadSuccessFunc){
-      wx.uploadFile({
+      const uploadTask = wx.uploadFile({
         count: 1,
         url: this.url + '/rest/comment/upload',
         filePath: filePath,
@@ -323,6 +320,14 @@ const Util={
         fail: function (e) {
           console.log(e);
         }
+      });
+      uploadTask.onProgressUpdate((res) => {
+        wx.showLoading({
+          title: '上传进度：' + res.progress +'%',
+        })
+        // console.log('上传进度', res.progress)
+        // console.log('已经上传的数据长度', res.totalBytesSent)
+        // console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
       })
     },
   _submitComment: function (commentVal, userId, pWrokId, linksId, commentSuccess,photos){
@@ -382,7 +387,22 @@ const Util={
         }
       })
     },
-
+    
+  formatDateTime: function(inputTime) {
+    var date = new Date(inputTime);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? ('0' + m) : m;
+    var d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    var h = date.getHours();
+    h = h < 10 ? ('0' + h) : h;
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    minute = minute < 10 ? ('0' + minute) : minute;
+    second = second < 10 ? ('0' + second) : second;
+    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+  },
   loactionSign: function (inOrOut, stype, workId, userId, latitude, longitude,address,successFunc) {
     let that = this;
     qqmapsdk = new QQMapWX({

@@ -1,5 +1,6 @@
 <!--pages/workOrder/fix/index.wxml-->
-
+<view class="mengb" style='display:{{mengbdis}}'>
+<view style="margin-top:300px;font-size:26px">{{progress}}</view></view>
 <view style='margin-bottom:10px'></view>
 
 <view class="work-item view-shadow">
@@ -14,9 +15,9 @@
       <block wx:if="{{item.name == '注意'}}">
         <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value}}</view>
       </block>
-      <block wx:elif="{{index==3}}">
+      <!-- <block wx:elif="{{index==3}}">
       <view class='content-style padding-5'>--</view>
-      </block>
+      </block> -->
       <block wx:else>
         <view class='content-style padding-5'>{{item.value == null?'-':item.value}}</view>
       </block>
@@ -27,8 +28,6 @@
 
 <block wx:if="{{user.type != 2}}">
   <view class='middle-box'>
-
-
     <!-- 报修时间 -->
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
@@ -211,14 +210,19 @@
             <cover-view class='progress' wx:if="{{upFilesProgress}}">
               {{item.progress}}%
             </cover-view>
-            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile'>X</cover-view>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile' data-currentImg='{{item}}'>X</cover-view>
           </view>
           <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
-            <video class='uploadimg' style='width:150px;height:150px' src="{{item.tempFilePath}}" controls></video>
-            <cover-view class='progress' wx:if="{{upFilesProgress}}">
-              {{item.progress}}%
-            </cover-view>
-            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile'>X</cover-view>
+            <block wx:if="{{currentVideo != ''}}">
+                    <video custom-cache='{{false}}' class='uploadimg' style='width:150px;height:150px' src="{{currentVideo}}" controls></video>
+                  </block>
+                  <block wx:else>
+                    <image src='/images/videoPlay.jpg' style='width:150px;height:150px;' bindtap='_downTheVideo'></image>
+                    <!-- 下载进度：{{progress}}
+                    已下载：{{haveDone}} -->
+                  </block>
+            
+            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile' data-currentImg='{{item}}'>X</cover-view>
 
           </view>
 

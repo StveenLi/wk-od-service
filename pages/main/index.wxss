@@ -16,6 +16,11 @@
   display: flex;
   flex-direction: row;
 }
+.map-watch{
+  flex:1;
+  text-align: right;
+  color:#3c8df9
+}
 .header_bd{
   width: 100%;
     height: 200px;

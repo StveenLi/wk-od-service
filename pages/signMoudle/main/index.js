@@ -31,9 +31,22 @@ Page({
       'code': 'Found',
       'name': '勘察工单'
     },{
-        'code':'Register',
-        'name':'其它签到'
-    }],
+      'code':'XSBF',
+      'name':'销售拜访',
+      'type':'sign'
+      }, {
+        'code': 'WXBY',
+        'name': '日常保养',
+        'type': 'sign'
+      }, {
+        'code': 'SFP',
+        'name': '送发票',
+        'type': 'sign'
+      },{
+        'code': 'CC',
+        'name': '出差',
+        'type': 'sign'
+      }],
     workStatusIndex:0,
     start:0,
     pageSize:20,
@@ -117,6 +130,13 @@ Page({
   page_loadListData: function (ps){
     let that = this;
     const { searchDate, workStatus, workStatusIndex, pageSize, start, curSearchUser, curSearchUserId} = that.data
+    let _stype = '';
+    let _type = '';
+    if (workStatus[workStatusIndex].type == 'sign'){
+      _type = workStatus[workStatusIndex].code;
+    }else{
+      _stype = workStatus[workStatusIndex].code;
+    }
     wx.getStorage({
       key: 'user',
       success: function (res) {
@@ -124,7 +144,8 @@ Page({
           url: 'rest/register/getList',
           data: {
             signDate: searchDate,
-            stype: workStatus[workStatusIndex].code,
+            stype: _stype,
+            type: _type,
             userId: res.data.userId,
             ownMan: curSearchUserId == 0 ? '' : curSearchUserId,
             start: ps,
@@ -162,6 +183,13 @@ Page({
   loadListData:function(){
     let that = this;
     const { searchDate, workStatus, workStatusIndex, curSearchUser, usersIndex, usersList, curSearchUserId} = that.data
+    let _stype = '';
+    let _type = '';
+    if (workStatus[workStatusIndex].type == 'sign') {
+      _type = workStatus[workStatusIndex].code;
+    } else {
+      _stype = workStatus[workStatusIndex].code;
+    }
     wx.getStorage({
       key: 'user',
       success: function (res) {
@@ -169,7 +197,8 @@ Page({
           url: 'rest/register/getList',
           data: {
             signDate: searchDate,
-            stype: workStatus[workStatusIndex].code,
+            stype: _stype,
+            type: _type,
             userId: res.data.userId,
             ownMan: curSearchUserId == 0 ? '' : curSearchUserId,
             start:0,
