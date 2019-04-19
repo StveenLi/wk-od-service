@@ -7,7 +7,7 @@ const HOST = 'https://test.tianchu.linkitchen.com/CServer';
 //正式
 // const HOST = 'https://www.jiexianchina.com';
 
-// const HOST = 'http://192.168.0.101:8080/CServer';
+// const HOST = 'http://192.168.0.182:8080/CServer';
 // const HOST = 'http://localhost:8022';
 
 const p_positiveNum = /^\+?[1-9][0-9]*$/;
@@ -114,6 +114,7 @@ const Util={
     if (fileName == undefined){
       fileName = ''
     }
+    console.log(stype)
       this.fetch({
         // url: 'rest/comment/cacheImg?id=' + id + '&stype=' + stype + '&url=' + url + '&filePro=' + filePro + '&fileName=' + fileName,
         url: 'rest/comment/cacheImg',

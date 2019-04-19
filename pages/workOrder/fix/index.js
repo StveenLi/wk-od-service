@@ -369,10 +369,10 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                // wx.navigateBack({})
-                wx.redirectTo({
-                  url: '../../work/index?listType=workOrder',
-                })
+                wx.navigateBack({})
+                // wx.redirectTo({
+                //   url: '../../work/index?listType=workOrder',
+                // })
               }
             }
           })

@@ -289,9 +289,10 @@ Page({
           callback: (err, result) => {
             console.log(result);
             if (result.success) {
-              wx.redirectTo({
-                url: '../../work/index?listType=workOrder',
-              })
+              // wx.redirectTo({
+              //   url: '../../work/index?listType=workOrder',
+              // })
+              wx.navigateBack({})
             }
           }
         })

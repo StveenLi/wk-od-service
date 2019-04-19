@@ -145,6 +145,8 @@ Page({
         navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'Change') {
         navigateUrl = '/pages/workOrder/jqbg/index?item='+JSON.stringify(item);
+      }else if(item.workType == 'Maintain'){
+        navigateUrl = '/pages/workOrder/maintain/index?item='+JSON.stringify(item);
       }
     }
     
@@ -244,8 +246,6 @@ Page({
               }
             }
           }
-          
-
           that.setData({
             mainInfo:result,
             msgList: msgList

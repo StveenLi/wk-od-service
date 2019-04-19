@@ -3,11 +3,13 @@
   id="map"
   longitude="{{longitude}}"
   latitude="{{latitude}}"
-  scale="14"
+  scale="{{scale}}"
   bindcontroltap="controltap"
   markers="{{markers}}"
   bindmarkertap="markertap"
   bindregionchange="regionchange"
   show-location
+  show-compass
   style="width: 100%; height: 100%;"
+  controls="{{controls}}" 
 ></map>

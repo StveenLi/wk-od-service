@@ -178,9 +178,10 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                wx.redirectTo({
-                  url: '../../work/index?listType=workOrder',
-                })
+                // wx.redirectTo({
+                //   url: '../../work/index?listType=workOrder',
+                // })
+                wx.navigateBack({})
               }
             }
           })
@@ -355,7 +356,8 @@ Page({
             success: function (result) {
 
               let resultData = JSON.parse(result.data)
-              api.cacheImg(that.data.orderDetail.dWipe.id, 'DWipe', resultData.url);
+              
+              api.cacheImg(that.data.orderDetail.dWipe.id, 'DWipe1', resultData.url);
               let pfs = that.data.photoFiles;
               if (resultData.success) {
                 pfs.push(resultData.url);

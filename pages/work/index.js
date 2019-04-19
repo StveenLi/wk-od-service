@@ -181,6 +181,8 @@ Page({
           navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
         } else if (item.workType == 'Change') {
           navigateUrl = '/pages/workOrder/jqbg/index?item=' + JSON.stringify(item);
+        }else if(item.workType == 'Maintain'){
+          navigateUrl = '/pages/workOrder/maintain/index?item='+JSON.stringify(item);
         }
       }
     } else if (this.data.activeIndex == 1) {
@@ -590,8 +592,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // let self = this;
-    // self.loadListData();
+    let self = this;
+    // if (self.data.listType == 'audit'){
+      self.loadListData();
+    // }
+    
   },
 
   /**

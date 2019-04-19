@@ -94,11 +94,6 @@
             </view>
           </view>
         </view>
-        <!-- <block wx:for='{{patch}}'>
-          <view class="weui-cell__ft">
-            {{item.groupName}}
-          </view>
-        </block> -->
       </view>
     </block>
     <block wx:if="{{!isPhoneFix}}">

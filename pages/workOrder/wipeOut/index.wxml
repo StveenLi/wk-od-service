@@ -103,7 +103,7 @@
         </view>
       </view>
     </view> -->
-    <imgUploader-more wkType="dWipe" ptFiles="{{photoFiles}}" wkId="{{orderDetail.dWipe.id}}" imgTitle="发票图片" imgCode="xsbfimg" bindcsip="setImgPath" />
+    <imgUploader-more wkType="DWipe" ptFiles="{{photoFiles}}" wkId="{{orderDetail.dWipe.id}}" imgTitle="发票图片" imgCode="xsbfimg" bindcsip="setImgPath" />
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">备注</view>

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "comment-component": "/components/workComment/index",
+    "comment-view": "/components/commentView/index",
+    "img-uploader": "/components/imgUploader/index"
+  }
 }

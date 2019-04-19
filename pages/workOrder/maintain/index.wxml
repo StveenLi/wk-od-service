@@ -1,2 +1,153 @@
 <!--pages/workOrder/maintain/index.wxml-->
-<text>pages/workOrder/maintain/index.wxml</text>
+<view class="mengb" style='display:{{mengbdis}}'>
+<view style="margin-top:300px;font-size:26px">{{progress}}</view></view>
+<view style='margin-bottom:10px'></view>
+
+<view class="work-item view-shadow">
+  <view class='flex-row box-all' style='padding:5px;border-bottom:1px solid #F2F2F2'>
+    <view class='flex-1'>{{orderDetail.wrCode}}</view>
+    <view class='flex-1 work-order-content'>{{orderDetail.delivery.pWrok.name}}</view>
+  </view>
+
+  <block wx:for="{{orderDetail.fromData}}" wx:key="*this">
+    <view class='flex-row box-all border-bottom-gainsboro'>
+      <view class='content-style flex-1 padding-5'>{{item.name}}</view>
+      <block wx:if="{{item.name == '注意'}}">
+        <view class='content-style padding-5' style='color:red;font-weight:bold;'>{{item.value!=null?item.value:'-'}}</view>
+      </block>
+      <block wx:else>
+        <view class='content-style padding-5'>{{item.value!=null?item.value:'-'}}</view>
+      </block>
+    </view>
+  </block>
+</view>
+
+<view class='bottom-box'>
+  <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5' style='margin-top:5px;'>{{date}}</view>
+        <view class='order-type-icon'>保</view>
+      </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签入</view>
+          <view class='padding-5 work-order-content'>
+            <block wx:if='{{nowAddress==""}}'>
+              <text bindtap='locationSignIn'>去签入 ></text>
+            </block>
+            <block wx:else>
+              <text bindtap='toSignInMap'>地址微调 ></text>
+            </block>
+          </view>
+          <!-- <view class='padding-5 work-order-content' bindtap='locationSignIn'>去签入 ></view> -->
+        </view>
+      </view>
+      <block wx:if="{{nowAddress!=''}}">
+        <view class="weui-cell weui-cell_input">
+          <view class='flex-row box-all'>
+            <view class='flex-1 padding-5'>{{signInTime}}</view>
+            <view class='padding-5 work-order-content-add' bindtap='locationSignIn'>{{nowAddress}}</view>
+          </view>
+        </view>
+      </block>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch ">
+      <view class="weui-cell__bd">申请配件</view>
+      <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
+        去申请 >
+      </view>
+    </view>
+  </view>
+  <view class=" weui-cells_after-title border-bottom-gainsboro" style='margin:0 15px'>
+    <view class=" weui-cell_switch">
+      <view class="weui-cell__bd"></view>
+    </view>
+
+    <view wx:for="{{du_patchs}}" wx:key="*this">
+      <view style='color:#999'>
+        <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
+          <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
+          <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
+        </view>
+        <view wx:for="{{item}}" wx:key="*this">
+          <view> {{item.groupName}}*{{item.groupValue}} </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='flex-row'>
+        <img-uploader wkType="Maintain" ptFiles="{{fwbg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="服务报告" imgCode="fwbg" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{jqmp_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器名牌" imgCode="jqmp" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{gzbw_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="故障部位" imgCode="gzbw" bindcsip="setImgPath" />
+      </view>
+      <view class='flex-row'>
+        <img-uploader wkType="Maintain" ptFiles="{{jqwgzp_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器外观照片" imgCode="jqwgzp" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{jqzxbzg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器主洗臂+主洗缸" imgCode="jqzxbzg" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{fpqkjssg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="分配器（可见输送管）" imgCode="fpqkjssg" bindcsip="setImgPath" />
+      </view>
+      <view class='flex-row'>
+        <img-uploader wkType="Maintain" ptFiles="{{qjjt_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="清洁剂桶" imgCode="qjjt" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{xwjxdgzs_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="洗碗机洗涤工作时" imgCode="xwjxdgzs" bindcsip="setImgPath" />
+        <img-uploader wkType="Maintain" ptFiles="{{canjuquanjing_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="洗涤完毕取出的餐具全景" imgCode="canjuquanjing" bindcsip="setImgPath" />
+      </view>
+
+
+      <view class="optClass">
+        <view class="weui-uploader__title">上传视频</view>
+      </view>
+      <block wx:if="{{!showPopup&&!showModal}}">
+        <view class="optClass" style='padding:0 30rpx;flex-wrap:wrap;'>
+          <view class='uploadimgbox' wx:for="{{upImgArr}}" wx:key="item">
+            <image class='uploadimg' src='{{item.path}}' data-presrc="{{item.path}}" bindtap='previewImg' mode='aspectFill'></image>
+            <cover-view class='delbtn' data-index="{{index}}" data-type="image" bindtap='delFile' data-currentImg='{{item}}'>X</cover-view>
+          </view>
+          <view class='uploadimgbox' wx:for="{{upVideoArr}}" wx:key="item">
+            <block wx:if="{{currentVideo != ''}}">
+                    <video custom-cache='{{false}}' class='uploadimg' style='width:150px;height:150px' src="{{currentVideo}}" controls></video>
+                  </block>
+                  <block wx:else>
+                    <image src='/images/videoPlay.jpg' style='width:150px;height:150px;' bindtap='_downTheVideo'></image>
+                  </block>
+            
+            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile' data-currentImg='{{item}}'>X</cover-view>
+
+          </view>
+
+          <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
+            <view class="weui-uploader__input-box">
+              <view class="weui-uploader__input" bindtap="uploadVideo"></view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+      <view class="weui-cell weui-cell_input" style='margin-top:5px'>
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>签出</view>
+          <view class='padding-5 work-order-content'>
+            <block wx:if='{{outAddress==""}}'>
+              <text bindtap='loactionSignOut'>去签出 ></text>
+            </block>
+            <block wx:else>
+              <text bindtap='toSignOutMap'>地址微调 ></text>
+            </block>
+          </view>
+          <!-- <view class='padding-5 work-order-content' bindtap='loactionSignOut'>去签出 ></view> -->
+        </view>
+      </view>
+      <block wx:if="{{outAddress!=''}}">
+        <view class="weui-cell weui-cell_input">
+          <view class='flex-row box-all'>
+            <view class='flex-1 padding-5'>{{signOutTime}}</view>
+            <view class='padding-5 work-order-content-add'>{{outAddress}}</view>
+          </view>
+        </view>
+      </block>
+      
+</view>
+<view class='bottom-btn-view flex-row'>
+  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
+  <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
+</view>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

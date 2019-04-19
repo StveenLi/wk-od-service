@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -14,7 +14,7 @@
 	"enablePullDownRefresh": true,
 	"compileType": "miniprogram",
 	"libVersion": "2.6.4",
-	"appid": "wxfce64b4c74738a8d",
+	"appid": "wxa19e3bf2cdd2d04a",
 	"projectname": "wk-od-service",
 	"isGameTourist": false,
 	"condition": {

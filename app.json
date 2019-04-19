@@ -1,5 +1,7 @@
 {
   "pages": [
+    
+    
     "pages/login/index",
     "pages/reuse/reuse-main/index",
     "pages/signMap/index",
@@ -56,8 +58,10 @@
     "pages/signMoudle/doSign/index",
     "pages/signMoudle/signDetail/index",
     "pages/teach/aaa",
+    "pages/orderMap/mapIndex/index",
+    "pages/workOrder/maintain/index",
     "pages/feedback/index",
-    "pages/workOrder/maintain/index"
+    "pages/workOrder/maintain/request"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -136,9 +136,10 @@ Page({
             },
             callback: (err, result) => {
               if (result.success) {
-                wx.redirectTo({
-                  url: '../../work/index?listType=workOrder',
-                })
+                // wx.redirectTo({
+                //   url: '../../work/index?listType=workOrder',
+                // })
+                wx.navigateBack({})
               } else {
                 wx.showToast({
                   title: result.msg,

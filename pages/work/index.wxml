@@ -253,6 +253,9 @@
                     <block wx:elif='{{item.workType == "Change"}}'>
                       <view class='order-type-change'>翻</view>
                     </block>
+                    <block wx:elif='{{item.workType == "Maintain"}}'>
+                      <view class='order-type-maintain'>保</view>
+                    </block>
                   </view>
                 </view>
                 <view>
@@ -508,6 +511,9 @@
                     </block>
                     <block wx:elif='{{item.workType == "Change"}}'>
                       <view class='order-type-change'>翻</view>
+                    </block>
+                    <block wx:elif='{{item.workType == "Maintain"}}'>
+                      <view class='order-type-maintain'>保</view>
                     </block>
                   </view>
                 </view>

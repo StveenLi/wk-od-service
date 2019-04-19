@@ -93,10 +93,9 @@ Page({
         stype: 'patch'
       },
       callback: (err, result) => {
-        console.log(result);
         if (result.success) {
-          wx.redirectTo({
-            url: '../../work/index?listType=audit',
+          wx.navigateBack({
+            // url: '../../work/index?listType=audit',
           })
         }else{
           wx.showToast({

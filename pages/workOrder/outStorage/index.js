@@ -294,9 +294,10 @@ Page({
             callback: (err, result) => {
               console.log(result);
               if (result.success) {
-                wx.redirectTo({
-                  url: '../../work/index?listType=workOrder',
-                })
+                // wx.redirectTo({
+                //   url: '../../work/index?listType=workOrder',
+                // })
+                wx.navigateBack({})
               }
             }
           })
@@ -314,7 +315,7 @@ Page({
       macModel = orderDetail.outbox.machineType
     }
     api.fetch({
-      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status + '&macModel=' + macModel,
+      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status,
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];

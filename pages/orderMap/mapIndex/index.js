@@ -1,5 +1,6 @@
 // pages/orderMap/mapIndex/index.js
-
+const app = getApp();
+const api = app.api;
 var QQMapWX = require('../../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
 Page({
@@ -16,29 +17,101 @@ Page({
       width: 25,
       height: 25
     }],
+    scale:14,
     controls: [{
       id: 1,
-      iconPath: '/resources/location.png',
+      iconPath: '/images/suoding.png',
       position: {
-        left: 0,
-        top: 300 - 50,
-        width: 50,
-        height: 50
+        left: 30,
+        top:500,
+        width: 30,
+        height: 30
       },
       clickable: true
-    }]
+    }, {
+        id: 10,
+        iconPath: '/images/icon/bj.png',
+        position: {
+          left: 80,
+          top: 0,
+          width: 30,
+          height: 30
+        },
+        clickable: true
+      },
+      {
+        id: 20,
+        iconPath: '/images/icon/bx.png',
+        position: {
+          left: 10,
+          top: 0,
+          width: 30,
+          height: 30
+        },
+        clickable: true
+      }
+    ]
   },
   regionchange(e) {
-    // console.log(e.type)
   },
   markertap(e) {
-    console.log(e.markerId)
+    let item = e.markerId;
+    let navigateUrl = '';
+    if (item.workType == 'Repair') {
+      navigateUrl = '/pages/workOrder/fix/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Install') {
+      navigateUrl = '/pages/workOrder/install/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Inbox') {
+      navigateUrl = '/pages/workOrder/inStorageN/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Delivery') {
+      navigateUrl = '/pages/workOrder/logistics/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Found') {
+      navigateUrl = '/pages/workOrder/searched/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Outbox') {
+      navigateUrl = '/pages/workOrder/outStorage/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Dell') {
+      navigateUrl = '/pages/workOrder/remove/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'MoneyAsk') {
+      navigateUrl = '/pages/workOrder/moneyAsk/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Patch') {
+      navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'DWipe') {
+      navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Leave') {
+      navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Change') {
+      navigateUrl = '/pages/workOrder/jqbg/index?item=' + JSON.stringify(item);
+    } else if (item.workType == 'Maintain') {
+      navigateUrl = '/pages/workOrder/maintain/index?item=' + JSON.stringify(item);
+    }
     wx.navigateTo({
-      url: '/pages/workOrder/maintain/index',
+      url: navigateUrl,
     })
   },
   controltap(e) {
-    // console.log(e.controlId)
+    var that = this;
+    if (e.controlId === 10) {
+      that.setData({
+        scale: --this.data.scale
+      })
+    } else if(e.controlId == 20) {
+      that.setData({
+        scale: ++this.data.scale
+      })
+    }else{
+      wx.getLocation({
+        type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+        success: function (res) {
+          var latitude = res.latitude
+          var longitude = res.longitude
+          that.setData({
+            latitude: latitude,//纬度 
+            longitude: longitude,//经度 
+          })
+        }
+      })
+    }
+    
   },
 
   /**
@@ -46,6 +119,53 @@ Page({
    */
   onLoad: function (options) {
     this.getNowLocation();
+  },
+
+  loadListData: function () {
+    let self = this;
+    api.fetch({
+      url: 'rest/work/findUserIdAndSatus?userId=' + self.data.user.userId + '&status=0,5',
+      callback: (err, result) => {
+        if (result.success) {
+          let markets = [];
+          for (let i in result.one.notDO){
+            for (let item of result.one.notDO[i].dtos){
+              let market = {
+                iconPath: '/images/icon_wo/baoyang.png',
+                id: item,
+                latitude: item.latitude,
+                longitude: item.longitude,
+                width: 25,
+                height: 25,
+                marketItem:item
+              }
+              if(item.canDO == 'Y'){
+                if(item.workType == 'Install'){
+                  market.iconPath = '/images/icon_wo/install.png'
+                  markets.push(market);
+                } else if (item.workType == 'Repair'){
+                  market.iconPath = '/images/icon_wo/repair.png'
+                  markets.push(market);
+                } else if (item.workType == 'Dell') {
+                  market.iconPath = '/images/icon_wo/remove.png'
+                  markets.push(market);
+                } else if (item.workType == 'Found') {
+                  market.iconPath = '/images/icon_wo/kancha.png'
+                  markets.push(market);
+                } else if (item.workType == 'Maintain') {
+                  market.iconPath = '/images/icon_wo/baoyang.png'
+                  markets.push(market);
+                }
+              }
+            }
+          }
+          this.setData({
+            markers:markets,
+            listdata: result.one.notDO
+          })
+        }
+      }
+    });
   },
 
 
@@ -77,7 +197,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this;
+    wx.getStorage({
+      key: 'user',
+      success: function (res) {
+        that.setData({
+          user: res.data
+        })
+        that.loadListData();
+      },
+    });
   },
 
   /**
