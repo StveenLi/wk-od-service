@@ -14,7 +14,9 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style='margin:15px;border-radius:5px;background:#fff;'>
           <checkbox-group bindchange="partsboxChange" class="flex-column padding-5">
             <label class="checkbox border-bottom-gainsboro" wx:for="{{parts}}" wx:key="*this">
-              <checkbox value="{{item.id}}" checked="{{item.checked}}" /> {{item.partCode}} | {{item.partName}} * {{item.partNum}}
+              <checkbox class='flex-column' value="{{item.id}}" checked="{{item.checked}}" > <view>{{item.partCode}} | {{item.partName}} * {{item.partNum}}</view>
+              <view>{{item.applyTime}}</view>
+              </checkbox>
             </label>
           </checkbox-group>
         </view>

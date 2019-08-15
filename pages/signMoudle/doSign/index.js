@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    signTypes:['销售拜访','日常保养','送发票','出差'],
+    signTypes:['销售拜访','送发票','出差'],
     signTypeIndex:0,
     pageSwich:false,
     customer:'',

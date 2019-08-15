@@ -47,6 +47,8 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.leave.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
+
             files: fis
           })
         }

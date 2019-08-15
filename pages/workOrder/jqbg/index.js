@@ -211,6 +211,7 @@ Page({
           }
           self.setData({
             orderDetail: result,
+            date: new Date(result.change.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             newMachineCode: result.change.newMachineNr,
             files: fis,
             photoFiles: allFis,
@@ -401,7 +402,7 @@ Page({
     let t = this;
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
-      maxDuration: 60,
+      maxDuration: 90,
       compressed: true,
       camera: 'back',
       success: function (res) {

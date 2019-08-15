@@ -14,9 +14,11 @@
 	"enablePullDownRefresh": true,
 	"compileType": "miniprogram",
 	"libVersion": "2.6.4",
-	"appid": "wxa19e3bf2cdd2d04a",
+	"appid": "wxfce64b4c74738a8d",
 	"projectname": "wk-od-service",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -27,10 +27,88 @@ Page({
     showPopup: false,
     user: {},
     commentVal: '',
-    commentFilePaths:[]
+    commentFilePaths:[],
+    dtoggle:"false",
+    dDate:"",
+    dTime:"",
+    expectRemarks:''
+  },
+  expectRemarksChange(e){
+    this.setData({
+      expectRemarks:e.detail.value
+    })
+  },
+
+  saveDd(){
+    let that = this;
+    if(that.data.dDate==""||that.data.dTime==""){
+      wx.showToast({
+        title: '请选择要更改的时间后保存！',
+        icon:'none',
+        duration:2000
+      })
+    }
+    //doUpdate
+    api.fetch({
+      url: 'rest/work/doUpdate',
+      data: {
+        checkResult: that.data.orderDetail.found.selectIndex,
+        elecs: that.data.orderDetail.found.elecs, //电情况
+        postions: that.data.orderDetail.found.postions, //位置情况
+        waters: that.data.orderDetail.found.waters,
+        switchs: that.data.orderDetail.found.switchs,
+        ladder: that.data.orderDetail.found.ladder,
+        remoteConfirm: that.data.orderDetail.found.remoteConfirm,
+        workLinkId: that.data.orderDetail.found.links.id,
+        stype: 'Found',
+        id: that.data.orderDetail.found.id,
+        remarks: that.data.orderDetail.found.links.remarks,
+        floor: that.data.floor,
+        expectDate: that.data.dDate + ' ' + that.data.dTime,
+        expectRemarks: that.data.expectRemarks
+      },
+      callback: (err, result) => {
+        if (result.success) {
+          console.log(result);
+          //doSubmit
+          api.fetch({
+            url: 'rest/work/doSubmit',
+            data: {
+              bigWorkOrderId: that.data.orderDetail.found.pWrok.id,
+              workId: that.data.listItem.id,
+              status: 10,
+              stype: 'Found',
+            },
+            callback: (err, result) => {
+              if (result.success) {
+                wx.showToast({
+                  title: '修改成功！',
+                  icon:'none',
+                  duration:2000
+                })
+              }
+            }
+          })
+        }
+      }
+    })
   },
   
- 
+  updDd() {
+    this.setData({
+      dtoggle:"true"
+    })
+  },
+  bindDDateChange: function (e) {
+    this.setData({
+      dDate: e.detail.value
+    })
+  },
+  bindDTimeChange: function (e) {
+    this.setData({
+      dTime: e.detail.value
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -59,6 +137,8 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.found.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
+            expectRemarks: result.found.expectRemarks
           })
         }
       }

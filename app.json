@@ -1,7 +1,5 @@
 {
   "pages": [
-    
-    
     "pages/login/index",
     "pages/reuse/reuse-main/index",
     "pages/signMap/index",
@@ -61,7 +59,8 @@
     "pages/orderMap/mapIndex/index",
     "pages/workOrder/maintain/index",
     "pages/feedback/index",
-    "pages/workOrder/maintain/request"
+    "pages/workOrder/maintain/request",
+    "pages/orderDetail/maintain/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -90,5 +89,6 @@
     "scope.userLocation": {
       "desc": "用于统计员工位置信息"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -19,7 +19,7 @@
       </block>
     </view>
   </block>
-</view>
+</view> 
 <block wx:if="{{user.type != 2}}">
 
 <view class='middle-box'>
@@ -40,6 +40,28 @@
       </view>
     </view>
   </view>
+  <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label" style='width:80px;'>预计安装时间</view>
+      </view>
+      <view class="weui-cell__bd flex-row" >
+        <picker mode="date" class='flex-1' bindchange="bindDDateChange">
+          <view class="weui-select weui-select_in-select-after">{{dDate}}</view>
+        </picker>
+
+        <picker mode="time" class='flex-1' bindchange="bindDTimeChange">
+          <view class="weui-select weui-select_in-select-after">{{dTime}}</view>
+        </picker>
+      </view>
+    </view>
+  <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">预计安装时间备注</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput='dremarksChange' placeholder="预计安装时间备注" />
+      </view>
+    </view>
   <!--现场检测-->
     <view class="weui-cell weui-cell_input">
 

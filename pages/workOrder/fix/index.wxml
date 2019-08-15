@@ -290,7 +290,6 @@
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
     <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>维修完成</button>
     <button class='flex-1 bottom-btn' bindtap='unDoSuccess'>维修未完成</button>
-
   </view>
 </block>
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

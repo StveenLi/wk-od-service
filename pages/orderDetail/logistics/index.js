@@ -63,7 +63,8 @@ Page({
       callback: (err, result) => {
         if (result.success) {
           self.setData({
-            orderDetail: result
+            orderDetail: result,
+            date: new Date(result.delivery.links.createTime).format("yyyy-MM-dd hh:mm:ss")
           })
         }
       }

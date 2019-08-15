@@ -35,10 +35,6 @@ Page({
       'name':'销售拜访',
       'type':'sign'
       }, {
-        'code': 'WXBY',
-        'name': '日常保养',
-        'type': 'sign'
-      }, {
         'code': 'SFP',
         'name': '送发票',
         'type': 'sign'

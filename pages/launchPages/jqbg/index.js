@@ -15,7 +15,30 @@ Page({
     inputSearch: true,
     newMachineCode:'',currentItem:{},
     user:{},
-    remarks:''
+    remarks:'',
+    wares:[{whName:'请选择'}],
+    wareIndex:0 
+  },
+
+
+  findWh:function(){
+    let that = this;
+    api.fetch({
+      url: 'rest/comment/queryWh',
+      callback: (err, result) => {
+        if (result.success) {
+          that.setData({
+            wares: that.data.wares.concat(result.list)
+          })
+        }
+      }
+    })
+  },
+
+  bindWareChange:function(e){
+    this.setData({
+      wareIndex:e.detail.value
+    })
   },
   toRequestPage: function () {
     let that = this;
@@ -23,24 +46,49 @@ Page({
       url: 'request?workLinkId=' + that.data.orderDetail.repair.links.id
     })
   },
-  finalSub:function(){
+
+  subConfirm:function(){
     let that = this;
-    if (!that.data.currentItem.machineId){
+    if (!that.data.currentItem.machineId) {
       wx.showToast({
         title: '请选择正确的机器编号后再发起',
-        icon:'none',
-        duration:2000
+        icon: 'none',
+        duration: 2000
       })
       return;
     }
-    if (that.data.newMachineCode==''){
+    if (that.data.newMachineCode == '') {
       wx.showToast({
         title: '请输入新机器编号',
-        duration:2000,
-        icon:'none'
+        duration: 2000,
+        icon: 'none'
       })
       return;
     }
+    if (that.data.currentItem.machineType.indexOf('DH-60D')>-1 || that.data.currentItem.machineType.indexOf('200RE')>-1){
+      if(that.data.currentItem.idType == 2){
+        wx.showModal({
+          content: '机器是否为实验机器？',
+          confirmText: "是",
+          cancelText: "否",
+          success: function (res) {
+            console.log(res);
+            if (res.confirm) {
+              that.finalSub('Y')
+            } else {
+              that.finalSub('N')
+            }
+          }
+        });
+      }else{
+        that.finalSub('N')
+      }
+    }else{
+      that.finalSub('N')
+    }
+  },
+  finalSub:function(isTest){
+    let that = this;
     api.fetch({
       url: 'rest/work/doMachineChange',
       data: {
@@ -51,7 +99,8 @@ Page({
         newMachineNr: that.data.newMachineCode,
         macStatus:"MAC_STATUS_TO_RENOVATION",
         // photoFiles: that.data.photoFiles
-
+        type: that.data.currentItem.type,
+        isTest: isTest
       },
       callback: (err, result) => {
         if (result.success) {
@@ -121,6 +170,14 @@ Page({
   },
   inputTyping: function (e) {
     let that = this;
+    if(that.data.wareIndex == 0){
+      wx.showToast({
+        title: '请选择仓库！',
+        icon:'none',
+        duration:2000
+      })
+      return;
+    }
     this.setData({
       inputVal: e.detail.value,
       inputSearch: true
@@ -130,8 +187,9 @@ Page({
 
   getMachineOption: function (searchContent) {
     let self = this;
+    const { wares, wareIndex} = self.data
     api.fetch({
-      url: 'rest/comment/getMachines?machineNrs=' + searchContent +'&status=MAC_STATUS_TO_RENOVATION',
+      url: 'rest/comment/getMachines?machineNrs=' + searchContent + '&status=MAC_STATUS_TO_RENOVATION' + '&whId=' + wares[wareIndex].id,
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];
@@ -166,6 +224,7 @@ Page({
         })
       },
     });
+    that.findWh();
   },
 
   /**

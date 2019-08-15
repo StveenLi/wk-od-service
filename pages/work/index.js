@@ -65,6 +65,9 @@ Page({
       }, {
         'code': 'Change',
         'name': '翻修工单'
+      },{
+        'code':'Maintain',
+        'name':'保养工单'
       }],
     workStatus: [{
       'code': '',
@@ -212,6 +215,8 @@ Page({
         navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(item);
       } else if (item.workType == 'Leave') {
         navigateUrl = '/pages/orderDetail/leave/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Maintain') {
+        navigateUrl = '/pages/orderDetail/maintain/index?item=' + JSON.stringify(item);
       }
     }
 

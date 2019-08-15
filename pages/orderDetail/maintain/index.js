@@ -1,4 +1,3 @@
-// pages/workOrder/maintain/index.js
 const App = getApp();
 const api = App.api;
 Page({
@@ -65,10 +64,6 @@ Page({
     MNT2: '',
     MNT1: '',
   },
-  onConfirm: function () {
-    this.lastSubmit();
-  },
-
   getMNTFaultList: function () {
     let that = this;
     api.fetch({
@@ -77,11 +72,6 @@ Page({
         if (result.success) {
           let xwjjxs = ['请选择'];
           for (let item of result.list[0].nodes) {
-            // if (that.data.nowJX == item.dicCode) {
-            //   this.setData({
-            //     MNTIndex: xwjjxs.length
-            //   })
-            // }
             xwjjxs.push(item.dicCode);
           }
           that.setData({
@@ -91,12 +81,6 @@ Page({
       }
     })
   },
-  hideModal: function () {
-    this.setData({
-      showModal: false
-    });
-  },
-
 
   showDialogBtn: function () {
     let that = this;
@@ -116,102 +100,102 @@ Page({
       xwjxdgzs_files
     } = that.data
 
-      if (nowAddress == '') {
-        wx.showToast({
-          title: '您还未签入',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (outAddress == '') {
-        wx.showToast({
-          title: '您还未签出',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (fwbg_files.length == 0) {
-        wx.showToast({
-          title: '服务报告照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (jqmp_files.length == 0) {
-        wx.showToast({
-          title: '机器名牌照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (gzbw_files.length == 0) {
-        wx.showToast({
-          title: '故障部位照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
+    if (nowAddress == '') {
+      wx.showToast({
+        title: '您还未签入',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (outAddress == '') {
+      wx.showToast({
+        title: '您还未签出',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (fwbg_files.length == 0) {
+      wx.showToast({
+        title: '服务报告照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (jqmp_files.length == 0) {
+      wx.showToast({
+        title: '机器名牌照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (gzbw_files.length == 0) {
+      wx.showToast({
+        title: '故障部位照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
 
-      if (jqwgzp_files.length == 0) {
-        wx.showToast({
-          title: '机器外观照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (jqzxbzg_files.length == 0) {
-        wx.showToast({
-          title: '机器主洗臂、主洗缸照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (canjuquanjing_files.length == 0) {
-        wx.showToast({
-          title: '洗涤完毕餐具全景照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (fpqkjssg_files.length == 0) {
-        wx.showToast({
-          title: '分配器照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (qjjt_files.length == 0) {
-        wx.showToast({
-          title: '清洁剂桶照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }
-      if (xwjxdgzs_files.length == 0) {
-        wx.showToast({
-          title: '洗碗机洗涤工作照片必须上传！',
-          icon: 'none',
-          duration: 2000
-        })
-        return;
-      }    
-      if (that.data.orderDetail.maintain.isAudited == 0) {
-        this.setData({
-          showModal: true
-        })
-      } else {
-        this.lastSubmit();
-      }
+    if (jqwgzp_files.length == 0) {
+      wx.showToast({
+        title: '机器外观照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (jqzxbzg_files.length == 0) {
+      wx.showToast({
+        title: '机器主洗臂、主洗缸照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (canjuquanjing_files.length == 0) {
+      wx.showToast({
+        title: '洗涤完毕餐具全景照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (fpqkjssg_files.length == 0) {
+      wx.showToast({
+        title: '分配器照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (qjjt_files.length == 0) {
+      wx.showToast({
+        title: '清洁剂桶照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (xwjxdgzs_files.length == 0) {
+      wx.showToast({
+        title: '洗碗机洗涤工作照片必须上传！',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if (that.data.orderDetail.maintain.isAudited == 0) {
+      this.setData({
+        showModal: true
+      })
+    } else {
+      this.lastSubmit();
+    }
   },
 
   lastSubmit: function () {
@@ -294,35 +278,20 @@ Page({
       }
     })
   },
-
-  bindMNumTypeChange:function(e){
-    this.setData({
-      MNTIndex: e.detail.value
-    })
-  },
-
-  MNT1Change: function (e) {
-    this.setData({
-      MNT1: e.detail.value
-    })
-  },
-  MNT2Change: function (e) {
-    this.setData({
-      MNT2: e.detail.value
-    })
-  },
   loadDetail: function (item) {
     let self = this;
     api.fetch({
       url: 'rest/work/findById?workId=' + item.id + '&stype=' + item.workType,
       callback: (err, result) => {
         if (result.success) {
+          self.getMNTFaultList();
           let fis = [];
           let videoFis = [];
           let allFis = [];
           let jqjxArray = [];
+          
           if (result.maintain.photoFiles instanceof Array) {
-            self.getMNTFaultList();
+
             for (let item of result.maintain.photoFiles) {
               // fis.push(item.url);
               if (item.fileType == "VIDEO") {
@@ -375,9 +344,9 @@ Page({
                   xwjxdgzs_files: new Array().concat(item)
                 })
               }
-              
+
             }
-            
+
           }
           if (result.maintain.machineNr != null) {
             jqjxArray = result.maintain.machineNr.split('/');
@@ -491,6 +460,8 @@ Page({
         })
       },
     });
+
+    console.log(options)
     let item = JSON.parse(options.item);
     this.setData({
       listItem: JSON.parse(options.item)
@@ -566,6 +537,8 @@ Page({
       }
     })
   },
+
+  
 
   toSignInMap: function () {
     let that = this;
@@ -747,6 +720,14 @@ Page({
       mengbdis: '',
     })
     that._download(that.data.upVideoArr[0].tempFilePath);
+  },
+
+
+  previewImage: function (e) {
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.files // 需要预览的图片http链接列表
+    })
   },
 
   delFile: function (e) {

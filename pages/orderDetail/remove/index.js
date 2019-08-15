@@ -38,6 +38,7 @@ Page({
           }
           self.setData({
             orderDetail: result,
+            date: new Date(result.dell.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             outAddress: result.signInAddress,
             nowAddress: result.signOutAddress,
             files:fis

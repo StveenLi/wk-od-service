@@ -62,8 +62,48 @@ wx.getSystemInfo({
       azqjjt_files:[], 
       xwjxdgzss_files:[], 
       xdwbqcdcc_files:[], 
-      other_files:[]
+      other_files:[],
+      scancodes:'',
+
     },
+
+  getScancode: function () {
+    var _this = this;
+    const { orderDetail, user } = _this.data
+    // 允许从相机和相册扫码
+    wx.scanCode({
+      success: (res) => {
+        let scancodes = res.result.split('idCard=')[1];
+        
+        api.fetch({
+          url: 'rest/twocode/doAdd',
+          data: {
+            workLinkId: orderDetail.intall.links.id,
+            twoCodeId: scancodes,
+            userId: user.userId,
+            wr: orderDetail.intall.pWrok.wr,
+            projectId: orderDetail.intall.pWork.projectId
+          },
+          callback: (err, result) => {
+            if (result.success) {
+              _this.setData({
+                scancodes: scancodes
+              })
+              wx.showToast({
+                title: '绑定成功',
+              })
+            }else{
+              wx.showToast({
+                title: result.msg,
+                icon:'none',
+                duration:2000
+              })
+            }
+          }
+        })
+      }
+    })
+  },
   bindMNumTypeChange: function (e) {
     this.setData({
       MNTIndex: e.detail.value
@@ -87,11 +127,6 @@ wx.getSystemInfo({
         if (result.success) {
           let xwjjxs = ['请选择'];
           for (let item of result.list[0].nodes) {
-            // if (that.data.nowJX == item.dicCode) {
-            //   this.setData({
-            //     MNTIndex: xwjjxs.length+1
-            //   })
-            // }
             xwjjxs.push(item.dicCode);
           }
           that.setData({
@@ -103,15 +138,6 @@ wx.getSystemInfo({
   },
     lastSubmit: function(e) {
       let that = this;
-      //doUpdate
-      // if (that.data.inputVal == '') {
-      //   wx.showToast({
-      //     title: '请确认您维修的机器编号',
-      //     icon: 'none',
-      //     duration: 2000
-      //   })
-      //   return;
-      // }
       let macCode = ''
       if(that.data.orderDetail.intall.isAudited == 0){
 
@@ -208,7 +234,6 @@ wx.getSystemInfo({
 
       let finalFiles = fqbgaz_files;
       // finalFiles.concat( anzhuangjqmp_files, jqqsz_files, kjssg_files, azqjjt_files, xwjxdgzss_files, xdwbqcdcc_files, other_files);
-      console.log(finalFiles)
       api.fetch({
         url: 'rest/work/doUpdate',
         data: {
@@ -553,6 +578,7 @@ wx.getSystemInfo({
 
             self.setData({
               orderDetail: result,
+              date: new Date(result.intall.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
               nowAddress: result.signInAddress == null ? '' : result.signInAddress,
               outAddress: result.signOutAddress == null ? '' : result.signOutAddress,
               files: fis,
@@ -561,7 +587,14 @@ wx.getSystemInfo({
               MNT2: jqjxArray[2],
               nowJX: jqjxArray[1],
               signImg:result.intall.signUrl
+
             })
+
+            if (result.intall.isBinding == 'Y'){
+              self.setData({
+                scancodes: result.intall.twoCodeId
+              })
+            }
             self._seeDoneChange();
             self.getMNTFaultList();
 
@@ -806,7 +839,21 @@ wx.getSystemInfo({
     }
 
     if(that.data.orderDetail.intall.isAudited == 1){
-      this.lastSubmit();
+      wx.showModal({
+        content: '该机器系统编号为' + that.data.orderDetail.intall.machineNrs +'，如实际机编与系统机编不符，点击不提交，工作时间联系客服。如相符，点击提交!',
+        showCancel:true,
+
+        cancelText:'不提交',
+        cancelColor:'#3c8df9',
+        confirmColor:'#3c8df9',
+        confirmText:'提交',
+        success:function(res){
+          if(res.confirm){
+            that.lastSubmit();
+          }
+        }
+      })
+      
     }else{
       this.setData({
         showModal: true

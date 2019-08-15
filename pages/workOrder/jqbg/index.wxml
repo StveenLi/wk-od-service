@@ -141,9 +141,10 @@
 
   </view>
 
-  <comment-view comments="{{orderDetail.comments}}"></comment-view>
 
 </block>
+  <comment-view comments="{{orderDetail.comments}}"></comment-view>
+
 <block wx:if="{{user.type == 2}}">
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
 </block>
@@ -153,4 +154,5 @@
     <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
   </view>
 </block>
+
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

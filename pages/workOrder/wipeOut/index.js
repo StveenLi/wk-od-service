@@ -80,6 +80,7 @@ Page({
           if(self.data.firstToNowPage){
             self.setData({
               remarks: result.dWipe.remarks,
+              date: new Date(result.dWipe.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
               glgq: result.dWipe.roadToll,
               p: result.dWipe.parkToll,
               other: result.dWipe.otherToll,

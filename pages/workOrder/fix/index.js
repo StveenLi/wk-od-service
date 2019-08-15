@@ -539,7 +539,8 @@ Page({
             upVideoArr: videoFis,
             MNT1: jqjxArray[0],
             MNT2: jqjxArray[2],
-            nowJX: jqjxArray[1]
+            nowJX: jqjxArray[1],
+            date: new Date(result.repair.links.createTime).format("yyyy-MM-dd hh:mm:ss")
           })
           this.getMNTFaultList();
 

@@ -52,6 +52,21 @@
   z-index: 199;
 
 }
+
+.lunbo-viewi{
+  color: #3c8df9;
+  font-size: 18px;
+  padding: 2px;
+    position:fixed;
+  top: 90px;
+  left: 0px;
+  width: 72px;
+  background: rgb(196, 195, 197);
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 0 10px 0 rgba(143, 141, 145,0.5);
+  z-index: 199;
+}
+
 .r-lunbo-view{
   color: #3c8df9;
     /* font-size: 18px; */

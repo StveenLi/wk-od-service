@@ -35,7 +35,7 @@
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签入</view>
-        <view class='padding-5 work-order-content' >
+        <view class='padding-5 work-order-content'>
           <block wx:if='{{nowAddress==""}}'>
             <text bindtap='locationSignIn'>去签入 ></text>
           </block>
@@ -74,90 +74,73 @@
         <input class="weui-input" bindinput='remarkChange' placeholder="备注" />
       </view>
     </view>
+    <view class='flex-row'>
+      <img-uploader wkType="install" ptFiles="{{fqbgaz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装服务报告" imgCode="fqbgaz" bindcsip="_fqbgaz_setImgPath" />
 
-    <!-- <view class="border-bottom-gainsboro">
-      <view class="weui-cells">
-        <view class="weui-cell">
-          <view class="weui-cell__bd">
-            <view class="weui-uploader">
-              <view class="weui-uploader__hd">
-                <view class="weui-uploader__title">图片附件上传</view>
-                <view class="weui-uploader__info">{{files.length}}</view>
-              </view>
-              <view class="weui-uploader__bd">
-                <view class="weui-uploader__files" id="uploaderFiles">
-                  <block wx:for="{{files}}" wx:key="*this">
-                    <view class="weui-uploader__file" style='position:relative' id="{{item}}">
-                      <image class='del-img' bindtap='delImage' data-currentImg='{{item}}' src='/images/del.png'></image>
+      <img-uploader wkType="install" ptFiles="{{anzhuangjqmp_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装机器名牌" imgCode="anzhuangjqmp" bindcsip="_anzhuangjqmp_setImgPath" />
 
-                      <image class="weui-uploader__img" bindtap="previewImage" src="{{item}}" mode="aspectFill" />
-                    </view>
-                  </block>
-                </view>
-                <view class="weui-uploader__input-box">
-                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                </view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view> -->
+      <img-uploader wkType="install" ptFiles="{{jqqsz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="机器全身照" imgCode="jqqsz" bindcsip="_jqqsz_setImgPath" />
+    </view>
     <view class='flex-row'>
 
-    <img-uploader wkType="install" ptFiles="{{fqbgaz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装服务报告" imgCode="fqbgaz" bindcsip="_fqbgaz_setImgPath" />
+      <img-uploader wkType="install" ptFiles="{{kjssg_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装分配器（可见输送管）" imgCode="kjssg" bindcsip="_kjssg_setImgPath" />
 
-    <img-uploader wkType="install" ptFiles="{{anzhuangjqmp_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装机器名牌" imgCode="anzhuangjqmp" bindcsip="_anzhuangjqmp_setImgPath"/>
+      <img-uploader wkType="install" ptFiles="{{azqjjt_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装清洁剂桶" imgCode="azqjjt" bindcsip="_azqjjt_setImgPath" />
 
-    <img-uploader wkType="install" ptFiles="{{jqqsz_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="机器全身照" imgCode="jqqsz" bindcsip="_jqqsz_setImgPath"/>
-</view>
-<view class='flex-row'>
+      <img-uploader wkType="install" ptFiles="{{xwjxdgzss_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗碗机洗涤工作" imgCode="xwjxdgzss" bindcsip="_xwjxdgzss_setImgPath" />
+    </view>
+    <view class='flex-row'>
 
-    <img-uploader wkType="install" ptFiles="{{kjssg_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装分配器（可见输送管）" imgCode="kjssg" bindcsip="_kjssg_setImgPath"/>
-
-    <img-uploader wkType="install" ptFiles="{{azqjjt_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="安装清洁剂桶" imgCode="azqjjt" bindcsip="_azqjjt_setImgPath"/>
-
-    <img-uploader wkType="install" ptFiles="{{xwjxdgzss_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗碗机洗涤工作" imgCode="xwjxdgzss" bindcsip="_xwjxdgzss_setImgPath"/>
-</view>
-<view class='flex-row'>
-
-    <img-uploader wkType="install" ptFiles="{{xdwbqcdcc_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗涤完毕的餐具全景" imgCode="xdwbqcdcc" bindcsip="_xdwbqcdcc_setImgPath"/>
-<!-- <img-uploader wkType="install" ptFiles="{{photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="其它照片" imgCode="" bindcsip="_other_setImgPath"/> -->
-</view>
-
-<block wx:if="{{!showPopup}}">
-    <view class='content'>
+      <img-uploader wkType="install" ptFiles="{{xdwbqcdcc_photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="洗涤完毕的餐具全景" imgCode="xdwbqcdcc" bindcsip="_xdwbqcdcc_setImgPath" />
+      <!-- <img-uploader wkType="install" ptFiles="{{photoFiles}}" wkId="{{orderDetail.intall.id}}" imgTitle="其它照片" imgCode="" bindcsip="_other_setImgPath"/> -->
+    </view>
+    <view class="weui-cell weui-cell_input border-bottom-gainsboro">
       <view class="weui-cell__hd">
-        <view class="weui-label">签字确认</view>
+        <view class="weui-label">二维码绑定</view>
       </view>
-      <block wx:if="{{signImg==''||signImg==null}}">
-        <canvas class='firstCanvas' canvas-id="firstCanvas" bindtouchmove='move' bindtouchstart='start' bindtouchend='end' bindtouchcancel='cancel' bindlongtap='tap' disable-scroll='true' binderror='error'>
-        </canvas>
-      </block>
-      <block wx:if="{{signImg!=''&&signImg!=null}}">
-        <image src='{{signImg}}'></image>
-      </block>
-
-      <view class='flex-row'>
-        <button class='mini-btn' type="primary" size='mini' bindtap='clearClick'>清除</button>
-        <button class='mini-btn' type="primary" size='mini' bindtap='saveClick'>保存图片</button>
-        <!-- <image id='signatureImg' src='{{signImage}}'></image> -->
+      <view class="weui-cell__bd" style="text-align:right;padding-top:5px" bindtap="getScancode">
+        <image src="/images/sao.png" style="width:20px;height:20px"></image>
       </view>
     </view>
-</block>
+    <block wx:if="{{scancodes!=''}}">
+      <view class="weui-cell weui-cell_input">
+        <view class='flex-row box-all'>
+          <view class='flex-1 padding-5'>二维码ID</view>
+          <view class='padding-5 work-order-content'>{{scancodes}}</view>
+        </view>
+      </view>
+      </block>
+    <block wx:if="{{!showPopup}}">
+      <view class='content'>
+        <view class="weui-cell__hd">
+          <view class="weui-label" style="padding:7px 15px">签字确认</view>
+        </view>
+        <block wx:if="{{signImg==''||signImg==null}}">
+          <canvas class='firstCanvas' canvas-id="firstCanvas" bindtouchmove='move' bindtouchstart='start' bindtouchend='end' bindtouchcancel='cancel' bindlongtap='tap' disable-scroll='true' binderror='error'>
+          </canvas>
+        </block>
+        <block wx:if="{{signImg!=''&&signImg!=null}}">
+          <image src='{{signImg}}'></image>
+        </block>
+        <view class='flex-row'>
+          <button class='mini-btn' type="primary" size='mini' bindtap='clearClick'>清除</button>
+          <button class='mini-btn' type="primary" size='mini' bindtap='saveClick'>保存图片</button>
+          <!-- <image id='signatureImg' src='{{signImage}}'></image> -->
+        </view>
+      </view>
+    </block>
 
     <view class="weui-cell weui-cell_input" style='margin-top:5px'>
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签出</view>
         <view class='padding-5 work-order-content'>
-            <block wx:if='{{outAddress==""}}'>
-              <text bindtap='loactionSignOut'>去签出 ></text>
-            </block>
-            <block wx:else>
-              <text bindtap='toSignOutMap'>地址微调 ></text>
-            </block>
-          </view>
-        <!-- <view class='padding-5 work-order-content' bindtap='loactionSignOut'>去签出 ></view> -->
+          <block wx:if='{{outAddress==""}}'>
+            <text bindtap='loactionSignOut'>去签出 ></text>
+          </block>
+          <block wx:else>
+            <text bindtap='toSignOutMap'>地址微调 ></text>
+          </block>
+        </view>
       </view>
     </view>
     <block wx:if="{{outAddress!=''}}">
@@ -168,15 +151,12 @@
         </view>
       </view>
     </block>
-
-
   </view>
   <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
   <view class="modal-dialog" wx:if="{{showModal}}">
     <view class="modal-title">确认机器编号</view>
     <view class="modal-content">
       <view class="modal-input">
-        <!-- <input placeholder-class="input-holder" type="text" value='{{MNT1}}' bindinput="MNT1Change" class="input" placeholder=""></input> -->
         <input placeholder-class="input-holder" type="text" bindinput="MNT1Change" class="input" placeholder=""></input>
         <view class="weui-cell weui-cell_select" style='margin-left:-20px;'>
           <view class="weui-cell__bd">
@@ -185,7 +165,6 @@
             </picker>
           </view>
         </view>
-        <!-- <input placeholder-class="input-holder" type="text" value='{{MNT2}}' bindinput="MNT2Change" class="input" placeholder=""></input> -->
         <input placeholder-class="input-holder" type="text" bindinput="MNT2Change" class="input" placeholder=""></input>
       </view>
     </view>
@@ -194,13 +173,13 @@
       <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
     </view>
   </view>
-<comment-view comments="{{orderDetail.comments}}"></comment-view>
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
     <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
   </view>
 </block>
-<block wx:if="{{user.type == 2}}">
+<comment-view comments="{{orderDetail.comments}}"></comment-view>
+ <block wx:if="{{user.type == 2}}">
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
 </block>
-<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>
+<comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>  

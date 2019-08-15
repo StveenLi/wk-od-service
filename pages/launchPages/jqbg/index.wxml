@@ -4,7 +4,16 @@
 <view class="work-item view-shadow">
   <view style='text-align:center;padding:10px 0'>发起翻修单</view>
 
-
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">选择仓库</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="bindWareChange" value="{{wareIndex}}" range="{{wares}}" range-key="whName">
+        <view class="weui-select weui-select_in-select-after">{{wareIndex === 0?'请选择':wares[wareIndex].whName}}</view>
+      </picker>
+    </view>
+  </view>
   <view class="weui-cell weui-cell_select">
     <view class="weui-cell__hd weui-cell__hd_in-select-after" style='width:60px;'>
       <view class="weui-label">机器编号</view>
@@ -100,5 +109,5 @@
 
 
 <view class='bottom-btn-view flex-row'>
-  <button class='flex-1 bottom-btn' bindtap='finalSub'>发起</button>
+  <button class='flex-1 bottom-btn' bindtap='subConfirm'>发起</button>
 </view>

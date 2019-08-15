@@ -38,8 +38,50 @@
       </view>
     </view>
   </view>
-  <block wx:if="{{orderDetail.found.remoteConfirm == 'false'}}">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">预计安装时间</view>
+    </view>
+    <block wx:if="{{dtoggle == 'false'}}">
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='remarkChange' placeholder="{{orderDetail.found.expectDate}}" disabled='{{dtoggle}}' />
+    </view>
+    </block>
+    <block wx:else>
+      <view class="weui-cell__bd flex-row" >
+        <picker mode="date" class='flex-1' bindchange="bindDDateChange">
+          <view class="weui-select weui-select_in-select-after">{{dDate}}</view>
+        </picker>
 
+        <picker mode="time" class='flex-1' bindchange="bindDTimeChange">
+          <view class="weui-select weui-select_in-select-after">{{dTime}}</view>
+        </picker>
+      </view>
+    </block>
+  </view>
+  
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">预计安装时间备注</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput='expectRemarksChange' placeholder="{{orderDetail.found.expectRemarks}}" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">预计安装时间备注</view>
+    </view>
+    <view class="weui-cell__bd middle-all" style='padding-top:5px'>
+      <button class='mini-btn' type="primary" size='mini' bindtap='updDd'>修改</button>
+    </view>
+    <block wx:if="{{dtoggle == 'true'}}">
+    <view class="weui-cell__bd middle-all" style='padding-top:5px'>
+      <button class='mini-btn' type="primary" size='mini' bindtap='saveDd'>保存</button>
+    </view>
+    </block>
+  </view>
+  <block wx:if="{{orderDetail.found.remoteConfirm == 'false'}}">
     <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
         <view class='flex-1 padding-5'>签入</view>

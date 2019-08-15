@@ -37,7 +37,8 @@ wx.getSystemInfo({
       showPopup:false,
       user:{},
       commentVal:'',
-      commentFilePaths:[]
+      commentFilePaths:[],
+      scancodes:''
     },
   previewImage: function (e) {
     wx.previewImage({
@@ -122,8 +123,14 @@ wx.getSystemInfo({
             }
             self.setData({
               orderDetail: result,
+              date: new Date(result.intall.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
               files:fis
             })
+            if (result.intall.isBinding == 'Y') {
+              self.setData({
+                scancodes: result.intall.twoCodeId
+              })
+            }
           }
         }
       });

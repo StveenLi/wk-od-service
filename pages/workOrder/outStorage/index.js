@@ -140,6 +140,8 @@ Page({
           // let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
+            date: new Date(result.outbox.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
+
             qjjstepper: {
               stepper: result.outbox.qjClean,
               min: 0,
@@ -314,8 +316,26 @@ Page({
     if (orderDetail.outbox.pWrok.code == "Exchange"){
       macModel = orderDetail.outbox.machineType
     }
+    let idType = '';
+    let pwr = orderDetail.outbox.pWrok.wr;
+    if (pwr != null){
+      if(pwr.indexOf('FQ') > 0){
+        idType = 1
+      }else{
+        idType = 2
+      }
+    }else{
+      idType = ''
+    }
+    
     api.fetch({
-      url: 'rest/comment/getMachines?whId=' + whId + '&machineNrs=' + searchContent + '&status=' + status,
+      url: 'rest/comment/getMachines',
+      data:{
+        whId:whId,
+        machineNrs: searchContent,
+        status: status,
+        idType: idType
+      },
       callback: (err, result) => {
         if (result.success) {
           let storageMachines = [];

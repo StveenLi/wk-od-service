@@ -47,7 +47,25 @@ Page({
     user: {},
     commentFilePaths:[],
     commentVal:'',
-    floor:''
+    floor:'',
+    dDate:'',
+    dTime:'',
+    dRemarks:''
+  },
+  bindDDateChange:function(e){
+    this.setData({
+      dDate:e.detail.value
+    })
+  },
+  bindDTimeChange:function(e){
+    this.setData({
+      dTime:e.detail.value
+    })
+  },
+  dremarksChange:function(e){
+    this.setData({
+      dRemarks:e.detail.value
+    })
   },
 
   floorChange:function(e){
@@ -85,6 +103,23 @@ Page({
         return;
       }
     }
+    if(that.data.dDate==''||that.data.dTime==''){
+        wx.showToast({
+          title: '请选择预计安装时间',
+          icon: 'none',
+          duration: 2000
+        })
+        return;
+    }
+    if (that.data.dTime == '') {
+      wx.showToast({
+        title: '请选择预计安装时间',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+
     //doUpdate
     api.fetch({
 
@@ -102,11 +137,12 @@ Page({
         stype: 'Found',
         id: that.data.orderDetail.found.id,
         remarks: that.data.remarks,
-        floor:that.data.floor
+        floor: that.data.floor == "" ? "暂无":that.data.floor,
+        expectDate:that.data.dDate+' '+that.data.dTime,
+        expectRemarks:that.data.dRemarks
       },
       callback: (err, result) => {
         if (result.success) {
-          console.log(result);
           //doSubmit
           api.fetch({
             url: 'rest/work/doSubmit',
@@ -272,6 +308,8 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.found.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
+
           })
         }
         self._seeDoneChange();

@@ -136,6 +136,7 @@ Page({
 
           self.setData({
             orderDetail: result,
+            date: new Date(result.repair.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             isPhoneFix: result.repair.isPhoneFix,
             files: fis,
             upVideoArr: videoFis,

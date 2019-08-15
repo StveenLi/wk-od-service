@@ -18,7 +18,6 @@ Page({
   onLoad: function (options) {
     let that = this;
     let item = JSON.parse(options.item);
-    console.log(item);
     this.setData({
       listItem: JSON.parse(options.item)
     })
@@ -44,6 +43,14 @@ Page({
   toChange:function(){
     let that = this;
     let navigateUrl = '/pages/launchDetail/jqbg/index?item=' + JSON.stringify(that.data.orderDetail.workDto);
+    wx.navigateTo({
+      url: navigateUrl,
+    })
+  },
+  toMaintain:function(){
+    let that = this;
+    console.log(JSON.stringify(that.data.orderDetail.workDto))
+    let navigateUrl = '/pages/orderDetail/maintain/index?item=' + JSON.stringify(that.data.orderDetail.workDto);
     wx.navigateTo({
       url: navigateUrl,
     })

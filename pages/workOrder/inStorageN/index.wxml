@@ -132,12 +132,13 @@
 
   
 
-  <comment-view comments="{{orderDetail.comments}}"></comment-view>
   <view class='bottom-btn-view flex-row'>
     <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
     <button class='flex-1 bottom-btn' bindtap='lastSubmit'>提交</button>
   </view>
 </block>
+  <comment-view comments="{{orderDetail.comments}}"></comment-view>
+
 <block wx:if="{{user.type == 2}}">
   <button class='bottom-btn-view' bindtap='toCommit'>评论</button>
 </block>

@@ -93,6 +93,7 @@ Page({
           }
           self.setData({
             orderDetail: result,
+            date: new Date(result.dell.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             nowAddress: result.signInAddress == null ? '' : result.signInAddress,
             signInTime:result.signInTime,
             signOutTime:result.signOutTime,
@@ -263,41 +264,55 @@ Page({
       })
       return;
     }
-    
-    api.fetch({
 
-      url: 'rest/work/doUpdate',
-      data: {
-        closeDate: that.data.date,
-        photoFiles: that.data.photoFiles,
-        remarks: that.data.remarks,
-        workLinkId: that.data.orderDetail.dell.links.id,
-        stype: 'Dell',
-        id: that.data.orderDetail.dell.id,
-        dellReason: that.data.removeRs[that.data.removeRIndex].dicCode
-      },
-      callback: (err, result) => {
-        //doSubmit
-        api.fetch({
-          url: 'rest/work/doSubmit',
-          data: {
-            bigWorkOrderId: that.data.orderDetail.dell.pWrok.id,
-            workId: that.data.listItem.id,
-            status: 10,
-            stype: 'Dell'
-          },
-          callback: (err, result) => {
-            console.log(result);
-            if (result.success) {
-              // wx.redirectTo({
-              //   url: '../../work/index?listType=workOrder',
-              // })
-              wx.navigateBack({})
+    wx.showModal({
+      content: '该机器系统编号为' + that.data.orderDetail.dell.machineNrs + '，如实际机编与系统机编不符，点击不提交，工作时间联系客服。如相符，点击提交!',
+      showCancel: true,
+      cancelText: '不提交',
+      cancelColor: '#3c8df9',
+      confirmColor: '#3c8df9',
+      confirmText: '提交',
+      success: function (res) {
+        if (res.confirm) {
+          api.fetch({
+
+            url: 'rest/work/doUpdate',
+            data: {
+              closeDate: that.data.date,
+              photoFiles: that.data.photoFiles,
+              remarks: that.data.remarks,
+              workLinkId: that.data.orderDetail.dell.links.id,
+              stype: 'Dell',
+              id: that.data.orderDetail.dell.id,
+              dellReason: that.data.removeRs[that.data.removeRIndex].dicCode
+            },
+            callback: (err, result) => {
+              //doSubmit
+              api.fetch({
+                url: 'rest/work/doSubmit',
+                data: {
+                  bigWorkOrderId: that.data.orderDetail.dell.pWrok.id,
+                  workId: that.data.listItem.id,
+                  status: 10,
+                  stype: 'Dell'
+                },
+                callback: (err, result) => {
+                  console.log(result);
+                  if (result.success) {
+                    // wx.redirectTo({
+                    //   url: '../../work/index?listType=workOrder',
+                    // })
+                    wx.navigateBack({})
+                  }
+                }
+              })
             }
-          }
-        })
+          })
+        }
       }
     })
+    
+    
   },
   remarkChange: function(e) {
     this.setData({

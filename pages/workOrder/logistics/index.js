@@ -266,6 +266,7 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.delivery.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             goSignAddress: result.depart == null ? '' : result.depart,
             arriveSignAddress: result.reach == null ? '' : result.reach,
             returnSignAddress: result.back == null?'':result.back,

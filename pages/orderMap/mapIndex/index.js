@@ -28,65 +28,75 @@ Page({
         height: 30
       },
       clickable: true
-    }, {
-        id: 10,
-        iconPath: '/images/icon/bj.png',
-        position: {
-          left: 80,
-          top: 0,
-          width: 30,
-          height: 30
-        },
-        clickable: true
-      },
-      {
-        id: 20,
-        iconPath: '/images/icon/bx.png',
-        position: {
-          left: 10,
-          top: 0,
-          width: 30,
-          height: 30
-        },
-        clickable: true
-      }
+    }
+    // , {
+    //     id: 10,
+    //     iconPath: '/images/icon/bj.png',
+    //     position: {
+    //       left: 80,
+    //       top: 0,
+    //       width: 30,
+    //       height: 30
+    //     },
+    //     clickable: true
+    //   },
+    //   {
+    //     id: 20,
+    //     iconPath: '/images/icon/bx.png',
+    //     position: {
+    //       left: 10,
+    //       top: 0,
+    //       width: 30,
+    //       height: 30
+    //     },
+    //     clickable: true
+    //   }
     ]
   },
   regionchange(e) {
   },
   markertap(e) {
     let item = e.markerId;
+    
     let navigateUrl = '';
-    if (item.workType == 'Repair') {
-      navigateUrl = '/pages/workOrder/fix/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Install') {
-      navigateUrl = '/pages/workOrder/install/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Inbox') {
-      navigateUrl = '/pages/workOrder/inStorageN/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Delivery') {
-      navigateUrl = '/pages/workOrder/logistics/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Found') {
-      navigateUrl = '/pages/workOrder/searched/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Outbox') {
-      navigateUrl = '/pages/workOrder/outStorage/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Dell') {
-      navigateUrl = '/pages/workOrder/remove/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'MoneyAsk') {
-      navigateUrl = '/pages/workOrder/moneyAsk/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Patch') {
-      navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'DWipe') {
-      navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Leave') {
-      navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Change') {
-      navigateUrl = '/pages/workOrder/jqbg/index?item=' + JSON.stringify(item);
-    } else if (item.workType == 'Maintain') {
-      navigateUrl = '/pages/workOrder/maintain/index?item=' + JSON.stringify(item);
+    if (item.canDO == 'Y') {
+      if (item.workType == 'Repair') {
+        navigateUrl = '/pages/workOrder/fix/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Install') {
+        navigateUrl = '/pages/workOrder/install/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Inbox') {
+        navigateUrl = '/pages/workOrder/inStorageN/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Delivery') {
+        navigateUrl = '/pages/workOrder/logistics/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Found') {
+        navigateUrl = '/pages/workOrder/searched/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Outbox') {
+        navigateUrl = '/pages/workOrder/outStorage/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Dell') {
+        navigateUrl = '/pages/workOrder/remove/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'MoneyAsk') {
+        navigateUrl = '/pages/workOrder/moneyAsk/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Patch') {
+        navigateUrl = '/pages/workOrder/parts/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'DWipe') {
+        navigateUrl = '/pages/workOrder/wipeOut/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Leave') {
+        navigateUrl = '/pages/workOrder/leave/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Change') {
+        navigateUrl = '/pages/workOrder/jqbg/index?item=' + JSON.stringify(item);
+      } else if (item.workType == 'Maintain') {
+        navigateUrl = '/pages/workOrder/maintain/index?item=' + JSON.stringify(item);
+      }
+      wx.navigateTo({
+        url: navigateUrl,
+      })
+    }else{
+      wx.showToast({
+        title: '这个工单还不能做，请等待工单流程。',
+        icon:'none',
+        duration:2000
+      })
     }
-    wx.navigateTo({
-      url: navigateUrl,
-    })
   },
   controltap(e) {
     var that = this;
@@ -154,6 +164,9 @@ Page({
                   markets.push(market);
                 } else if (item.workType == 'Maintain') {
                   market.iconPath = '/images/icon_wo/baoyang.png'
+                  markets.push(market);
+                } else if (item.workType == 'Found') {
+                  market.iconPath = '/images/icon_wo/kancha.png'
                   markets.push(market);
                 }
               }

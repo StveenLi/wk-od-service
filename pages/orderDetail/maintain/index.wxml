@@ -21,7 +21,7 @@
     </view>
   </block>
 </view>
-<block wx:if="{{user.type != 2}}">
+
 <view class='middle-box'>
   <view class="weui-cell weui-cell_input">
       <view class='flex-row box-all'>
@@ -33,12 +33,8 @@
         <view class='flex-row box-all'>
           <view class='flex-1 padding-5'>签入</view>
           <view class='padding-5 work-order-content'>
-            <block wx:if='{{nowAddress==""}}'>
-              <text bindtap='locationSignIn'>去签入 ></text>
-            </block>
-            <block wx:else>
-              <text bindtap='toSignInMap'>地址微调 ></text>
-            </block>
+            
+            
           </view>
           <!-- <view class='padding-5 work-order-content' bindtap='locationSignIn'>去签入 ></view> -->
         </view>
@@ -51,14 +47,7 @@
           </view>
         </view>
       </block>
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell weui-cell_switch ">
-      <view class="weui-cell__bd">申请配件</view>
-      <view class="weui-cell__ft work-order-content" bindtap="toRequestPage">
-        去申请 >
-      </view>
-    </view>
-  </view>
+
   <view class=" weui-cells_after-title border-bottom-gainsboro" style='margin:0 15px'>
     <view class=" weui-cell_switch">
       <view class="weui-cell__bd"></view>
@@ -68,7 +57,6 @@
       <view style='color:#999'>
         <view style='background:#F4F4F4;color:black;display:flex;flex-direction:row;'>
           <view class='flex-1'>申请补件单ID:{{item[0].wId}}</view>
-          <view class='btn-block' data-pa="{{item}}" bindtap='delParts'>删除</view>
         </view>
         <view wx:for="{{item}}" wx:key="*this">
           <view> {{item.groupName}}*{{item.groupValue}} </view>
@@ -76,21 +64,29 @@
       </view>
     </view>
   </view>
-  <view class='flex-row'>
-        <img-uploader wkType="Maintain" ptFiles="{{fwbg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="服务报告" imgCode="fwbg" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{jqmp_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器名牌" imgCode="jqmp" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{gzbw_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="故障部位" imgCode="gzbw" bindcsip="setImgPath" />
+  <view class="page__bd">
+      <view class="weui-cells">
+        <view class="weui-cell">
+          <view class="weui-cell__bd">
+            <view class="weui-uploader">
+              <view class="weui-uploader__hd">
+                <view class="weui-uploader__title">图片附件</view>
+              </view>
+              <view class="weui-uploader__bd">
+                <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{orderDetail.maintain.photoFiles}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="{{item.url}}"> 
+                      <image class="weui-uploader__img" src="{{item.url}}" mode="aspectFill" />
+                        <view style='text-align:center'>{{item.fileName == null?'-':item.fileName}}</view>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
       </view>
-      <view class='flex-row'>
-        <img-uploader wkType="Maintain" ptFiles="{{jqwgzp_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器外观照片" imgCode="jqwgzp" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{jqzxbzg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="机器主洗臂+主洗缸" imgCode="jqzxbzg" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{fpqkjssg_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="分配器（可见输送管）" imgCode="fpqkjssg" bindcsip="setImgPath" />
-      </view>
-      <view class='flex-row'>
-        <img-uploader wkType="Maintain" ptFiles="{{qjjt_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="清洁剂桶" imgCode="qjjt" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{xwjxdgzs_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="洗碗机洗涤工作时" imgCode="xwjxdgzs" bindcsip="setImgPath" />
-        <img-uploader wkType="Maintain" ptFiles="{{canjuquanjing_photoFiles}}" wkId="{{orderDetail.maintain.id}}" imgTitle="洗涤完毕取出的餐具全景" imgCode="canjuquanjing" bindcsip="setImgPath" />
-      </view>
+    </view>
 
 
       <view class="optClass">
@@ -109,9 +105,6 @@
                   <block wx:else>
                     <image src='/images/videoPlay.jpg' style='width:150px;height:150px;' bindtap='_downTheVideo'></image>
                   </block>
-            
-            <cover-view class='delbtn' data-index="{{index}}" data-type="video" bindtap='delFile' data-currentImg='{{item}}'>X</cover-view>
-
           </view>
 
           <view class='uploadimgbox' wx:if="{{upFilesBtn}}">
@@ -126,12 +119,7 @@
         <view class='flex-row box-all'>
           <view class='flex-1 padding-5'>签出</view>
           <view class='padding-5 work-order-content'>
-            <block wx:if='{{outAddress==""}}'>
-              <text bindtap='loactionSignOut'>去签出 ></text>
-            </block>
-            <block wx:else>
-              <text bindtap='toSignOutMap'>地址微调 ></text>
-            </block>
+          
           </view>
           <!-- <view class='padding-5 work-order-content' bindtap='loactionSignOut'>去签出 ></view> -->
         </view>
@@ -144,39 +132,10 @@
           </view>
         </view>
       </block>
-      <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-  <view class="modal-dialog" wx:if="{{showModal}}">
-    <view class="modal-title">确认机器编号</view>
-    <view class="modal-content">
-      <view class="modal-input">
-        <input placeholder-class="input-holder" type="text" bindinput="MNT1Change" class="input" placeholder=""></input>
-        <view class="weui-cell weui-cell_select" style='margin-left:-20px;'>
-          <view class="weui-cell__bd">
-            <picker bindchange="bindMNumTypeChange" style='width:110px;' value="{{MNTIndex}}" range="{{MNTItems}}">
-              <view class="weui-select weui-select_in-select-after">{{MNTItems[MNTIndex]}}</view>
-            </picker>
-          </view>
-        </view>
-        <input placeholder-class="input-holder" type="text" bindinput="MNT2Change" class="input" placeholder=""></input>
-      </view>
-    </view>
-    <view class="modal-footer">
-      <view class="btn-cancel" bindtap="hideModal" data-status="cancel">取消</view>
-      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
-    </view>
-  </view>
 </view>
-</block>
 <comment-view comments="{{orderDetail.comments}}"></comment-view>
-<block wx:if="{{user.type != 2}}">
-<view class='bottom-btn-view flex-row'>
-  <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
-  <button class='flex-1 bottom-btn' bindtap='showDialogBtn'>提交</button>
-</view>
-</block>
-<block wx:else>
+
 <view class='bottom-btn-view flex-row'>
   <button class='flex-1 bottom-btn' bindtap='toCommit'>评论</button>
 </view>
-</block>
 <comment-component showPopup="{{showPopup}}" commentVal="{{commentVal}}" bindtextAreaChange="textAreaChange" bindpathTo="pathTo" bindsubComment="subComment" binddelCommentImage="delCommentImage" bindpopStatusChange="popStatusChange"></comment-component>

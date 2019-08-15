@@ -21,7 +21,11 @@
 </block>
 
 <block wx:if="{{orderDetail.workDto.workType == 'Change'}}">
-    <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toChange'>查看关联的机器变更单 ></view>
+    <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toChange'>查看关联的翻修单 ></view>
+</block>
+
+<block wx:if="{{orderDetail.workDto.workType == 'Maintain'}}">
+    <view style='color:#3c8df9;text-align:right;margin:5px 15px' bindtap='toMaintain'>查看关联的保养单 ></view>
 </block>
 </block>
 <comment-view comments="{{orderDetail.comments}}"></comment-view>

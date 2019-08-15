@@ -225,6 +225,7 @@ Page({
           // let hxpsArray = hxps.split('+');
           self.setData({
             orderDetail: result,
+            date: new Date(result.inbox.links.createTime).format("yyyy-MM-dd hh:mm:ss"),
             files: fis,
             photoFiles: fis,
             qjjstepper: {

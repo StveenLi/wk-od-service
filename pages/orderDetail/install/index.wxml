@@ -78,7 +78,22 @@
       </view>
     </view>
   </view>
-
+  <view class="weui-cell weui-cell_input border-bottom-gainsboro">
+    <view class="weui-cell__hd">
+      <view class="weui-label">二维码绑定</view>
+    </view>
+    <view class="weui-cell__bd" style="text-align:right;padding-top:5px">
+      {{orderDetail.intall.isBinding == 'Y'?'已绑定':'未绑定'}}
+    </view>
+  </view>
+  <block wx:if="{{scancodes!=''}}">
+    <view class="weui-cell weui-cell_input">
+      <view class='flex-row box-all'>
+        <view class='flex-1 padding-5'>二维码ID</view>
+        <view class='padding-5 work-order-content'>{{scancodes}}</view>
+      </view>
+    </view>
+  </block>
   <view class='content'>
     <view class="weui-cell__hd">
       <view class="weui-label" style='margin-left:15px'> 签字</view>

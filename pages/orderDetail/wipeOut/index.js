@@ -61,6 +61,7 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.dWipe.links.createTime).format("yyyy-MM-dd hh:mm:ss")
           })
         }
         self._seeDoneChange();

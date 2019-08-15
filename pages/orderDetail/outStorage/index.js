@@ -51,6 +51,7 @@ Page({
         if (result.success) {
           self.setData({
             orderDetail: result,
+            date: new Date(result.outbox.links.createTime).format("yyyy-MM-dd hh:mm:ss")
           })
         }
       }
